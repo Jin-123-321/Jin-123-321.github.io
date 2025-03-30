@@ -1,0 +1,883 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>房价预测项目总结 | Hexo</title><meta name="author" content="Jin"><meta name="copyright" content="Jin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="导包 描述性统计 查看缺失1!where python  # Windows   12345import pandas as pdtrain &#x3D; pd.read_csv(&#x27;train.csv&#x27;)test &#x3D; pd.read_csv(&#x27;test.csv&#x27;)   123456789# 查看数据形状print(&quot;Train shape:&quot;, t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="房价预测项目总结">
+<meta property="og:url" content="http://example.com/2025/03/30/House_predict/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="导包 描述性统计 查看缺失1!where python  # Windows   12345import pandas as pdtrain &#x3D; pd.read_csv(&#x27;train.csv&#x27;)test &#x3D; pd.read_csv(&#x27;test.csv&#x27;)   123456789# 查看数据形状print(&quot;Train shape:&quot;, t">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2025-03-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-30T09:38:33.243Z">
+<meta property="article:author" content="Jin">
+<meta property="article:tag" content="项目展示">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "房价预测项目总结",
+  "url": "http://example.com/2025/03/30/House_predict/",
+  "image": "http://example.com/img/avatar.png",
+  "datePublished": "2025-03-29T16:00:00.000Z",
+  "dateModified": "2025-03-30T09:38:33.243Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jin",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/03/30/House_predict/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '房价预测项目总结',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">房价预测项目总结</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">房价预测项目总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-29T16:00:00.000Z" title="Created 2025-03-30 00:00:00">2025-03-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-30T09:38:33.243Z" title="Updated 2025-03-30 17:38:33">2025-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">随机森林</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">线性回归</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/XGBoost/">XGBoost</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="导包-描述性统计-查看缺失"><a href="#导包-描述性统计-查看缺失" class="headerlink" title="导包 描述性统计 查看缺失"></a>导包 描述性统计 查看缺失</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!where python  <span class="comment"># Windows</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">train = pd.read_csv(<span class="string">&#x27;train.csv&#x27;</span>)</span><br><span class="line">test = pd.read_csv(<span class="string">&#x27;test.csv&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据形状</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Train shape:&quot;</span>, train.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Test shape:&quot;</span>, test.shape)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看前5行</span></span><br><span class="line">train.head()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看数据概况</span></span><br><span class="line">train.info()</span><br></pre></td></tr></table></figure>
+
+<pre><code>Train shape: (1460, 81)
+Test shape: (1459, 80)
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 1460 entries, 0 to 1459
+Data columns (total 81 columns):
+ #   Column         Non-Null Count  Dtype  
+---  ------         --------------  -----  
+ 0   Id             1460 non-null   int64  
+ 1   MSSubClass     1460 non-null   int64  
+ 2   MSZoning       1460 non-null   object 
+ 3   LotFrontage    1201 non-null   float64
+ 4   LotArea        1460 non-null   int64  
+ 5   Street         1460 non-null   object 
+ 6   Alley          91 non-null     object 
+ 7   LotShape       1460 non-null   object 
+ 8   LandContour    1460 non-null   object 
+ 9   Utilities      1460 non-null   object 
+ 10  LotConfig      1460 non-null   object 
+ 11  LandSlope      1460 non-null   object 
+ 12  Neighborhood   1460 non-null   object 
+ 13  Condition1     1460 non-null   object 
+ 14  Condition2     1460 non-null   object 
+ 15  BldgType       1460 non-null   object 
+ 16  HouseStyle     1460 non-null   object 
+ 17  OverallQual    1460 non-null   int64  
+ 18  OverallCond    1460 non-null   int64  
+ 19  YearBuilt      1460 non-null   int64  
+ 20  YearRemodAdd   1460 non-null   int64  
+ 21  RoofStyle      1460 non-null   object 
+ 22  RoofMatl       1460 non-null   object 
+ 23  Exterior1st    1460 non-null   object 
+ 24  Exterior2nd    1460 non-null   object 
+ 25  MasVnrType     588 non-null    object 
+ 26  MasVnrArea     1452 non-null   float64
+ 27  ExterQual      1460 non-null   object 
+ 28  ExterCond      1460 non-null   object 
+ 29  Foundation     1460 non-null   object 
+ 30  BsmtQual       1423 non-null   object 
+ 31  BsmtCond       1423 non-null   object 
+ 32  BsmtExposure   1422 non-null   object 
+ 33  BsmtFinType1   1423 non-null   object 
+ 34  BsmtFinSF1     1460 non-null   int64  
+ 35  BsmtFinType2   1422 non-null   object 
+ 36  BsmtFinSF2     1460 non-null   int64  
+ 37  BsmtUnfSF      1460 non-null   int64  
+ 38  TotalBsmtSF    1460 non-null   int64  
+ 39  Heating        1460 non-null   object 
+ 40  HeatingQC      1460 non-null   object 
+ 41  CentralAir     1460 non-null   object 
+ 42  Electrical     1459 non-null   object 
+ 43  1stFlrSF       1460 non-null   int64  
+ 44  2ndFlrSF       1460 non-null   int64  
+ 45  LowQualFinSF   1460 non-null   int64  
+ 46  GrLivArea      1460 non-null   int64  
+ 47  BsmtFullBath   1460 non-null   int64  
+ 48  BsmtHalfBath   1460 non-null   int64  
+ 49  FullBath       1460 non-null   int64  
+ 50  HalfBath       1460 non-null   int64  
+ 51  BedroomAbvGr   1460 non-null   int64  
+ 52  KitchenAbvGr   1460 non-null   int64  
+ 53  KitchenQual    1460 non-null   object 
+ 54  TotRmsAbvGrd   1460 non-null   int64  
+ 55  Functional     1460 non-null   object 
+ 56  Fireplaces     1460 non-null   int64  
+ 57  FireplaceQu    770 non-null    object 
+ 58  GarageType     1379 non-null   object 
+ 59  GarageYrBlt    1379 non-null   float64
+ 60  GarageFinish   1379 non-null   object 
+ 61  GarageCars     1460 non-null   int64  
+ 62  GarageArea     1460 non-null   int64  
+ 63  GarageQual     1379 non-null   object 
+ 64  GarageCond     1379 non-null   object 
+ 65  PavedDrive     1460 non-null   object 
+ 66  WoodDeckSF     1460 non-null   int64  
+ 67  OpenPorchSF    1460 non-null   int64  
+ 68  EnclosedPorch  1460 non-null   int64  
+ 69  3SsnPorch      1460 non-null   int64  
+ 70  ScreenPorch    1460 non-null   int64  
+ 71  PoolArea       1460 non-null   int64  
+ 72  PoolQC         7 non-null      object 
+ 73  Fence          281 non-null    object 
+ 74  MiscFeature    54 non-null     object 
+ 75  MiscVal        1460 non-null   int64  
+ 76  MoSold         1460 non-null   int64  
+ 77  YrSold         1460 non-null   int64  
+ 78  SaleType       1460 non-null   object 
+ 79  SaleCondition  1460 non-null   object 
+ 80  SalePrice      1460 non-null   int64  
+dtypes: float64(3), int64(35), object(43)
+memory usage: 924.0+ KB
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有变量的缺失值数量，并按降序排序</span></span><br><span class="line">train.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>).head(<span class="number">20</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>PoolQC          1453
+MiscFeature     1406
+Alley           1369
+Fence           1179
+MasVnrType       872
+FireplaceQu      690
+LotFrontage      259
+GarageQual        81
+GarageFinish      81
+GarageType        81
+GarageYrBlt       81
+GarageCond        81
+BsmtFinType2      38
+BsmtExposure      38
+BsmtCond          37
+BsmtQual          37
+BsmtFinType1      37
+MasVnrArea         8
+Electrical         1
+Condition2         0
+dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> missingno <span class="keyword">as</span> msno</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置图形大小、字体</span></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">14</span>, <span class="number">6</span>))</span><br><span class="line">ax = fig.add_subplot()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制缺失值矩阵</span></span><br><span class="line">msno.matrix(train, fontsize=<span class="number">12</span>, sparkline=<span class="literal">True</span>, width_ratios=(<span class="number">15</span>, <span class="number">1</span>), ax=ax)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置标题</span></span><br><span class="line">plt.title(<span class="string">&quot;训练集中各变量的缺失值分布&quot;</span>, fontsize=<span class="number">16</span>, fontweight=<span class="string">&#x27;bold&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\missingno\missingno.py:61: UserWarning: Plotting a sparkline on an existing axis is not currently supported. To remove this warning, set sparkline=False.
+  warnings.warn(
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 35757 (\N&#123;CJK UNIFIED IDEOGRAPH-8BAD&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 32451 (\N&#123;CJK UNIFIED IDEOGRAPH-7EC3&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 38598 (\N&#123;CJK UNIFIED IDEOGRAPH-96C6&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20013 (\N&#123;CJK UNIFIED IDEOGRAPH-4E2D&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21508 (\N&#123;CJK UNIFIED IDEOGRAPH-5404&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21464 (\N&#123;CJK UNIFIED IDEOGRAPH-53D8&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 37327 (\N&#123;CJK UNIFIED IDEOGRAPH-91CF&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30340 (\N&#123;CJK UNIFIED IDEOGRAPH-7684&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 32570 (\N&#123;CJK UNIFIED IDEOGRAPH-7F3A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 22833 (\N&#123;CJK UNIFIED IDEOGRAPH-5931&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20540 (\N&#123;CJK UNIFIED IDEOGRAPH-503C&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20998 (\N&#123;CJK UNIFIED IDEOGRAPH-5206&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24067 (\N&#123;CJK UNIFIED IDEOGRAPH-5E03&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_5_1.png" alt="png"></p>
+<h2 id="处理缺失值"><a href="#处理缺失值" class="headerlink" title="处理缺失值"></a>处理缺失值</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">missing = train.isnull().<span class="built_in">sum</span>()</span><br><span class="line">missing = missing[missing &gt; <span class="number">0</span>].sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示缺失最多的前10列</span></span><br><span class="line">missing.head(<span class="number">10</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>PoolQC          1453
+MiscFeature     1406
+Alley           1369
+Fence           1179
+MasVnrType       872
+FireplaceQu      690
+LotFrontage      259
+GarageType        81
+GarageYrBlt       81
+GarageFinish      81
+dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类别型字段：填 &quot;None&quot;</span></span><br><span class="line">cols_fill_none = [<span class="string">&#x27;PoolQC&#x27;</span>, <span class="string">&#x27;MiscFeature&#x27;</span>, <span class="string">&#x27;Alley&#x27;</span>, <span class="string">&#x27;Fence&#x27;</span>, <span class="string">&#x27;FireplaceQu&#x27;</span>,</span><br><span class="line">                  <span class="string">&#x27;GarageType&#x27;</span>, <span class="string">&#x27;GarageFinish&#x27;</span>, <span class="string">&#x27;GarageQual&#x27;</span>, <span class="string">&#x27;GarageCond&#x27;</span>,</span><br><span class="line">                  <span class="string">&#x27;BsmtQual&#x27;</span>, <span class="string">&#x27;BsmtCond&#x27;</span>, <span class="string">&#x27;BsmtExposure&#x27;</span>, <span class="string">&#x27;BsmtFinType1&#x27;</span>, <span class="string">&#x27;BsmtFinType2&#x27;</span>,</span><br><span class="line">                  <span class="string">&#x27;MasVnrType&#x27;</span>]</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> cols_fill_none:</span><br><span class="line">    train[col] = train[col].fillna(<span class="string">&quot;None&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数值型字段</span></span><br><span class="line"><span class="comment"># LotFrontage 用 Neighborhood 分组中位数填补</span></span><br><span class="line">train[<span class="string">&#x27;LotFrontage&#x27;</span>] = train.groupby(<span class="string">&quot;Neighborhood&quot;</span>)[<span class="string">&#x27;LotFrontage&#x27;</span>].transform(</span><br><span class="line">    <span class="keyword">lambda</span> x: x.fillna(x.median()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># GarageYrBlt 没车库则填0</span></span><br><span class="line">train[<span class="string">&#x27;GarageYrBlt&#x27;</span>] = train[<span class="string">&#x27;GarageYrBlt&#x27;</span>].fillna(<span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 再次查看是否还有缺失</span></span><br><span class="line">train.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>).head(<span class="number">10</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>MasVnrArea     8
+Electrical     1
+MSZoning       0
+MSSubClass     0
+LotArea        0
+Street         0
+Alley          0
+LotFrontage    0
+LandContour    0
+Utilities      0
+dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MasVnrArea 缺失表示没有石材饰面，用 0 填补</span></span><br><span class="line">train[<span class="string">&#x27;MasVnrArea&#x27;</span>] = train[<span class="string">&#x27;MasVnrArea&#x27;</span>].fillna(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Electrical 只有1个缺失值，用众数填补</span></span><br><span class="line">train[<span class="string">&#x27;Electrical&#x27;</span>] = train[<span class="string">&#x27;Electrical&#x27;</span>].fillna(train[<span class="string">&#x27;Electrical&#x27;</span>].mode()[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># MSZoning 缺失值填众数</span></span><br><span class="line">train[<span class="string">&#x27;MSZoning&#x27;</span>] = train[<span class="string">&#x27;MSZoning&#x27;</span>].fillna(train[<span class="string">&#x27;MSZoning&#x27;</span>].mode()[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># MSSubClass 通常作为类别变量使用，填众数</span></span><br><span class="line">train[<span class="string">&#x27;MSSubClass&#x27;</span>] = train[<span class="string">&#x27;MSSubClass&#x27;</span>].fillna(train[<span class="string">&#x27;MSSubClass&#x27;</span>].mode()[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># LotArea 正常数据不应缺失，如有缺失可填中位数</span></span><br><span class="line">train[<span class="string">&#x27;LotArea&#x27;</span>] = train[<span class="string">&#x27;LotArea&#x27;</span>].fillna(train[<span class="string">&#x27;LotArea&#x27;</span>].median())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train.isnull().<span class="built_in">sum</span>().sort_values(ascending=<span class="literal">False</span>).head()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>Id             0
+MSSubClass     0
+MSZoning       0
+LotFrontage    0
+LotArea        0
+dtype: int64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train.describe()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Id</th>
+      <th>MSSubClass</th>
+      <th>LotFrontage</th>
+      <th>LotArea</th>
+      <th>OverallQual</th>
+      <th>OverallCond</th>
+      <th>YearBuilt</th>
+      <th>YearRemodAdd</th>
+      <th>MasVnrArea</th>
+      <th>BsmtFinSF1</th>
+      <th>...</th>
+      <th>WoodDeckSF</th>
+      <th>OpenPorchSF</th>
+      <th>EnclosedPorch</th>
+      <th>3SsnPorch</th>
+      <th>ScreenPorch</th>
+      <th>PoolArea</th>
+      <th>MiscVal</th>
+      <th>MoSold</th>
+      <th>YrSold</th>
+      <th>SalePrice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>...</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+      <td>1460.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>730.500000</td>
+      <td>56.897260</td>
+      <td>70.199658</td>
+      <td>10516.828082</td>
+      <td>6.099315</td>
+      <td>5.575342</td>
+      <td>1971.267808</td>
+      <td>1984.865753</td>
+      <td>103.117123</td>
+      <td>443.639726</td>
+      <td>...</td>
+      <td>94.244521</td>
+      <td>46.660274</td>
+      <td>21.954110</td>
+      <td>3.409589</td>
+      <td>15.060959</td>
+      <td>2.758904</td>
+      <td>43.489041</td>
+      <td>6.321918</td>
+      <td>2007.815753</td>
+      <td>180921.195890</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>421.610009</td>
+      <td>42.300571</td>
+      <td>22.431902</td>
+      <td>9981.264932</td>
+      <td>1.382997</td>
+      <td>1.112799</td>
+      <td>30.202904</td>
+      <td>20.645407</td>
+      <td>180.731373</td>
+      <td>456.098091</td>
+      <td>...</td>
+      <td>125.338794</td>
+      <td>66.256028</td>
+      <td>61.119149</td>
+      <td>29.317331</td>
+      <td>55.757415</td>
+      <td>40.177307</td>
+      <td>496.123024</td>
+      <td>2.703626</td>
+      <td>1.328095</td>
+      <td>79442.502883</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>20.000000</td>
+      <td>21.000000</td>
+      <td>1300.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1872.000000</td>
+      <td>1950.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>2006.000000</td>
+      <td>34900.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>365.750000</td>
+      <td>20.000000</td>
+      <td>60.000000</td>
+      <td>7553.500000</td>
+      <td>5.000000</td>
+      <td>5.000000</td>
+      <td>1954.000000</td>
+      <td>1967.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>5.000000</td>
+      <td>2007.000000</td>
+      <td>129975.000000</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>730.500000</td>
+      <td>50.000000</td>
+      <td>70.000000</td>
+      <td>9478.500000</td>
+      <td>6.000000</td>
+      <td>5.000000</td>
+      <td>1973.000000</td>
+      <td>1994.000000</td>
+      <td>0.000000</td>
+      <td>383.500000</td>
+      <td>...</td>
+      <td>0.000000</td>
+      <td>25.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>6.000000</td>
+      <td>2008.000000</td>
+      <td>163000.000000</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1095.250000</td>
+      <td>70.000000</td>
+      <td>80.000000</td>
+      <td>11601.500000</td>
+      <td>7.000000</td>
+      <td>6.000000</td>
+      <td>2000.000000</td>
+      <td>2004.000000</td>
+      <td>164.250000</td>
+      <td>712.250000</td>
+      <td>...</td>
+      <td>168.000000</td>
+      <td>68.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>8.000000</td>
+      <td>2009.000000</td>
+      <td>214000.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>1460.000000</td>
+      <td>190.000000</td>
+      <td>313.000000</td>
+      <td>215245.000000</td>
+      <td>10.000000</td>
+      <td>9.000000</td>
+      <td>2010.000000</td>
+      <td>2010.000000</td>
+      <td>1600.000000</td>
+      <td>5644.000000</td>
+      <td>...</td>
+      <td>857.000000</td>
+      <td>547.000000</td>
+      <td>552.000000</td>
+      <td>508.000000</td>
+      <td>480.000000</td>
+      <td>738.000000</td>
+      <td>15500.000000</td>
+      <td>12.000000</td>
+      <td>2010.000000</td>
+      <td>755000.000000</td>
+    </tr>
+  </tbody>
+</table>
+<p>8 rows × 38 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">sns.histplot(train[<span class="string">&#x27;SalePrice&#x27;</span>], kde=<span class="literal">True</span>, bins=<span class="number">40</span>)</span><br><span class="line">plt.title(<span class="string">&quot;房价 SalePrice 的分布情况&quot;</span>, fontsize=<span class="number">16</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;SalePrice&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;频数&quot;</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 39057 (\N&#123;CJK UNIFIED IDEOGRAPH-9891&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25968 (\N&#123;CJK UNIFIED IDEOGRAPH-6570&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25151 (\N&#123;CJK UNIFIED IDEOGRAPH-623F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20215 (\N&#123;CJK UNIFIED IDEOGRAPH-4EF7&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30340 (\N&#123;CJK UNIFIED IDEOGRAPH-7684&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20998 (\N&#123;CJK UNIFIED IDEOGRAPH-5206&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24067 (\N&#123;CJK UNIFIED IDEOGRAPH-5E03&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24773 (\N&#123;CJK UNIFIED IDEOGRAPH-60C5&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20917 (\N&#123;CJK UNIFIED IDEOGRAPH-51B5&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_13_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">train[<span class="string">&#x27;SalePrice&#x27;</span>].describe()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>count      1460.000000
+mean     180921.195890
+std       79442.502883
+min       34900.000000
+25%      129975.000000
+50%      163000.000000
+75%      214000.000000
+max      755000.000000
+Name: SalePrice, dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> skew</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Skewness（偏度）:&quot;</span>, skew(train[<span class="string">&#x27;SalePrice&#x27;</span>]))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Skewness（偏度）: 1.880940746034036
+</code></pre>
+<h3 id="在回归模型中-目标变量需要符合正态分布-不然会导致拟合能力差-推测不准确"><a href="#在回归模型中-目标变量需要符合正态分布-不然会导致拟合能力差-推测不准确" class="headerlink" title="在回归模型中 目标变量需要符合正态分布 不然会导致拟合能力差 推测不准确"></a>在回归模型中 目标变量需要符合正态分布 不然会导致拟合能力差 推测不准确</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">train[<span class="string">&#x27;SalePrice&#x27;</span>] = np.log1p(train[<span class="string">&#x27;SalePrice&#x27;</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line">fig, axs = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">14</span>, <span class="number">6</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 原始数据</span></span><br><span class="line">sns.histplot(train[<span class="string">&#x27;SalePrice&#x27;</span>], bins=<span class="number">40</span>, kde=<span class="literal">True</span>, ax=axs[<span class="number">0</span>], color=<span class="string">&quot;#1ca3ec&quot;</span>)</span><br><span class="line">axs[<span class="number">0</span>].set_title(<span class="string">&quot;对数变换后 SalePrice 分布&quot;</span>)</span><br><span class="line">axs[<span class="number">0</span>].set_xlabel(<span class="string">&quot;log(SalePrice)&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对数反变换查看原分布</span></span><br><span class="line">sns.histplot(np.expm1(train[<span class="string">&#x27;SalePrice&#x27;</span>]), bins=<span class="number">40</span>, kde=<span class="literal">True</span>, ax=axs[<span class="number">1</span>], color=<span class="string">&quot;#007acc&quot;</span>)</span><br><span class="line">axs[<span class="number">1</span>].set_title(<span class="string">&quot;原始 SalePrice 分布&quot;</span>)</span><br><span class="line">axs[<span class="number">1</span>].set_xlabel(<span class="string">&quot;SalePrice&quot;</span>)</span><br><span class="line"></span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 23545 (\N&#123;CJK UNIFIED IDEOGRAPH-5BF9&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 25968 (\N&#123;CJK UNIFIED IDEOGRAPH-6570&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 21464 (\N&#123;CJK UNIFIED IDEOGRAPH-53D8&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 25442 (\N&#123;CJK UNIFIED IDEOGRAPH-6362&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 21518 (\N&#123;CJK UNIFIED IDEOGRAPH-540E&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 20998 (\N&#123;CJK UNIFIED IDEOGRAPH-5206&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 24067 (\N&#123;CJK UNIFIED IDEOGRAPH-5E03&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 21407 (\N&#123;CJK UNIFIED IDEOGRAPH-539F&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_16768\2233364431.py:16: UserWarning: Glyph 22987 (\N&#123;CJK UNIFIED IDEOGRAPH-59CB&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 23545 (\N&#123;CJK UNIFIED IDEOGRAPH-5BF9&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25968 (\N&#123;CJK UNIFIED IDEOGRAPH-6570&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21464 (\N&#123;CJK UNIFIED IDEOGRAPH-53D8&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25442 (\N&#123;CJK UNIFIED IDEOGRAPH-6362&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21518 (\N&#123;CJK UNIFIED IDEOGRAPH-540E&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20998 (\N&#123;CJK UNIFIED IDEOGRAPH-5206&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24067 (\N&#123;CJK UNIFIED IDEOGRAPH-5E03&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21407 (\N&#123;CJK UNIFIED IDEOGRAPH-539F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 22987 (\N&#123;CJK UNIFIED IDEOGRAPH-59CB&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_18_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只保留数值型列</span></span><br><span class="line">numeric_features = train.select_dtypes(include=[np.number])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算相关性矩阵</span></span><br><span class="line">corr_matrix = numeric_features.corr()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看与目标变量 SalePrice 的相关性（按大小排序）</span></span><br><span class="line">saleprice_corr = corr_matrix[<span class="string">&#x27;SalePrice&#x27;</span>].sort_values(ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印前10个相关性最强的变量</span></span><br><span class="line"><span class="built_in">print</span>(saleprice_corr.head(<span class="number">10</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>SalePrice       1.000000
+OverallQual     0.817185
+GrLivArea       0.700927
+GarageCars      0.680625
+GarageArea      0.650888
+TotalBsmtSF     0.612134
+1stFlrSF        0.596981
+FullBath        0.594771
+YearBuilt       0.586570
+YearRemodAdd    0.565608
+Name: SalePrice, dtype: float64
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取相关性最高的前20个特征（含目标）</span></span><br><span class="line">top_features = saleprice_corr.index[:<span class="number">20</span>]</span><br><span class="line">top_corr = corr_matrix.loc[top_features, top_features]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制热力图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">12</span>, <span class="number">10</span>))</span><br><span class="line">sns.heatmap(top_corr, annot=<span class="literal">True</span>, fmt=<span class="string">&quot;.2f&quot;</span>, cmap=<span class="string">&quot;Blues&quot;</span>, square=<span class="literal">True</span>)</span><br><span class="line">plt.title(<span class="string">&quot;与房价 SalePrice 相关性最强的特征热力图&quot;</span>, fontsize=<span class="number">14</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 19982 (\N&#123;CJK UNIFIED IDEOGRAPH-4E0E&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25151 (\N&#123;CJK UNIFIED IDEOGRAPH-623F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20215 (\N&#123;CJK UNIFIED IDEOGRAPH-4EF7&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30456 (\N&#123;CJK UNIFIED IDEOGRAPH-76F8&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20851 (\N&#123;CJK UNIFIED IDEOGRAPH-5173&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24615 (\N&#123;CJK UNIFIED IDEOGRAPH-6027&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26368 (\N&#123;CJK UNIFIED IDEOGRAPH-6700&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24378 (\N&#123;CJK UNIFIED IDEOGRAPH-5F3A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30340 (\N&#123;CJK UNIFIED IDEOGRAPH-7684&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 29305 (\N&#123;CJK UNIFIED IDEOGRAPH-7279&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24449 (\N&#123;CJK UNIFIED IDEOGRAPH-5F81&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 28909 (\N&#123;CJK UNIFIED IDEOGRAPH-70ED&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21147 (\N&#123;CJK UNIFIED IDEOGRAPH-529B&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 22270 (\N&#123;CJK UNIFIED IDEOGRAPH-56FE&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_20_1.png" alt="png"></p>
+<p>✅ 1. 控制建模复杂度，避免“高维灾难”<br>房价数据有 80+列，但样本只有 1460 行</p>
+<p>如果你一次性把所有特征都塞进模型，尤其是像线性回归这类模型，会造成：</p>
+<p>问题	解释<br>多重共线性	特征间高度相关，系数不稳定<br>维度灾难	变量越多，训练数据在高维空间越“稀疏”，泛化能力差<br>噪声放大	一些无关特征反而掩盖掉有用信号<br>模型解释性差	无法说清楚“哪些特征最关键”</p>
+<p>✅ 2. 初步建模的目标是“建立基线（baseline）”<br>我们第一轮建模的目标不是要拿到最优结果，而是：</p>
+<p>快速验证数据清洗和预处理流程是否通畅</p>
+<p>给出一个初步 RMSE 值作为后续优化的参考</p>
+<p>明确最强的主导特征，以便后面做特征组合、交互、构造新特征</p>
+<p>所以：少量高质量的特征 &#x3D; 更快的模型迭代 + 更清晰的解释性</p>
+<p>✅ 3. 后续可以逐步引入更多特征，甚至自动选择<br>我们可以采用：</p>
+<p>特征重要性排序（基于随机森林、XGBoost）</p>
+<p>正则化方法（如 Lasso 自动进行特征筛选）</p>
+<p>PCA、递归特征消除（RFE）等降维方法</p>
+<p>但前提是你已经掌握了这些“主力特征”的效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">important_features = [</span><br><span class="line">    <span class="string">&#x27;OverallQual&#x27;</span>, <span class="string">&#x27;GrLivArea&#x27;</span>, <span class="string">&#x27;GarageCars&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;TotalBsmtSF&#x27;</span>, <span class="string">&#x27;FullBath&#x27;</span>, <span class="string">&#x27;YearBuilt&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;YearRemodAdd&#x27;</span>, <span class="string">&#x27;Fireplaces&#x27;</span>, <span class="string">&#x27;MasVnrArea&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建特征矩阵 X 和目标变量 y</span></span><br><span class="line">X = train[important_features]</span><br><span class="line">y = train[<span class="string">&#x27;SalePrice&#x27;</span>]  <span class="comment"># 注意：已经 log1p 变换过了</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 拆分训练集和验证集</span></span><br><span class="line">X_train, X_valid, y_train, y_valid = train_test_split(</span><br><span class="line">    X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, r2_score</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 建模</span></span><br><span class="line">lr = LinearRegression()</span><br><span class="line">lr.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测</span></span><br><span class="line">y_pred = lr.predict(X_valid)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模型评估</span></span><br><span class="line">rmse = np.sqrt(mean_squared_error(y_valid, y_pred))</span><br><span class="line">r2 = r2_score(y_valid, y_pred)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;验证集 RMSE（对数空间）: <span class="subst">&#123;rmse:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;验证集 R² 分数: <span class="subst">&#123;r2:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>验证集 RMSE（对数空间）: 0.1685
+验证集 R² 分数: 0.8478
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将 log1p 预测结果转回原值</span></span><br><span class="line">y_valid_exp = np.expm1(y_valid)</span><br><span class="line">y_pred_exp = np.expm1(y_pred)</span><br><span class="line"></span><br><span class="line">rmse_real = np.sqrt(mean_squared_error(y_valid_exp, y_pred_exp))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;验证集 RMSE（原始房价空间）: <span class="subst">&#123;rmse_real:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>验证集 RMSE（原始房价空间）: 31645.62
+</code></pre>
+<h2 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h2><p>指标	            数值	    解读<br>RMSE（log空间）	    0.1685	    表示 log(SalePrice) 平均误差在 ±0.1685 左右<br>R² 分数             0.8478	    模型解释了约 85% 的房价变动，非常不错！<br>原始房价 RMSE	    $31,645	    模型平均预测误差是 $31k 左右（约 15-18%）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> mean_squared_error, r2_score</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建模型</span></span><br><span class="line">rf = RandomForestRegressor(</span><br><span class="line">    n_estimators=<span class="number">100</span>,      <span class="comment"># 树的数量（越多越稳）</span></span><br><span class="line">    max_depth=<span class="literal">None</span>,        <span class="comment"># 允许树尽量生长</span></span><br><span class="line">    random_state=<span class="number">42</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练</span></span><br><span class="line">rf.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 预测</span></span><br><span class="line">y_pred_rf = rf.predict(X_valid)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 评估（log空间）</span></span><br><span class="line">rmse_rf = np.sqrt(mean_squared_error(y_valid, y_pred_rf))</span><br><span class="line">r2_rf = r2_score(y_valid, y_pred_rf)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[RF] 验证集 RMSE（log空间）: <span class="subst">&#123;rmse_rf:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[RF] 验证集 R² 分数: <span class="subst">&#123;r2_rf:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>[RF] 验证集 RMSE（log空间）: 0.1624
+[RF] 验证集 R² 分数: 0.8587
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果目标做过 log1p 转换，需要反变换：</span></span><br><span class="line">y_valid_exp = np.expm1(y_valid)</span><br><span class="line">y_pred_rf_exp = np.expm1(y_pred_rf)</span><br><span class="line"></span><br><span class="line">rmse_rf_real = np.sqrt(mean_squared_error(y_valid_exp, y_pred_rf_exp))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;[RF] 验证集 RMSE（原始房价）: $<span class="subst">&#123;rmse_rf_real:<span class="number">.2</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>[RF] 验证集 RMSE（原始房价）: $28874.57
+</code></pre>
+<h1 id="插曲-随机森林中某棵树可视化"><a href="#插曲-随机森林中某棵树可视化" class="headerlink" title="插曲 随机森林中某棵树可视化"></a>插曲 随机森林中某棵树可视化</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> export_graphviz</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> plot_tree</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 随机森林中的第一棵树（你可以换索引）</span></span><br><span class="line">estimator = rf.estimators_[<span class="number">0</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">20</span>, <span class="number">10</span>))</span><br><span class="line">plot_tree(estimator, </span><br><span class="line">          feature_names=X.columns,</span><br><span class="line">          filled=<span class="literal">True</span>, </span><br><span class="line">          rounded=<span class="literal">True</span>, </span><br><span class="line">          max_depth=<span class="number">3</span>,     <span class="comment"># 控制最大显示深度，避免太复杂</span></span><br><span class="line">          fontsize=<span class="number">10</span>)</span><br><span class="line">plt.title(<span class="string">&quot;随机森林中的第1棵决策树（展示前3层）&quot;</span>, fontsize=<span class="number">16</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 38543 (\N&#123;CJK UNIFIED IDEOGRAPH-968F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26426 (\N&#123;CJK UNIFIED IDEOGRAPH-673A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26862 (\N&#123;CJK UNIFIED IDEOGRAPH-68EE&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26519 (\N&#123;CJK UNIFIED IDEOGRAPH-6797&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20013 (\N&#123;CJK UNIFIED IDEOGRAPH-4E2D&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30340 (\N&#123;CJK UNIFIED IDEOGRAPH-7684&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 31532 (\N&#123;CJK UNIFIED IDEOGRAPH-7B2C&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26869 (\N&#123;CJK UNIFIED IDEOGRAPH-68F5&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20915 (\N&#123;CJK UNIFIED IDEOGRAPH-51B3&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 31574 (\N&#123;CJK UNIFIED IDEOGRAPH-7B56&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26641 (\N&#123;CJK UNIFIED IDEOGRAPH-6811&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 65288 (\N&#123;FULLWIDTH LEFT PARENTHESIS&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 23637 (\N&#123;CJK UNIFIED IDEOGRAPH-5C55&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 31034 (\N&#123;CJK UNIFIED IDEOGRAPH-793A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21069 (\N&#123;CJK UNIFIED IDEOGRAPH-524D&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 23618 (\N&#123;CJK UNIFIED IDEOGRAPH-5C42&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 65289 (\N&#123;FULLWIDTH RIGHT PARENTHESIS&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_32_1.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取特征重要性</span></span><br><span class="line">importances = rf.feature_importances_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 封装成 DataFrame 方便查看</span></span><br><span class="line">feature_importance_df = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&#x27;Feature&#x27;</span>: X.columns,</span><br><span class="line">    <span class="string">&#x27;Importance&#x27;</span>: importances</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 按重要性排序</span></span><br><span class="line">feature_importance_df = feature_importance_df.sort_values(by=<span class="string">&#x27;Importance&#x27;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出查看</span></span><br><span class="line"><span class="built_in">print</span>(feature_importance_df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>        Feature  Importance
+0   OverallQual    0.569120
+1     GrLivArea    0.159157
+3   TotalBsmtSF    0.097872
+2    GarageCars    0.060318
+5     YearBuilt    0.049127
+6  YearRemodAdd    0.033613
+7    Fireplaces    0.015756
+8    MasVnrArea    0.010660
+4      FullBath    0.004377
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">plt.barh(feature_importance_df[<span class="string">&#x27;Feature&#x27;</span>], feature_importance_df[<span class="string">&#x27;Importance&#x27;</span>], color=<span class="string">&quot;#1ca3ec&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;重要性分数&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;随机森林模型中的特征重要性排序&quot;</span>)</span><br><span class="line">plt.gca().invert_yaxis()  <span class="comment"># 最大的排在最上面</span></span><br><span class="line">plt.grid(<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 38543 (\N&#123;CJK UNIFIED IDEOGRAPH-968F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26426 (\N&#123;CJK UNIFIED IDEOGRAPH-673A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26862 (\N&#123;CJK UNIFIED IDEOGRAPH-68EE&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 26519 (\N&#123;CJK UNIFIED IDEOGRAPH-6797&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 27169 (\N&#123;CJK UNIFIED IDEOGRAPH-6A21&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 22411 (\N&#123;CJK UNIFIED IDEOGRAPH-578B&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20013 (\N&#123;CJK UNIFIED IDEOGRAPH-4E2D&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 30340 (\N&#123;CJK UNIFIED IDEOGRAPH-7684&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 29305 (\N&#123;CJK UNIFIED IDEOGRAPH-7279&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24449 (\N&#123;CJK UNIFIED IDEOGRAPH-5F81&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 37325 (\N&#123;CJK UNIFIED IDEOGRAPH-91CD&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 35201 (\N&#123;CJK UNIFIED IDEOGRAPH-8981&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24615 (\N&#123;CJK UNIFIED IDEOGRAPH-6027&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25490 (\N&#123;CJK UNIFIED IDEOGRAPH-6392&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24207 (\N&#123;CJK UNIFIED IDEOGRAPH-5E8F&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20998 (\N&#123;CJK UNIFIED IDEOGRAPH-5206&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25968 (\N&#123;CJK UNIFIED IDEOGRAPH-6570&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/House_predict_files/House_predict_34_1.png" alt="png"></p>
+<h1 id="插曲结束回到我们的随机森林模型"><a href="#插曲结束回到我们的随机森林模型" class="headerlink" title="插曲结束回到我们的随机森林模型"></a>插曲结束回到我们的随机森林模型</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Jin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/03/30/House_predict/">http://example.com/2025/03/30/House_predict/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/">项目展示</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">泰坦尼克号项目总结</div></div><div class="info-2"><div class="info-item-1">1. 环境配置、导包123456789101112131415!where python  # Windows#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境``    ```python# Titanic 数据分析：Step 1 - 数据导入import pandas as pdtrain_df = pd.read_csv(&quot;train.csv&quot;)test_df = pd.read_csv(&quot;test.csv&quot;)train_df.head()           .dataframe tbody tr th:only-of-type {         vertical-align: middle;     }  .dataframe tbody tr th &#123;     vertical-align: top; &#125;  .dataframe thead th &#123;     text-align: right; &#125;                    ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-28</div><div class="info-item-2">泰坦尼克号项目总结</div></div><div class="info-2"><div class="info-item-1">1. 环境配置、导包123456789101112131415!where python  # Windows#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境``    ```python# Titanic 数据分析：Step 1 - 数据导入import pandas as pdtrain_df = pd.read_csv(&quot;train.csv&quot;)test_df = pd.read_csv(&quot;test.csv&quot;)train_df.head()           .dataframe tbody tr th:only-of-type {         vertical-align: middle;     }  .dataframe tbody tr th &#123;     vertical-align: top; &#125;  .dataframe thead th &#123;     text-align: right; &#125;                    ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Jin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Jin-123-321"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎来到 Jin 的机器学习旅途博客 ✨<br>用代码探索世界，以图表理解数据！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%8C%85-%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%BB%9F%E8%AE%A1-%E6%9F%A5%E7%9C%8B%E7%BC%BA%E5%A4%B1"><span class="toc-number">1.</span> <span class="toc-text">导包 描述性统计 查看缺失</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="toc-number">2.</span> <span class="toc-text">处理缺失值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B%E4%B8%AD-%E7%9B%AE%E6%A0%87%E5%8F%98%E9%87%8F%E9%9C%80%E8%A6%81%E7%AC%A6%E5%90%88%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83-%E4%B8%8D%E7%84%B6%E4%BC%9A%E5%AF%BC%E8%87%B4%E6%8B%9F%E5%90%88%E8%83%BD%E5%8A%9B%E5%B7%AE-%E6%8E%A8%E6%B5%8B%E4%B8%8D%E5%87%86%E7%A1%AE"><span class="toc-number">2.1.</span> <span class="toc-text">在回归模型中 目标变量需要符合正态分布 不然会导致拟合能力差 推测不准确</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AF%84%E4%BC%B0"><span class="toc-number">3.</span> <span class="toc-text">模型评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%92%E6%9B%B2-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E4%B8%AD%E6%9F%90%E6%A3%B5%E6%A0%91%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number"></span> <span class="toc-text">插曲 随机森林中某棵树可视化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%92%E6%9B%B2%E7%BB%93%E6%9D%9F%E5%9B%9E%E5%88%B0%E6%88%91%E4%BB%AC%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E6%A8%A1%E5%9E%8B"><span class="toc-number"></span> <span class="toc-text">插曲结束回到我们的随机森林模型</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/30/House_predict/" title="房价预测项目总结">房价预测项目总结</a><time datetime="2025-03-29T16:00:00.000Z" title="Created 2025-03-30 00:00:00">2025-03-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结">泰坦尼克号项目总结</a><time datetime="2025-03-27T16:00:00.000Z" title="Created 2025-03-28 00:00:00">2025-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Jin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,1672 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>泰坦尼克号项目总结 | Hexo</title><meta name="author" content="Jin"><meta name="copyright" content="Jin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. 环境配置、导包123456789101112131415!where python  # Windows#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境&#96;&#96;    &#96;&#96;&#96;python# Titanic 数据分析：Step 1 - 数据导入import pandas as pdtrain_df &#x3D; pd.read_csv(&quot;train">
+<meta property="og:type" content="article">
+<meta property="og:title" content="泰坦尼克号项目总结">
+<meta property="og:url" content="http://example.com/2025/03/28/titanic_analysis/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1. 环境配置、导包123456789101112131415!where python  # Windows#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境&#96;&#96;    &#96;&#96;&#96;python# Titanic 数据分析：Step 1 - 数据导入import pandas as pdtrain_df &#x3D; pd.read_csv(&quot;train">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2025-03-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-30T09:38:35.807Z">
+<meta property="article:author" content="Jin">
+<meta property="article:tag" content="项目展示">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "泰坦尼克号项目总结",
+  "url": "http://example.com/2025/03/28/titanic_analysis/",
+  "image": "http://example.com/img/avatar.png",
+  "datePublished": "2025-03-27T16:00:00.000Z",
+  "dateModified": "2025-03-30T09:38:35.807Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jin",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/03/28/titanic_analysis/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '泰坦尼克号项目总结',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">泰坦尼克号项目总结</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">泰坦尼克号项目总结</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-27T16:00:00.000Z" title="Created 2025-03-28 00:00:00">2025-03-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-30T09:38:35.807Z" title="Updated 2025-03-30 17:38:35">2025-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">随机森林</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="1-环境配置、导包"><a href="#1-环境配置、导包" class="headerlink" title="1. 环境配置、导包"></a>1. 环境配置、导包</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">!where python  <span class="comment"># Windows</span></span><br><span class="line"><span class="comment">#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境</span></span><br><span class="line">``</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="comment"># Titanic 数据分析：Step 1 - 数据导入</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">train_df = pd.read_csv(<span class="string">&quot;train.csv&quot;</span>)</span><br><span class="line">test_df = pd.read_csv(<span class="string">&quot;test.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">train_df.head()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>male</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>female</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>female</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>female</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>S</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>male</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>NaN</td>
+      <td>S</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h1 id="2-查看数据结构、描述性统计、缺失值处理"><a href="#2-查看数据结构、描述性统计、缺失值处理" class="headerlink" title="2. 查看数据结构、描述性统计、缺失值处理"></a>2. 查看数据结构、描述性统计、缺失值处理</h1><h3 id="查看数据结构-描述统计信息"><a href="#查看数据结构-描述统计信息" class="headerlink" title="查看数据结构 描述统计信息"></a>查看数据结构 描述统计信息</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">train_df.info()</span><br><span class="line"><span class="comment"># 统计每列缺失值数量</span></span><br><span class="line">train_df.isnull().<span class="built_in">sum</span>()</span><br><span class="line"><span class="comment"># 看看一些描述性统计信息（数值型为主）</span></span><br><span class="line">train_df.describe()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 891 entries, 0 to 890
+Data columns (total 12 columns):
+ #   Column       Non-Null Count  Dtype  
+---  ------       --------------  -----  
+ 0   PassengerId  891 non-null    int64  
+ 1   Survived     891 non-null    int64  
+ 2   Pclass       891 non-null    int64  
+ 3   Name         891 non-null    object 
+ 4   Sex          891 non-null    object 
+ 5   Age          714 non-null    float64
+ 6   SibSp        891 non-null    int64  
+ 7   Parch        891 non-null    int64  
+ 8   Ticket       891 non-null    object 
+ 9   Fare         891 non-null    float64
+ 10  Cabin        204 non-null    object 
+ 11  Embarked     889 non-null    object 
+dtypes: float64(2), int64(5), object(5)
+memory usage: 83.7+ KB
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Fare</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>714.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+      <td>891.000000</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>446.000000</td>
+      <td>0.383838</td>
+      <td>2.308642</td>
+      <td>29.699118</td>
+      <td>0.523008</td>
+      <td>0.381594</td>
+      <td>32.204208</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>257.353842</td>
+      <td>0.486592</td>
+      <td>0.836071</td>
+      <td>14.526497</td>
+      <td>1.102743</td>
+      <td>0.806057</td>
+      <td>49.693429</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.420000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>223.500000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>20.125000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>7.910400</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>446.000000</td>
+      <td>0.000000</td>
+      <td>3.000000</td>
+      <td>28.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>14.454200</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>668.500000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>38.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>31.000000</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>891.000000</td>
+      <td>1.000000</td>
+      <td>3.000000</td>
+      <td>80.000000</td>
+      <td>8.000000</td>
+      <td>6.000000</td>
+      <td>512.329200</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<p>查看数据结构<br>进行描述性统计<br>Age	            有 177 个缺失，需要填补；数值分布广，建议分组处理（分箱）</p>
+<p>Fare	        最大值高达 512，远高于 75% 的 31，存在异常值或偏态，可对数转换或分箱</p>
+<p>SibSp &#x2F; Parch	中位数为 0，大多数人是独自旅行，适合组合成一个新特征 is_alone</p>
+<p>Survived	    平均值约 0.38，说明生还率为 38%，可以作为基准判断模型表现</p>
+<p>Pclass	        最小值 1，最大 3，是离散型数值变量（表示舱位等级），重要变量</p>
+<h3 id="查看缺失值"><a href="#查看缺失值" class="headerlink" title="查看缺失值"></a>查看缺失值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">sns.heatmap(train_df.isnull(), cbar=<span class="literal">False</span>, cmap=<span class="string">&quot;Reds&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;缺失值可视化&quot;</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 32570 (\N&#123;CJK UNIFIED IDEOGRAPH-7F3A&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 22833 (\N&#123;CJK UNIFIED IDEOGRAPH-5931&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 20540 (\N&#123;CJK UNIFIED IDEOGRAPH-503C&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21487 (\N&#123;CJK UNIFIED IDEOGRAPH-53EF&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 35270 (\N&#123;CJK UNIFIED IDEOGRAPH-89C6&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21270 (\N&#123;CJK UNIFIED IDEOGRAPH-5316&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/titanic_analysis_files/titanic_analysis_9_1.png" alt="png"></p>
+<p>初步可视化缺失值 看出cabin缺失值缺失严重 应考虑重新编码或舍弃</p>
+<p><img src="/image.png" alt="alt text"></p>
+<h3 id="处理缺失值"><a href="#处理缺失值" class="headerlink" title="处理缺失值"></a>处理缺失值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看中位数</span></span><br><span class="line">median_age = train_df[<span class="string">&#x27;Age&#x27;</span>].median()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;年龄中位数为：&quot;</span>, median_age)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺失值填补</span></span><br><span class="line">train_df[<span class="string">&#x27;Age&#x27;</span>] = train_df[<span class="string">&#x27;Age&#x27;</span>].fillna(median_age)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>年龄中位数为： 28.0
+</code></pre>
+<p>用中位数进行填充—-28</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看众数</span></span><br><span class="line">mode_embarked = train_df[<span class="string">&#x27;Embarked&#x27;</span>].mode()[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;登船港口众数为：&quot;</span>, mode_embarked)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 填补缺失值</span></span><br><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>] = train_df[<span class="string">&#x27;Embarked&#x27;</span>].fillna(mode_embarked)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>登船港口众数为： S
+</code></pre>
+<p>用众数填充—-5</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">train_df[<span class="string">&#x27;Cabin&#x27;</span>] = train_df[<span class="string">&#x27;Cabin&#x27;</span>].fillna(<span class="string">&#x27;N&#x27;</span>)</span><br><span class="line">train_df[<span class="string">&#x27;Cabin_letter&#x27;</span>] = train_df[<span class="string">&#x27;Cabin&#x27;</span>].apply(<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">train_df[<span class="string">&#x27;Has_Cabin&#x27;</span>] = train_df[<span class="string">&#x27;Cabin&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">0</span> <span class="keyword">if</span> x == <span class="string">&#x27;N&#x27;</span> <span class="keyword">else</span> <span class="number">1</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>常见处理方法将未知填写为’N’ 提前船舱首字母作为新的特征值提高数据聚合程度 &#x2F; 创建布尔特征: 是否存在船舱号(用于有时判断数据是否可以被用)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检查缺失值</span></span><br><span class="line">train_df.isnull().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>PassengerId     0
+Survived        0
+Pclass          0
+Name            0
+Sex             0
+Age             0
+SibSp           0
+Parch           0
+Ticket          0
+Fare            0
+Cabin           0
+Embarked        0
+Cabin_letter    0
+Has_Cabin       0
+dtype: int64
+</code></pre>
+<h1 id="3-特征工程"><a href="#3-特征工程" class="headerlink" title="3. 特征工程"></a>3. 特征工程</h1><h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编码 Sex</span></span><br><span class="line">train_df[<span class="string">&#x27;Sex&#x27;</span>] = LabelEncoder().fit_transform(train_df[<span class="string">&#x27;Sex&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编码 Embarked（S/C/Q）</span></span><br><span class="line">train_df[<span class="string">&#x27;Embarked&#x27;</span>] = LabelEncoder().fit_transform(train_df[<span class="string">&#x27;Embarked&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编码 Cabin 首字母（A/B/C/N/...）</span></span><br><span class="line">train_df[<span class="string">&#x27;Cabin_letter&#x27;</span>] = LabelEncoder().fit_transform(train_df[<span class="string">&#x27;Cabin_letter&#x27;</span>])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="构造新特征值"><a href="#构造新特征值" class="headerlink" title="构造新特征值"></a>构造新特征值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 家庭成员数量 = 兄弟姐妹配偶 + 父母子女 + 自己</span></span><br><span class="line">train_df[<span class="string">&#x27;FamilySize&#x27;</span>] = train_df[<span class="string">&#x27;SibSp&#x27;</span>] + train_df[<span class="string">&#x27;Parch&#x27;</span>] + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否独自旅行</span></span><br><span class="line">train_df[<span class="string">&#x27;IsAlone&#x27;</span>] = train_df[<span class="string">&#x27;FamilySize&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="对-Fare-和-Age-创建数据桶"><a href="#对-Fare-和-Age-创建数据桶" class="headerlink" title="对 Fare 和 Age 创建数据桶"></a>对 Fare 和 Age 创建数据桶</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 对 Fare 分为 4 桶</span></span><br><span class="line">train_df[<span class="string">&#x27;FareBin&#x27;</span>] = pd.qcut(train_df[<span class="string">&#x27;Fare&#x27;</span>], <span class="number">4</span>, labels=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对 Age 分为 5 桶</span></span><br><span class="line">train_df[<span class="string">&#x27;AgeBin&#x27;</span>] = pd.cut(train_df[<span class="string">&#x27;Age&#x27;</span>], <span class="number">5</span>, labels=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">train_df.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+      <th>Pclass</th>
+      <th>Name</th>
+      <th>Sex</th>
+      <th>Age</th>
+      <th>SibSp</th>
+      <th>Parch</th>
+      <th>Ticket</th>
+      <th>Fare</th>
+      <th>Cabin</th>
+      <th>Embarked</th>
+      <th>Cabin_letter</th>
+      <th>Has_Cabin</th>
+      <th>FamilySize</th>
+      <th>IsAlone</th>
+      <th>FareBin</th>
+      <th>AgeBin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Braund, Mr. Owen Harris</td>
+      <td>1</td>
+      <td>22.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>A/5 21171</td>
+      <td>7.2500</td>
+      <td>N</td>
+      <td>2</td>
+      <td>7</td>
+      <td>0</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Cumings, Mrs. John Bradley (Florence Briggs Th...</td>
+      <td>0</td>
+      <td>38.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>PC 17599</td>
+      <td>71.2833</td>
+      <td>C85</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>Heikkinen, Miss. Laina</td>
+      <td>0</td>
+      <td>26.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>STON/O2. 3101282</td>
+      <td>7.9250</td>
+      <td>N</td>
+      <td>2</td>
+      <td>7</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>1</td>
+      <td>Futrelle, Mrs. Jacques Heath (Lily May Peel)</td>
+      <td>0</td>
+      <td>35.0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>113803</td>
+      <td>53.1000</td>
+      <td>C123</td>
+      <td>2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>0</td>
+      <td>3</td>
+      <td>Allen, Mr. William Henry</td>
+      <td>1</td>
+      <td>35.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>373450</td>
+      <td>8.0500</td>
+      <td>N</td>
+      <td>2</td>
+      <td>7</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+<h1 id="4-特征选择-模型准备"><a href="#4-特征选择-模型准备" class="headerlink" title="4. 特征选择  + 模型准备"></a>4. 特征选择  + 模型准备</h1><h3 id="选出特征列和目标列"><a href="#选出特征列和目标列" class="headerlink" title="选出特征列和目标列"></a>选出特征列和目标列</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型使用的特征列（可根据你自己构造的变量微调）</span></span><br><span class="line">feature_cols = [<span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;FareBin&#x27;</span>, <span class="string">&#x27;AgeBin&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;FamilySize&#x27;</span>, <span class="string">&#x27;IsAlone&#x27;</span>, <span class="string">&#x27;Cabin_letter&#x27;</span>, <span class="string">&#x27;Has_Cabin&#x27;</span>]</span><br><span class="line"></span><br><span class="line">X = train_df[feature_cols]  <span class="comment"># 特征输入</span></span><br><span class="line">y = train_df[<span class="string">&#x27;Survived&#x27;</span>]    <span class="comment"># 目标输出</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="拆分训练集与验证集"><a href="#拆分训练集与验证集" class="headerlink" title="拆分训练集与验证集"></a>拆分训练集与验证集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_val, y_train, y_val = train_test_split(</span><br><span class="line">    X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#检查数据集</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;训练集大小：&quot;</span>, X_train.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;验证集大小：&quot;</span>, X_val.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;特征列数量：&quot;</span>, <span class="built_in">len</span>(feature_cols))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>训练集大小： (712, 9)
+验证集大小： (179, 9)
+特征列数量： 9
+</code></pre>
+<h1 id="5-模型训练-初步评估"><a href="#5-模型训练-初步评估" class="headerlink" title="5. 模型训练 + 初步评估"></a>5. 模型训练 + 初步评估</h1><h3 id="导入模型-初始化"><a href="#导入模型-初始化" class="headerlink" title="导入模型 + 初始化"></a>导入模型 + 初始化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化模型</span></span><br><span class="line">model = RandomForestClassifier(random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+
+
+
+<style>#sk-container-id-5 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-5 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-5 pre {
+  padding: 0;
+}
+
+#sk-container-id-5 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-5 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-5 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-5 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-5 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-5 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-5 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-5 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-5 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-5 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-5 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-5 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-5 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-5 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-5 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-5 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-5 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-5 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-5 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-5 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-5 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-5 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-5 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-5 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-5 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-5 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-5 div.sk-label label.sk-toggleable__label,
+#sk-container-id-5 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-5 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-5 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-5 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-5 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-5 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-5 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-5 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-5 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-5 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-5 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-5 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-5 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-5" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestClassifier(random_state=42)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" checked><label for="sk-estimator-id-9" class="sk-toggleable__label fitted sk-toggleable__label-arrow"><div><div>RandomForestClassifier</div></div><div><a class="sk-estimator-doc-link fitted" rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted"><pre>RandomForestClassifier(random_state=42)</pre></div> </div></div></div></div>
+
+
+
+<p>预测验证集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在验证集上做预测</span></span><br><span class="line">y_pred = model.predict(X_val)</span><br></pre></td></tr></table></figure>
+
+<h3 id="模型性能评估"><a href="#模型性能评估" class="headerlink" title="模型性能评估"></a>模型性能评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算准确率</span></span><br><span class="line">accuracy = accuracy_score(y_val, y_pred)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;模型准确率：&quot;</span>, <span class="built_in">round</span>(accuracy, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更详细的分类报告</span></span><br><span class="line"><span class="built_in">print</span>(classification_report(y_val, y_pred))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>模型准确率： 0.838
+              precision    recall  f1-score   support
+
+           0       0.88      0.84      0.86       105
+           1       0.78      0.84      0.81        74
+
+    accuracy                           0.84       179
+   macro avg       0.83      0.84      0.83       179
+weighted avg       0.84      0.84      0.84       179
+</code></pre>
+<h1 id="6-特征重要性分析（模型解释）"><a href="#6-特征重要性分析（模型解释）" class="headerlink" title="6. 特征重要性分析（模型解释）"></a>6. 特征重要性分析（模型解释）</h1><h3 id="6-1-查看特征重要性数值"><a href="#6-1-查看特征重要性数值" class="headerlink" title="6.1 查看特征重要性数值"></a>6.1 查看特征重要性数值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模型给出的特征重要性</span></span><br><span class="line">importances = model.feature_importances_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印每个特征及其得分</span></span><br><span class="line"><span class="keyword">for</span> name, importance <span class="keyword">in</span> <span class="built_in">zip</span>(X.columns, importances):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;name&#125;</span>: <span class="subst">&#123;importance:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Pclass: 0.1114
+Sex: 0.3662
+Embarked: 0.0571
+FareBin: 0.0967
+AgeBin: 0.1159
+FamilySize: 0.1091
+IsAlone: 0.0234
+Cabin_letter: 0.0955
+Has_Cabin: 0.0247
+</code></pre>
+<h3 id="6-2-绘制特征重要性条形图"><a href="#6-2-绘制特征重要性条形图" class="headerlink" title="6.2 绘制特征重要性条形图"></a>6.2 绘制特征重要性条形图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建 DataFrame 用于可视化</span></span><br><span class="line">feat_imp_df = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&#x27;Feature&#x27;</span>: X.columns,</span><br><span class="line">    <span class="string">&#x27;Importance&#x27;</span>: importances</span><br><span class="line">&#125;).sort_values(by=<span class="string">&#x27;Importance&#x27;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘图</span></span><br><span class="line">plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))</span><br><span class="line">sns.barplot(x=<span class="string">&#x27;Importance&#x27;</span>, y=<span class="string">&#x27;Feature&#x27;</span>, data=feat_imp_df, palette=<span class="string">&#x27;Blues_r&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;特征重要性排名&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Importance Score&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Feature&quot;</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:12: FutureWarning: 
+
+Passing `palette` without assigning `hue` is deprecated and will be removed in v0.14.0. Assign the `y` variable to `hue` and set `legend=False` for the same effect.
+
+  sns.barplot(x=&#39;Importance&#39;, y=&#39;Feature&#39;, data=feat_imp_df, palette=&#39;Blues_r&#39;)
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 29305 (\N&#123;CJK UNIFIED IDEOGRAPH-7279&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 24449 (\N&#123;CJK UNIFIED IDEOGRAPH-5F81&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 37325 (\N&#123;CJK UNIFIED IDEOGRAPH-91CD&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 35201 (\N&#123;CJK UNIFIED IDEOGRAPH-8981&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 24615 (\N&#123;CJK UNIFIED IDEOGRAPH-6027&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 25490 (\N&#123;CJK UNIFIED IDEOGRAPH-6392&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3258139709.py:16: UserWarning: Glyph 21517 (\N&#123;CJK UNIFIED IDEOGRAPH-540D&#125;) missing from font(s) DejaVu Sans.
+  plt.tight_layout()
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 29305 (\N&#123;CJK UNIFIED IDEOGRAPH-7279&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24449 (\N&#123;CJK UNIFIED IDEOGRAPH-5F81&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 37325 (\N&#123;CJK UNIFIED IDEOGRAPH-91CD&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 35201 (\N&#123;CJK UNIFIED IDEOGRAPH-8981&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 24615 (\N&#123;CJK UNIFIED IDEOGRAPH-6027&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 25490 (\N&#123;CJK UNIFIED IDEOGRAPH-6392&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\IPython\core\pylabtools.py:152: UserWarning: Glyph 21517 (\N&#123;CJK UNIFIED IDEOGRAPH-540D&#125;) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+</code></pre>
+<p><img src="/titanic_analysis_files/titanic_analysis_47_1.png" alt="png"></p>
+<h3 id="6-3-模型特征重要性分析结构总结"><a href="#6-3-模型特征重要性分析结构总结" class="headerlink" title="6.3 模型特征重要性分析结构总结"></a>6.3 模型特征重要性分析结构总结</h3><p>特征名	     重要性分数   分析解读<br>Sex	         0.3662	     绝对核心特征。女性生还率显著高，模型强依赖性别<br>AgeBin	     0.1159	     年龄段对生还有明显影响（如婴儿和老人优先）<br>Pclass	     0.1114	     舱位等级很重要：一等舱生还率高，三等舱低<br>FamilySize	 0.1091	     家庭人数对生还有一定影响（小家庭&#x2F;单身较有优势）<br>FareBin	     0.0967	     票价反映社会地位，间接影响生还可能性<br>Cabin_letter 0.0955	     代表船舱区域，靠近甲板或救生艇的生还率更高<br>Embarked	 0.0571	     影响较弱，可能是与 Pclass 共线或本身影响有限<br>Has_Cabin	 0.0247	     有一定影响，但小于 Cabin_letter（信息重复）<br>IsAlone	     0.0234	     比 FamilySize 弱很多，可能信息冗余或已被替代</p>
+<p>寻找主导的模型判断 选择新的特征组合 提出可能不必要的特征值</p>
+<h1 id="7-模型调参优化（GridSearchCV）"><a href="#7-模型调参优化（GridSearchCV）" class="headerlink" title="7. 模型调参优化（GridSearchCV）"></a>7. 模型调参优化（GridSearchCV）</h1><p>调参—在通用模版的基础上 提高模型准确度 减少过拟合 控制模型复杂度和运行速度</p>
+<h3 id="7-1-导入需要的工具"><a href="#7-1-导入需要的工具" class="headerlink" title="7.1 导入需要的工具"></a>7.1 导入需要的工具</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> make_scorer, accuracy_score</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2定义参数网格（Grid）"><a href="#7-2定义参数网格（Grid）" class="headerlink" title="7.2定义参数网格（Grid）"></a>7.2定义参数网格（Grid）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">param_grid = &#123;</span><br><span class="line">    <span class="string">&#x27;n_estimators&#x27;</span>: [<span class="number">50</span>, <span class="number">100</span>, <span class="number">200</span>],       <span class="comment"># 决策树数量</span></span><br><span class="line">    <span class="string">&#x27;max_depth&#x27;</span>: [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="literal">None</span>],         <span class="comment"># 每棵树的最大深度</span></span><br><span class="line">    <span class="string">&#x27;min_samples_split&#x27;</span>: [<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>],      <span class="comment"># 内部节点划分所需最小样本数</span></span><br><span class="line">    <span class="string">&#x27;min_samples_leaf&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>],        <span class="comment"># 叶子节点的最小样本数</span></span><br><span class="line">    <span class="string">&#x27;max_features&#x27;</span>: [<span class="string">&#x27;sqrt&#x27;</span>, <span class="string">&#x27;log2&#x27;</span>],     <span class="comment"># 每次分裂使用的特征数</span></span><br><span class="line">    <span class="string">&#x27;criterion&#x27;</span>: [<span class="string">&#x27;gini&#x27;</span>, <span class="string">&#x27;entropy&#x27;</span>]      <span class="comment"># 分裂方式</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-3-定义-GridSearchCV-对象"><a href="#7-3-定义-GridSearchCV-对象" class="headerlink" title="7.3 定义 GridSearchCV 对象"></a>7.3 定义 GridSearchCV 对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用准确率作为评分标准</span></span><br><span class="line">scorer = make_scorer(accuracy_score)</span><br><span class="line"></span><br><span class="line">grid_search = GridSearchCV(</span><br><span class="line">    estimator=RandomForestClassifier(random_state=<span class="number">42</span>),</span><br><span class="line">    param_grid=param_grid,</span><br><span class="line">    scoring=scorer,</span><br><span class="line">    cv=<span class="number">5</span>,               <span class="comment"># 5折交叉验证</span></span><br><span class="line">    n_jobs=-<span class="number">1</span>,          <span class="comment"># 使用所有 CPU 核</span></span><br><span class="line">    verbose=<span class="number">1</span>           <span class="comment"># 显示训练过程</span></span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-4-训练！"><a href="#7-4-训练！" class="headerlink" title="7.4 训练！"></a>7.4 训练！</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grid_search.fit(X_train, y_train)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Fitting 5 folds for each of 432 candidates, totalling 2160 fits
+</code></pre>
+<style>#sk-container-id-6 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-6 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-6 pre {
+  padding: 0;
+}
+
+#sk-container-id-6 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-6 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-6 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-6 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-6 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-6 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-6 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-6 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-6 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-6 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-6 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-6 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-6 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-6 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-6 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-6 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-6 div.sk-toggleable__content {
+  max-height: 0;
+  max-width: 0;
+  overflow: hidden;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-6 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-6 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-6 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-6 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  max-height: 200px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+#sk-container-id-6 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-6 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-6 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-6 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-6 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-6 div.sk-label label.sk-toggleable__label,
+#sk-container-id-6 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-6 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-6 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-6 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-6 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-6 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-6 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-6 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-6 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-6 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-6 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-6 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-6 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+</style><div id="sk-container-id-6" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=5, estimator=RandomForestClassifier(random_state=42), n_jobs=-1,
+<pre><code>         param_grid=&#123;&amp;#x27;criterion&amp;#x27;: [&amp;#x27;gini&amp;#x27;, &amp;#x27;entropy&amp;#x27;],
+                     &amp;#x27;max_depth&amp;#x27;: [4, 6, 8, None],
+                     &amp;#x27;max_features&amp;#x27;: [&amp;#x27;sqrt&amp;#x27;, &amp;#x27;log2&amp;#x27;],
+                     &amp;#x27;min_samples_leaf&amp;#x27;: [1, 2, 4],
+                     &amp;#x27;min_samples_split&amp;#x27;: [2, 5, 10],
+                     &amp;#x27;n_estimators&amp;#x27;: [50, 100, 200]&#125;,
+         scoring=make_scorer(accuracy_score, response_method=&amp;#x27;predict&amp;#x27;),
+         verbose=1)&lt;/pre&gt;&lt;b&gt;In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. &lt;br /&gt;On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.&lt;/b&gt;&lt;/div&gt;&lt;div class=&quot;sk-container&quot; hidden&gt;&lt;div class=&quot;sk-item sk-dashed-wrapped&quot;&gt;&lt;div class=&quot;sk-label-container&quot;&gt;&lt;div class=&quot;sk-label fitted sk-toggleable&quot;&gt;&lt;input class=&quot;sk-toggleable__control sk-hidden--visually&quot; id=&quot;sk-estimator-id-10&quot; type=&quot;checkbox&quot; &gt;&lt;label for=&quot;sk-estimator-id-10&quot; class=&quot;sk-toggleable__label fitted sk-toggleable__label-arrow&quot;&gt;&lt;div&gt;&lt;div&gt;GridSearchCV&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a class=&quot;sk-estimator-doc-link fitted&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; href=&quot;https://scikit-learn.org/1.6/modules/generated/sklearn.model_selection.GridSearchCV.html&quot;&gt;?&lt;span&gt;Documentation for GridSearchCV&lt;/span&gt;&lt;/a&gt;&lt;span class=&quot;sk-estimator-doc-link fitted&quot;&gt;i&lt;span&gt;Fitted&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/label&gt;&lt;div class=&quot;sk-toggleable__content fitted&quot;&gt;&lt;pre&gt;GridSearchCV(cv=5, estimator=RandomForestClassifier(random_state=42), n_jobs=-1,
+         param_grid=&#123;&amp;#x27;criterion&amp;#x27;: [&amp;#x27;gini&amp;#x27;, &amp;#x27;entropy&amp;#x27;],
+                     &amp;#x27;max_depth&amp;#x27;: [4, 6, 8, None],
+                     &amp;#x27;max_features&amp;#x27;: [&amp;#x27;sqrt&amp;#x27;, &amp;#x27;log2&amp;#x27;],
+                     &amp;#x27;min_samples_leaf&amp;#x27;: [1, 2, 4],
+                     &amp;#x27;min_samples_split&amp;#x27;: [2, 5, 10],
+                     &amp;#x27;n_estimators&amp;#x27;: [50, 100, 200]&#125;,
+         scoring=make_scorer(accuracy_score, response_method=&amp;#x27;predict&amp;#x27;),
+         verbose=1)&lt;/pre&gt;&lt;/div&gt; &lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;sk-parallel&quot;&gt;&lt;div class=&quot;sk-parallel-item&quot;&gt;&lt;div class=&quot;sk-item&quot;&gt;&lt;div class=&quot;sk-label-container&quot;&gt;&lt;div class=&quot;sk-label fitted sk-toggleable&quot;&gt;&lt;input class=&quot;sk-toggleable__control sk-hidden--visually&quot; id=&quot;sk-estimator-id-11&quot; type=&quot;checkbox&quot; &gt;&lt;label for=&quot;sk-estimator-id-11&quot; class=&quot;sk-toggleable__label fitted sk-toggleable__label-arrow&quot;&gt;&lt;div&gt;&lt;div&gt;best_estimator_: RandomForestClassifier&lt;/div&gt;&lt;/div&gt;&lt;/label&gt;&lt;div class=&quot;sk-toggleable__content fitted&quot;&gt;&lt;pre&gt;RandomForestClassifier(criterion=&amp;#x27;entropy&amp;#x27;, min_samples_split=5,
+                   random_state=42)&lt;/pre&gt;&lt;/div&gt; &lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;sk-serial&quot;&gt;&lt;div class=&quot;sk-item&quot;&gt;&lt;div class=&quot;sk-estimator fitted sk-toggleable&quot;&gt;&lt;input class=&quot;sk-toggleable__control sk-hidden--visually&quot; id=&quot;sk-estimator-id-12&quot; type=&quot;checkbox&quot; &gt;&lt;label for=&quot;sk-estimator-id-12&quot; class=&quot;sk-toggleable__label fitted sk-toggleable__label-arrow&quot;&gt;&lt;div&gt;&lt;div&gt;RandomForestClassifier&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;a class=&quot;sk-estimator-doc-link fitted&quot; rel=&quot;noreferrer&quot; target=&quot;_blank&quot; href=&quot;https://scikit-learn.org/1.6/modules/generated/sklearn.ensemble.RandomForestClassifier.html&quot;&gt;?&lt;span&gt;Documentation for RandomForestClassifier&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;&lt;/label&gt;&lt;div class=&quot;sk-toggleable__content fitted&quot;&gt;&lt;pre&gt;RandomForestClassifier(criterion=&amp;#x27;entropy&amp;#x27;, min_samples_split=5,
+                   random_state=42)&lt;/pre&gt;&lt;/div&gt; &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最优参数组合：&quot;</span>, grid_search.best_params_)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;验证集上的最优准确率：&quot;</span>, <span class="built_in">round</span>(grid_search.best_score_, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拿到最优模型</span></span><br><span class="line">best_model = grid_search.best_estimator_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在验证集上测评最终效果</span></span><br><span class="line">y_pred = best_model.predict(X_val)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;最终准确率：&quot;</span>, accuracy_score(y_val, y_pred))</span><br><span class="line"><span class="built_in">print</span>(best_model)</span><br></pre></td></tr></table></figure>
+
+<pre><code>最优参数组合： &#123;&#39;criterion&#39;: &#39;entropy&#39;, &#39;max_depth&#39;: None, &#39;max_features&#39;: &#39;sqrt&#39;, &#39;min_samples_leaf&#39;: 1, &#39;min_samples_split&#39;: 5, &#39;n_estimators&#39;: 100&#125;
+验证集上的最优准确率： 0.8203
+最终准确率： 0.8156424581005587
+RandomForestClassifier(criterion=&#39;entropy&#39;, min_samples_split=5,
+                       random_state=42)
+</code></pre>
+<p>交叉验证最优准确率：0.8203<br>最终验证集准确率：0.8156</p>
+<p>两者接近，说明：<br>模型稳定性好<br>没有过拟合验证集</p>
+<h1 id="测试集"><a href="#测试集" class="headerlink" title="测试集"></a>测试集</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ✅ 1. 测试集清洗 + 特征构造（和训练集一致）</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺失值填补</span></span><br><span class="line">test_df[<span class="string">&#x27;Age&#x27;</span>].fillna(test_df[<span class="string">&#x27;Age&#x27;</span>].median(), inplace=<span class="literal">True</span>)</span><br><span class="line">test_df[<span class="string">&#x27;Fare&#x27;</span>].fillna(test_df[<span class="string">&#x27;Fare&#x27;</span>].median(), inplace=<span class="literal">True</span>)</span><br><span class="line">test_df[<span class="string">&#x27;Cabin&#x27;</span>] = test_df[<span class="string">&#x27;Cabin&#x27;</span>].fillna(<span class="string">&#x27;N&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 特征构造</span></span><br><span class="line">test_df[<span class="string">&#x27;Cabin_letter&#x27;</span>] = test_df[<span class="string">&#x27;Cabin&#x27;</span>].apply(<span class="keyword">lambda</span> x: x[<span class="number">0</span>])</span><br><span class="line">test_df[<span class="string">&#x27;FamilySize&#x27;</span>] = test_df[<span class="string">&#x27;SibSp&#x27;</span>] + test_df[<span class="string">&#x27;Parch&#x27;</span>] + <span class="number">1</span></span><br><span class="line">test_df[<span class="string">&#x27;IsAlone&#x27;</span>] = test_df[<span class="string">&#x27;FamilySize&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">1</span> <span class="keyword">if</span> x == <span class="number">1</span> <span class="keyword">else</span> <span class="number">0</span>)</span><br><span class="line">test_df[<span class="string">&#x27;Has_Cabin&#x27;</span>] = test_df[<span class="string">&#x27;Cabin&#x27;</span>].apply(<span class="keyword">lambda</span> x: <span class="number">0</span> <span class="keyword">if</span> x == <span class="string">&#x27;N&#x27;</span> <span class="keyword">else</span> <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编码类别变量</span></span><br><span class="line">test_df[<span class="string">&#x27;Sex&#x27;</span>] = LabelEncoder().fit_transform(test_df[<span class="string">&#x27;Sex&#x27;</span>])</span><br><span class="line">test_df[<span class="string">&#x27;Embarked&#x27;</span>] = LabelEncoder().fit_transform(test_df[<span class="string">&#x27;Embarked&#x27;</span>])</span><br><span class="line">test_df[<span class="string">&#x27;Cabin_letter&#x27;</span>] = LabelEncoder().fit_transform(test_df[<span class="string">&#x27;Cabin_letter&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数值特征分箱</span></span><br><span class="line">test_df[<span class="string">&#x27;FareBin&#x27;</span>] = pd.qcut(test_df[<span class="string">&#x27;Fare&#x27;</span>], <span class="number">4</span>, labels=<span class="literal">False</span>)</span><br><span class="line">test_df[<span class="string">&#x27;AgeBin&#x27;</span>] = pd.cut(test_df[<span class="string">&#x27;Age&#x27;</span>], <span class="number">5</span>, labels=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 2. 特征列</span></span><br><span class="line">feature_cols = [<span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;FareBin&#x27;</span>, <span class="string">&#x27;AgeBin&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;FamilySize&#x27;</span>, <span class="string">&#x27;IsAlone&#x27;</span>, <span class="string">&#x27;Cabin_letter&#x27;</span>, <span class="string">&#x27;Has_Cabin&#x27;</span>]</span><br><span class="line">X_test = test_df[feature_cols]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 3. 预测</span></span><br><span class="line">predictions = best_model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 4. 导出为提交文件</span></span><br><span class="line">submission = pd.DataFrame(&#123;</span><br><span class="line">    <span class="string">&quot;PassengerId&quot;</span>: test_df[<span class="string">&quot;PassengerId&quot;</span>],</span><br><span class="line">    <span class="string">&quot;Survived&quot;</span>: predictions</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment"># ✅ 设置保存路径（注意：路径中 \ 要双写 \\）</span></span><br><span class="line">output_path = <span class="string">r&quot;C:\Users\PALUA\Desktop\复刻泰坦尼克\测试结果\submission.csv&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ✅ 导出为 CSV 文件</span></span><br><span class="line">submission.to_csv(output_path, index=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;✅ 已成功将预测结果导出至：&quot;</span>, output_path)</span><br><span class="line">submission.head()</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>✅ 已成功将预测结果导出至： C:\Users\PALUA\Desktop\复刻泰坦尼克\测试结果\submission.csv
+
+
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3392599946.py:5: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method(&#123;col: value&#125;, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  test_df[&#39;Age&#39;].fillna(test_df[&#39;Age&#39;].median(), inplace=True)
+C:\Users\PALUA\AppData\Local\Temp\ipykernel_3412\3392599946.py:6: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing &#39;df[col].method(value, inplace=True)&#39;, try using &#39;df.method(&#123;col: value&#125;, inplace=True)&#39; or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  test_df[&#39;Fare&#39;].fillna(test_df[&#39;Fare&#39;].median(), inplace=True)
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PassengerId</th>
+      <th>Survived</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>892</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>893</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>894</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>895</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>896</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Jin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/03/28/titanic_analysis/">http://example.com/2025/03/28/titanic_analysis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/">项目展示</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/30/House_predict/" title="房价预测项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">房价预测项目总结</div></div><div class="info-2"><div class="info-item-1">导包 描述性统计 查看缺失1!where python  # Windows   12345import pandas as pdtrain = pd.read_csv(&#x27;train.csv&#x27;)test = pd.read_csv(&#x27;test.csv&#x27;)   123456789# 查看数据形状print(&quot;Train shape:&quot;, train.shape)print(&quot;Test shape:&quot;, test.shape)# 查看前5行train.head()# 查看数据概况train.info()  Train shape: (1460, 81) Test shape: (1459, 80) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; RangeIndex: 1460 entries, 0 to 1459 Data columns (total 81 columns):  #   Column         Non-Null Count...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/30/House_predict/" title="房价预测项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-30</div><div class="info-item-2">房价预测项目总结</div></div><div class="info-2"><div class="info-item-1">导包 描述性统计 查看缺失1!where python  # Windows   12345import pandas as pdtrain = pd.read_csv(&#x27;train.csv&#x27;)test = pd.read_csv(&#x27;test.csv&#x27;)   123456789# 查看数据形状print(&quot;Train shape:&quot;, train.shape)print(&quot;Test shape:&quot;, test.shape)# 查看前5行train.head()# 查看数据概况train.info()  Train shape: (1460, 81) Test shape: (1459, 80) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; RangeIndex: 1460 entries, 0 to 1459 Data columns (total 81 columns):  #   Column         Non-Null Count...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Jin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Jin-123-321"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎来到 Jin 的机器学习旅途博客 ✨<br>用代码探索世界，以图表理解数据！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%81%E5%AF%BC%E5%8C%85"><span class="toc-number">1.</span> <span class="toc-text">1. 环境配置、导包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%81%E6%8F%8F%E8%BF%B0%E6%80%A7%E7%BB%9F%E8%AE%A1%E3%80%81%E7%BC%BA%E5%A4%B1%E5%80%BC%E5%A4%84%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">2. 查看数据结构、描述性统计、缺失值处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%8F%8F%E8%BF%B0%E7%BB%9F%E8%AE%A1%E4%BF%A1%E6%81%AF"><span class="toc-number">2.0.1.</span> <span class="toc-text">查看数据结构 描述统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="toc-number">2.0.2.</span> <span class="toc-text">查看缺失值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E7%BC%BA%E5%A4%B1%E5%80%BC"><span class="toc-number">2.0.3.</span> <span class="toc-text">处理缺失值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">3. 特征工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-number">3.0.1.</span> <span class="toc-text">编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E6%96%B0%E7%89%B9%E5%BE%81%E5%80%BC"><span class="toc-number">3.0.2.</span> <span class="toc-text">构造新特征值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9-Fare-%E5%92%8C-Age-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E6%A1%B6"><span class="toc-number">3.0.3.</span> <span class="toc-text">对 Fare 和 Age 创建数据桶</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%89%B9%E5%BE%81%E9%80%89%E6%8B%A9-%E6%A8%A1%E5%9E%8B%E5%87%86%E5%A4%87"><span class="toc-number">4.</span> <span class="toc-text">4. 特征选择  + 模型准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%89%E5%87%BA%E7%89%B9%E5%BE%81%E5%88%97%E5%92%8C%E7%9B%AE%E6%A0%87%E5%88%97"><span class="toc-number">4.0.1.</span> <span class="toc-text">选出特征列和目标列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%86%E5%88%86%E8%AE%AD%E7%BB%83%E9%9B%86%E4%B8%8E%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-number">4.0.2.</span> <span class="toc-text">拆分训练集与验证集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83-%E5%88%9D%E6%AD%A5%E8%AF%84%E4%BC%B0"><span class="toc-number">5.</span> <span class="toc-text">5. 模型训练 + 初步评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9E%8B-%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">5.0.1.</span> <span class="toc-text">导入模型 + 初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">5.0.2.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0"><span class="toc-number">5.0.3.</span> <span class="toc-text">模型性能评估</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E5%88%86%E6%9E%90%EF%BC%88%E6%A8%A1%E5%9E%8B%E8%A7%A3%E9%87%8A%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">6. 特征重要性分析（模型解释）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-%E6%9F%A5%E7%9C%8B%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E6%95%B0%E5%80%BC"><span class="toc-number">6.0.1.</span> <span class="toc-text">6.1 查看特征重要性数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E7%BB%98%E5%88%B6%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="toc-number">6.0.2.</span> <span class="toc-text">6.2 绘制特征重要性条形图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-%E6%A8%A1%E5%9E%8B%E7%89%B9%E5%BE%81%E9%87%8D%E8%A6%81%E6%80%A7%E5%88%86%E6%9E%90%E7%BB%93%E6%9E%84%E6%80%BB%E7%BB%93"><span class="toc-number">6.0.3.</span> <span class="toc-text">6.3 模型特征重要性分析结构总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E6%A8%A1%E5%9E%8B%E8%B0%83%E5%8F%82%E4%BC%98%E5%8C%96%EF%BC%88GridSearchCV%EF%BC%89"><span class="toc-number">7.</span> <span class="toc-text">7. 模型调参优化（GridSearchCV）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%AF%BC%E5%85%A5%E9%9C%80%E8%A6%81%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="toc-number">7.0.1.</span> <span class="toc-text">7.1 导入需要的工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2%E5%AE%9A%E4%B9%89%E5%8F%82%E6%95%B0%E7%BD%91%E6%A0%BC%EF%BC%88Grid%EF%BC%89"><span class="toc-number">7.0.2.</span> <span class="toc-text">7.2定义参数网格（Grid）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E5%AE%9A%E4%B9%89-GridSearchCV-%E5%AF%B9%E8%B1%A1"><span class="toc-number">7.0.3.</span> <span class="toc-text">7.3 定义 GridSearchCV 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E8%AE%AD%E7%BB%83%EF%BC%81"><span class="toc-number">7.0.4.</span> <span class="toc-text">7.4 训练！</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E9%9B%86"><span class="toc-number">8.</span> <span class="toc-text">测试集</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/30/House_predict/" title="房价预测项目总结">房价预测项目总结</a><time datetime="2025-03-29T16:00:00.000Z" title="Created 2025-03-30 00:00:00">2025-03-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结">泰坦尼克号项目总结</a><time datetime="2025-03-27T16:00:00.000Z" title="Created 2025-03-28 00:00:00">2025-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Jin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

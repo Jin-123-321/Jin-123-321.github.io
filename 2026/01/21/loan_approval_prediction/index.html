@@ -1,0 +1,522 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>loan approval prediction | Hexo</title><meta name="author" content="Jin"><meta name="copyright" content="Jin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# Global Imports (Final, explicit, error-free)# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="loan approval prediction">
+<meta property="og:url" content="http://example.com/2026/01/21/loan_approval_prediction/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;# Global Imports (Final, explicit, error-free)# &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2026-01-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-20T16:30:45.604Z">
+<meta property="article:author" content="Jin">
+<meta property="article:tag" content="项目展示">
+<meta property="article:tag" content="信贷风控">
+<meta property="article:tag" content="Loan Approval">
+<meta property="article:tag" content="LightGBM">
+<meta property="article:tag" content="随机森林">
+<meta property="article:tag" content="逻辑回归">
+<meta property="article:tag" content="SHAP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "loan approval prediction",
+  "url": "http://example.com/2026/01/21/loan_approval_prediction/",
+  "image": "http://example.com/img/avatar.png",
+  "datePublished": "2026-01-20T16:00:00.000Z",
+  "dateModified": "2026-01-20T16:30:45.604Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jin",
+      "url": "http://example.com/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2026/01/21/loan_approval_prediction/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'loan approval prediction',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">loan approval prediction</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">loan approval prediction</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-20T16:00:00.000Z" title="Created 2026-01-21 00:00:00">2026-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-20T16:30:45.604Z" title="Updated 2026-01-21 00:30:45">2026-01-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E4%B8%9A%E5%8A%A1%E7%90%86%E8%A7%A3/">业务理解</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ============================================================</span></span><br><span class="line"><span class="comment"># Global Imports (Final, explicit, error-free)</span></span><br><span class="line"><span class="comment"># ============================================================</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Core</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Visualization</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="comment"># SHAP &amp; LightGBM</span></span><br><span class="line"><span class="keyword">import</span> shap</span><br><span class="line"><span class="keyword">from</span> lightgbm <span class="keyword">import</span> LGBMClassifier</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scikit-learn: model selection</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scikit-learn: preprocessing &amp; pipelines</span></span><br><span class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</span><br><span class="line"><span class="keyword">from</span> sklearn.compose <span class="keyword">import</span> ColumnTransformer</span><br><span class="line"><span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler, OneHotEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scikit-learn: models</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.neural_network <span class="keyword">import</span> MLPClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scikit-learn: decomposition</span></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scikit-learn: evaluation metrics</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> (</span><br><span class="line">    accuracy_score,</span><br><span class="line">    precision_score,</span><br><span class="line">    recall_score,</span><br><span class="line">    f1_score,</span><br><span class="line">    roc_auc_score,</span><br><span class="line">    confusion_matrix,</span><br><span class="line">    roc_curve</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reproducibility</span></span><br><span class="line">np.random.seed(<span class="number">42</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Chapter-1-Problem-Definition-Business-Context"><a href="#Chapter-1-Problem-Definition-Business-Context" class="headerlink" title="Chapter 1 | Problem Definition &amp; Business Context"></a>Chapter 1 | Problem Definition &amp; Business Context</h2><blockquote>
+<p>第 1 章｜问题定义与业务背景</p>
+</blockquote>
+<p>This project addresses the problem of automated loan approval in a FinTech lending context.<br>The objective is to build machine learning models that predict whether a loan application should be approved or rejected, based on applicants’ financial, credit, and demographic information.</p>
+<p>From a business perspective, loan approval is a risk-sensitive decision.<br>False approvals increase default risk and capital loss, while false rejections reduce revenue and customer satisfaction.<br>Therefore, the task requires not only predictive accuracy, but also robustness and interpretability to support responsible credit decisioning.</p>
+<hr>
+<p>本项目以金融科技（FinTech）场景下的<strong>贷款审批自动化</strong>为研究背景，目标是利用机器学习模型，根据借款人的收入、信用评分、资产情况及贷款特征，预测其贷款申请是否应被批准。</p>
+<p>在实际信贷业务中，贷款审批并非一个简单的分类问题，而是一项<strong>高度风险敏感的决策</strong>：  </p>
+<ul>
+<li>错误批准（False Approval）会直接带来违约与资金损失  </li>
+<li>错误拒绝（False Rejection）则意味着潜在收益流失与客户体验下降</li>
+</ul>
+<p>因此，本项目不仅关注模型预测性能，更强调<strong>风险控制、稳定性以及模型可解释性</strong>，以贴合真实信贷风控系统的决策需求。</p>
+<h2 id="Chapter-2｜Dataset-Overview"><a href="#Chapter-2｜Dataset-Overview" class="headerlink" title="Chapter 2｜Dataset Overview"></a>Chapter 2｜Dataset Overview</h2><blockquote>
+<p>第 2 章｜数据集概览</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Load dataset</span></span><br><span class="line">df = pd.read_csv(<span class="string">&quot;loan_approval_dataset.csv&quot;</span>)</span><br><span class="line">df.columns = df.columns.<span class="built_in">str</span>.strip()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Minimal sanity checks (keep it concise for a public notebook)</span></span><br><span class="line">target_col = <span class="string">&quot;loan_status&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Dataset shape:&quot;</span>, df.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Target distribution (raw):&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(df[target_col].astype(<span class="built_in">str</span>).<span class="built_in">str</span>.strip().<span class="built_in">str</span>.lower().value_counts(dropna=<span class="literal">False</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Dataset shape: (4269, 13)
+Target distribution (raw):
+loan_status
+approved    2656
+rejected    1613
+Name: count, dtype: int64
+</code></pre>
+<p>The dataset used in this project contains structured applicant-level information relevant to loan approval decisions.<br>It includes financial attributes, credit indicators, asset ownership details, loan characteristics, and basic demographic variables.</p>
+<p>Key feature categories include:</p>
+<ul>
+<li><strong>Income-related variables</strong> (e.g., applicant income)</li>
+<li><strong>Creditworthiness indicators</strong> (e.g., CIBIL credit score)</li>
+<li><strong>Asset information</strong> (e.g., property and other asset values)</li>
+<li><strong>Loan characteristics</strong> (e.g., loan amount, loan term)</li>
+<li><strong>Demographic information</strong> (e.g., number of dependents)</li>
+</ul>
+<p>The target variable is a binary outcome indicating whether a loan application is approved or rejected.<br>As is common in real-world credit data, the dataset contains missing values and a mix of numerical and categorical features, which motivates careful preprocessing and feature engineering.</p>
+<hr>
+<p>本项目使用的数据集为<strong>结构化的贷款申请人级别数据</strong>，涵盖了信贷审批过程中常见且具有实际意义的多类信息，包括财务状况、信用评分、资产情况、贷款要素以及基础人口特征。</p>
+<p>从业务角度来看，特征大致可以划分为以下几类：</p>
+<ul>
+<li><strong>收入相关变量</strong>：反映借款人的还款能力  </li>
+<li><strong>信用水平指标</strong>：如 CIBIL 信用评分，用于衡量历史信用表现  </li>
+<li><strong>资产信息</strong>：用于评估抵押能力与财务缓冲空间  </li>
+<li><strong>贷款特征</strong>：如贷款金额与期限，直接影响风险暴露水平  </li>
+<li><strong>人口特征变量</strong>：如赡养人数，对可支配收入产生影响</li>
+</ul>
+<p>预测目标为一个二元变量，表示贷款申请是否被批准。<br>与真实信贷业务数据一致，该数据集同时包含<strong>缺失值存在、数值型与分类型变量并存</strong>等特点，这也决定了后续必须进行系统的数据预处理与特征工程设计。</p>
+<h2 id="Chapter-3｜Data-Preprocessing-Strategy"><a href="#Chapter-3｜Data-Preprocessing-Strategy" class="headerlink" title="Chapter 3｜Data Preprocessing Strategy"></a>Chapter 3｜Data Preprocessing Strategy</h2><blockquote>
+<p>第 3 章｜数据预处理策略</p>
+</blockquote>
+<h4 id="Preprocessing-Setup-One-Stratified-Split-Index-based"><a href="#Preprocessing-Setup-One-Stratified-Split-Index-based" class="headerlink" title="Preprocessing Setup + One Stratified Split (Index-based)"></a>Preprocessing Setup + One Stratified Split (Index-based)</h4><h4 id="预处理设置-一次分层拆分（基于索引）"><a href="#预处理设置-一次分层拆分（基于索引）" class="headerlink" title="预处理设置 + 一次分层拆分（基于索引）"></a>预处理设置 + 一次分层拆分（基于索引）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Clean target labels and map to binary</span></span><br><span class="line">df = df.copy()</span><br><span class="line">df[target_col] = df[target_col].astype(<span class="built_in">str</span>).<span class="built_in">str</span>.strip().<span class="built_in">str</span>.lower()</span><br><span class="line">df[target_col] = df[target_col].<span class="built_in">map</span>(&#123;<span class="string">&quot;approved&quot;</span>: <span class="number">1</span>, <span class="string">&quot;rejected&quot;</span>: <span class="number">0</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Drop rows with unmapped target (defensive)</span></span><br><span class="line">df = df.dropna(subset=[target_col]).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">X_raw = df.drop(columns=[target_col])</span><br><span class="line">y = df[target_col].astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># One and only split for the entire project (use indices for alignment)</span></span><br><span class="line">idx = np.arange(<span class="built_in">len</span>(df))</span><br><span class="line">idx_train, idx_test = train_test_split(</span><br><span class="line">    idx, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>, stratify=y</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">X_train_raw = X_raw.iloc[idx_train].copy()</span><br><span class="line">X_test_raw  = X_raw.iloc[idx_test].copy()</span><br><span class="line">y_train = y.iloc[idx_train].copy()</span><br><span class="line">y_test  = y.iloc[idx_test].copy()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Train/Test sizes:&quot;</span>, X_train_raw.shape, X_test_raw.shape)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Train target mean:&quot;</span>, y_train.mean(), <span class="string">&quot;Test target mean:&quot;</span>, y_test.mean())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Train/Test sizes: (3415, 12) (854, 12)
+Train target mean: 0.6222547584187409 Test target mean: 0.6217798594847775
+</code></pre>
+<h4 id="Column-wise-Impute-One-hot-Standardize-Reusable-Pipelines"><a href="#Column-wise-Impute-One-hot-Standardize-Reusable-Pipelines" class="headerlink" title="Column-wise Impute + One-hot + Standardize (Reusable Pipelines)"></a>Column-wise Impute + One-hot + Standardize (Reusable Pipelines)</h4><h4 id="列向量插值-一维编码-标准化（可重用管道）"><a href="#列向量插值-一维编码-标准化（可重用管道）" class="headerlink" title="列向量插值 + 一维编码 + 标准化（可重用管道）"></a>列向量插值 + 一维编码 + 标准化（可重用管道）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Identify feature types from raw data</span></span><br><span class="line">num_features = X_train_raw.select_dtypes(include=[<span class="string">&quot;int64&quot;</span>, <span class="string">&quot;float64&quot;</span>]).columns.tolist()</span><br><span class="line">cat_features = X_train_raw.select_dtypes(include=[<span class="string">&quot;object&quot;</span>]).columns.tolist()</span><br><span class="line"></span><br><span class="line">numeric_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;median&quot;</span>)),</span><br><span class="line">    (<span class="string">&quot;scaler&quot;</span>, StandardScaler()),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">categorical_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;most_frequent&quot;</span>)),</span><br><span class="line">    (<span class="string">&quot;onehot&quot;</span>, OneHotEncoder(drop=<span class="string">&quot;first&quot;</span>, handle_unknown=<span class="string">&quot;ignore&quot;</span>)),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">preprocessor_scaled = ColumnTransformer(</span><br><span class="line">    transformers=[</span><br><span class="line">        (<span class="string">&quot;num&quot;</span>, numeric_pipeline, num_features),</span><br><span class="line">        (<span class="string">&quot;cat&quot;</span>, categorical_pipeline, cat_features),</span><br><span class="line">    ],</span><br><span class="line">    remainder=<span class="string">&quot;drop&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># A second preprocessor for tree models (no scaling; still impute + one-hot)</span></span><br><span class="line">numeric_pipeline_noscale = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;median&quot;</span>)),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">preprocessor_tree = ColumnTransformer(</span><br><span class="line">    transformers=[</span><br><span class="line">        (<span class="string">&quot;num&quot;</span>, numeric_pipeline_noscale, num_features),</span><br><span class="line">        (<span class="string">&quot;cat&quot;</span>, categorical_pipeline, cat_features),</span><br><span class="line">    ],</span><br><span class="line">    remainder=<span class="string">&quot;drop&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Numeric features:&quot;</span>, num_features)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Categorical features:&quot;</span>, cat_features)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Numeric features: [&#39;loan_id&#39;, &#39;no_of_dependents&#39;, &#39;income_annum&#39;, &#39;loan_amount&#39;, &#39;loan_term&#39;, &#39;cibil_score&#39;, &#39;residential_assets_value&#39;, &#39;commercial_assets_value&#39;, &#39;luxury_assets_value&#39;, &#39;bank_asset_value&#39;]
+Categorical features: [&#39;education&#39;, &#39;self_employed&#39;]
+</code></pre>
+<p>Data preprocessing is a critical step in building reliable machine learning models, particularly in financial risk modeling where data quality and stability directly affect decision outcomes.</p>
+<p><strong>Missing Values</strong><br>Missing numerical values are imputed using the median, while categorical variables are filled with the mode.<br>This strategy is chosen to reduce sensitivity to outliers and to preserve the original data distribution, which is especially important in credit-related features.</p>
+<p><strong>Categorical Encoding</strong><br>Categorical variables are transformed using one-hot encoding to ensure compatibility with machine learning algorithms that require numerical inputs.<br>Although one-hot encoding increases dimensionality, it allows models to capture non-ordinal categorical information without imposing artificial ordering.</p>
+<p><strong>Feature Scaling</strong><br>All numerical features are standardized prior to model training.<br>Standardization is essential for distance-based, linear, and neural models to ensure stable optimization and balanced feature contributions.</p>
+<p><strong>Train–Test Split</strong><br>A stratified train–test split is applied to preserve the original class distribution of the target variable.<br>This ensures fair and reliable model evaluation, particularly in imbalanced or risk-sensitive classification settings.</p>
+<hr>
+<p>在金融风控建模中，数据预处理并不是“例行步骤”，而是<strong>直接影响模型稳定性与决策可靠性的关键环节</strong>。<br>因此，本项目在数据预处理阶段采取了相对保守且符合行业实践的策略。</p>
+<p><strong>缺失值处理</strong><br>对于数值型变量，采用中位数填补；对于分类型变量，采用众数填补。<br>这种方式能够有效降低极端值对统计特征的影响，同时保持数据整体分布的稳定性，适用于信贷相关变量。</p>
+<p><strong>分类变量编码</strong><br>所有分类型特征均采用 One-Hot Encoding 进行转换，以满足机器学习模型对数值输入的要求。<br>尽管该方法会增加特征维度，但可以避免人为引入不存在的顺序关系，保证信息表达的准确性。</p>
+<p><strong>特征标准化</strong><br>在模型训练前，对所有数值型特征进行标准化处理。<br>这一操作对于线性模型、神经网络以及基于距离的算法尤为重要，有助于模型收敛稳定性与特征权重的合理分配。</p>
+<p><strong>训练集与测试集划分</strong><br>采用分层抽样（Stratified Split）划分训练集与测试集，以保持目标变量在不同数据子集中的比例一致。<br>这一策略能够避免评估结果因类别分布偏移而失真，符合风险敏感型建模场景的要求。</p>
+<h2 id="Chapter-4｜Feature-Engineering-Design"><a href="#Chapter-4｜Feature-Engineering-Design" class="headerlink" title="Chapter 4｜Feature Engineering Design"></a>Chapter 4｜Feature Engineering Design</h2><blockquote>
+<p>第 4 章｜特征工程设计</p>
+</blockquote>
+<h4 id="Final-Cell-D：Business-Feature-Engineering-Fixes-the-“scaled-ratio”-issue"><a href="#Final-Cell-D：Business-Feature-Engineering-Fixes-the-“scaled-ratio”-issue" class="headerlink" title="Final Cell D：Business Feature Engineering (Fixes the “scaled-ratio” issue)"></a>Final Cell D：Business Feature Engineering (Fixes the “scaled-ratio” issue)</h4><h4 id="最终单元格-D：业务特征工程（修复“缩放比例”问题）"><a href="#最终单元格-D：业务特征工程（修复“缩放比例”问题）" class="headerlink" title="最终单元格 D：业务特征工程（修复“缩放比例”问题）"></a>最终单元格 D：业务特征工程（修复“缩放比例”问题）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_business_features</span>(<span class="params">df_in: pd.DataFrame</span>) -&gt; pd.DataFrame:</span><br><span class="line">    df_out = df_in.copy()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Ensure columns exist (defensive programming)</span></span><br><span class="line">    required = [</span><br><span class="line">        <span class="string">&quot;residential_assets_value&quot;</span>, <span class="string">&quot;commercial_assets_value&quot;</span>, <span class="string">&quot;luxury_assets_value&quot;</span>, <span class="string">&quot;bank_asset_value&quot;</span>,</span><br><span class="line">        <span class="string">&quot;income_annum&quot;</span>, <span class="string">&quot;loan_amount&quot;</span>, <span class="string">&quot;no_of_dependents&quot;</span></span><br><span class="line">    ]</span><br><span class="line">    missing = [c <span class="keyword">for</span> c <span class="keyword">in</span> required <span class="keyword">if</span> c <span class="keyword">not</span> <span class="keyword">in</span> df_out.columns]</span><br><span class="line">    <span class="keyword">if</span> missing:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Missing columns for feature engineering: <span class="subst">&#123;missing&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Total assets</span></span><br><span class="line">    df_out[<span class="string">&quot;total_assets&quot;</span>] = (</span><br><span class="line">        df_out[<span class="string">&quot;residential_assets_value&quot;</span>]</span><br><span class="line">        + df_out[<span class="string">&quot;commercial_assets_value&quot;</span>]</span><br><span class="line">        + df_out[<span class="string">&quot;luxury_assets_value&quot;</span>]</span><br><span class="line">        + df_out[<span class="string">&quot;bank_asset_value&quot;</span>]</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Ratios (add small epsilon to avoid division by zero)</span></span><br><span class="line">    eps = <span class="number">1e-5</span></span><br><span class="line">    df_out[<span class="string">&quot;income_to_loan_ratio&quot;</span>] = df_out[<span class="string">&quot;income_annum&quot;</span>] / (df_out[<span class="string">&quot;loan_amount&quot;</span>] + eps)</span><br><span class="line">    df_out[<span class="string">&quot;asset_to_loan_ratio&quot;</span>] = df_out[<span class="string">&quot;total_assets&quot;</span>] / (df_out[<span class="string">&quot;loan_amount&quot;</span>] + eps)</span><br><span class="line">    df_out[<span class="string">&quot;asset_to_income_ratio&quot;</span>] = df_out[<span class="string">&quot;total_assets&quot;</span>] / (df_out[<span class="string">&quot;income_annum&quot;</span>] + eps)</span><br><span class="line">    df_out[<span class="string">&quot;income_per_dependent&quot;</span>] = df_out[<span class="string">&quot;income_annum&quot;</span>] / (df_out[<span class="string">&quot;no_of_dependents&quot;</span>] + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> df_out</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build FE datasets (raw -&gt; FE) for train/test</span></span><br><span class="line">X_train_fe_raw = add_business_features(X_train_raw)</span><br><span class="line">X_test_fe_raw  = add_business_features(X_test_raw)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;FE train/test shapes:&quot;</span>, X_train_fe_raw.shape, X_test_fe_raw.shape)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>FE train/test shapes: (3415, 17) (854, 17)
+</code></pre>
+<h4 id="Final-Cell-E：PCA-Pipeline-95-variance-fit-on-train-only"><a href="#Final-Cell-E：PCA-Pipeline-95-variance-fit-on-train-only" class="headerlink" title="Final Cell E：PCA Pipeline (95% variance, fit on train only)"></a>Final Cell E：PCA Pipeline (95% variance, fit on train only)</h4><h4 id="最终单元格-E：PCA-流程（95-方差，仅对训练集进行拟合）"><a href="#最终单元格-E：PCA-流程（95-方差，仅对训练集进行拟合）" class="headerlink" title="最终单元格 E：PCA 流程（95% 方差，仅对训练集进行拟合）"></a>最终单元格 E：PCA 流程（95% 方差，仅对训练集进行拟合）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">pca_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;preprocess_scaled&quot;</span>, preprocessor_scaled),</span><br><span class="line">    (<span class="string">&quot;pca&quot;</span>, PCA(n_components=<span class="number">0.95</span>, random_state=<span class="number">42</span>)),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fit on train only, transform both</span></span><br><span class="line">X_train_pca = pca_pipeline.fit_transform(X_train_raw)</span><br><span class="line">X_test_pca  = pca_pipeline.transform(X_test_raw)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;PCA train/test shapes:&quot;</span>, X_train_pca.shape, X_test_pca.shape)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>PCA train/test shapes: (3415, 9) (854, 9)
+</code></pre>
+<p>Feature engineering plays a central role in aligning machine learning models with real-world credit decision logic.<br>In this project, two complementary feature engineering strategies are deliberately adopted to match the characteristics of different model families.</p>
+<p><strong>Strategy 1: PCA for Linear and Neural Models</strong><br>For linear models and neural networks, Principal Component Analysis (PCA) is applied after one-hot encoding.<br>This approach serves two main purposes:</p>
+<ul>
+<li>To mitigate multicollinearity introduced by high-dimensional categorical encoding</li>
+<li>To improve training stability and convergence behavior</li>
+</ul>
+<p>PCA retains 95% of the original variance, ensuring that most informational content is preserved while reducing feature dimensionality.</p>
+<p><strong>Strategy 2: Business-Driven Feature Engineering for Tree-Based Models</strong><br>Tree-based models are inherently robust to multicollinearity and do not require feature scaling.<br>Instead of dimensionality reduction, domain-informed features are constructed to better reflect creditworthiness and repayment capacity.</p>
+<p>Key engineered features include:</p>
+<ul>
+<li><strong>Total Assets</strong></li>
+<li><strong>Income-to-Loan Ratio</strong></li>
+<li><strong>Asset-to-Loan Ratio</strong></li>
+<li><strong>Asset-to-Income Ratio</strong></li>
+<li><strong>Income per Dependent</strong></li>
+</ul>
+<p>These features encode economically meaningful relationships commonly used in credit underwriting, enabling tree models to capture non-linear interactions aligned with financial reasoning.</p>
+<p>By adopting differentiated feature engineering strategies, the project ensures that each model type operates under conditions best suited to its inductive bias and optimization behavior.</p>
+<hr>
+<p>特征工程是连接<strong>原始数据</strong>与<strong>信贷决策逻辑</strong>的关键桥梁。<br>在本项目中，并未采用“一套特征适配所有模型”的方式，而是<strong>根据不同模型的结构特性，设计了两条互补的特征工程路径</strong>。</p>
+<p><strong>策略一：面向线性模型与神经网络的 PCA 降维</strong><br>对于线性模型和神经网络，在 One-Hot 编码之后引入主成分分析（PCA）。<br>这一策略主要解决两个问题：</p>
+<ul>
+<li>One-Hot 编码带来的高维特征与多重共线性问题  </li>
+<li>模型训练过程中梯度不稳定、收敛效率低的问题</li>
+</ul>
+<p>PCA 保留了 95% 的原始数据方差，在有效降低维度的同时，最大程度保留信息含量，适合作为对线性与神经模型的通用输入表示。</p>
+<p><strong>策略二：面向树模型的业务驱动特征工程</strong><br>树模型天然不受多重共线性影响，也不依赖特征缩放，因此不适合使用 PCA 进行降维。<br>在此情况下，本项目选择通过<strong>业务视角构造具有金融含义的特征</strong>，直接强化模型对信贷逻辑的学习能力。</p>
+<p>构造的核心特征包括：</p>
+<ul>
+<li><strong>总资产水平</strong>  </li>
+<li><strong>收入与贷款金额之比</strong>  </li>
+<li><strong>资产与贷款金额之比</strong>  </li>
+<li><strong>资产与收入之比</strong>  </li>
+<li><strong>人均可支配收入（按赡养人数调整）</strong></li>
+</ul>
+<p>这些特征直接对应信贷审批中对<strong>还款能力、风险缓冲与负担压力</strong>的判断方式，使模型学习到的非线性关系更符合真实金融决策逻辑。</p>
+<p>通过针对不同模型采用差异化的特征工程策略，本项目确保各类模型在最适合其结构假设的条件下运行，从而提升整体建模效果与解释一致性。</p>
+<h2 id="Chapter-5｜Modeling-Strategy"><a href="#Chapter-5｜Modeling-Strategy" class="headerlink" title="Chapter 5｜Modeling Strategy"></a>Chapter 5｜Modeling Strategy</h2><blockquote>
+<p>第 5 章｜建模策略</p>
+</blockquote>
+<h3 id="Train-Representative-Models-Keep-it-minimal-but-strong"><a href="#Train-Representative-Models-Keep-it-minimal-but-strong" class="headerlink" title="Train Representative Models (Keep it minimal but strong)"></a>Train Representative Models (Keep it minimal but strong)</h3><h3 id="训练代表性模型（保持模型简洁但强大）"><a href="#训练代表性模型（保持模型简洁但强大）" class="headerlink" title="训练代表性模型（保持模型简洁但强大）"></a>训练代表性模型（保持模型简洁但强大）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">num_features_fe = X_train_fe_raw.select_dtypes(include=[<span class="string">&quot;int64&quot;</span>, <span class="string">&quot;float64&quot;</span>]).columns.tolist()</span><br><span class="line">cat_features_fe = X_train_fe_raw.select_dtypes(include=[<span class="string">&quot;object&quot;</span>]).columns.tolist()</span><br><span class="line"></span><br><span class="line">numeric_scaled = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;median&quot;</span>)),</span><br><span class="line">    (<span class="string">&quot;scaler&quot;</span>, StandardScaler()),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">numeric_noscale = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;median&quot;</span>)),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">categorical = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;imputer&quot;</span>, SimpleImputer(strategy=<span class="string">&quot;most_frequent&quot;</span>)),</span><br><span class="line">    (<span class="string">&quot;onehot&quot;</span>, OneHotEncoder(drop=<span class="string">&quot;first&quot;</span>, handle_unknown=<span class="string">&quot;ignore&quot;</span>)),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">preprocessor_scaled_fe = ColumnTransformer(</span><br><span class="line">    transformers=[</span><br><span class="line">        (<span class="string">&quot;num&quot;</span>, numeric_scaled, num_features_fe),</span><br><span class="line">        (<span class="string">&quot;cat&quot;</span>, categorical, cat_features_fe),</span><br><span class="line">    ],</span><br><span class="line">    remainder=<span class="string">&quot;drop&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">preprocessor_tree_fe = ColumnTransformer(</span><br><span class="line">    transformers=[</span><br><span class="line">        (<span class="string">&quot;num&quot;</span>, numeric_noscale, num_features_fe),</span><br><span class="line">        (<span class="string">&quot;cat&quot;</span>, categorical, cat_features_fe),</span><br><span class="line">    ],</span><br><span class="line">    remainder=<span class="string">&quot;drop&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 1) Logistic Regression (PCA)  [unchanged variable name]</span></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line">lr_pca = LogisticRegression(random_state=<span class="number">42</span>, max_iter=<span class="number">1000</span>)</span><br><span class="line">lr_pca.fit(X_train_pca, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 2) Neural Network (FE) - scaled FE pipeline  [keep nn_fe_pipeline]</span></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line">nn_fe_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;preprocess_scaled&quot;</span>, preprocessor_scaled_fe),</span><br><span class="line">    (<span class="string">&quot;mlp&quot;</span>, MLPClassifier(</span><br><span class="line">        hidden_layer_sizes=(<span class="number">64</span>, <span class="number">32</span>),</span><br><span class="line">        activation=<span class="string">&quot;relu&quot;</span>,</span><br><span class="line">        solver=<span class="string">&quot;adam&quot;</span>,</span><br><span class="line">        max_iter=<span class="number">300</span>,</span><br><span class="line">        random_state=<span class="number">42</span>,</span><br><span class="line">        early_stopping=<span class="literal">True</span></span><br><span class="line">    ))</span><br><span class="line">])</span><br><span class="line">nn_fe_pipeline.fit(X_train_fe_raw, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 3) Random Forest (FE) - no scaling  [keep rf_pipeline]</span></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line">rf_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;preprocess_tree&quot;</span>, preprocessor_tree_fe),</span><br><span class="line">    (<span class="string">&quot;rf&quot;</span>, RandomForestClassifier(</span><br><span class="line">        n_estimators=<span class="number">200</span>,</span><br><span class="line">        random_state=<span class="number">42</span>,</span><br><span class="line">        n_jobs=-<span class="number">1</span></span><br><span class="line">    )),</span><br><span class="line">])</span><br><span class="line">rf_pipeline.fit(X_train_fe_raw, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 4) LightGBM (FE) - no scaling + silent logs  [keep lgbm_pipeline]</span></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line">lgbm_pipeline = Pipeline(steps=[</span><br><span class="line">    (<span class="string">&quot;preprocess_tree&quot;</span>, preprocessor_tree_fe),</span><br><span class="line">    (<span class="string">&quot;lgbm&quot;</span>, LGBMClassifier(</span><br><span class="line">        n_estimators=<span class="number">200</span>,</span><br><span class="line">        learning_rate=<span class="number">0.05</span>,</span><br><span class="line">        subsample=<span class="number">0.8</span>,</span><br><span class="line">        colsample_bytree=<span class="number">0.8</span>,</span><br><span class="line">        random_state=<span class="number">42</span>,</span><br><span class="line">        n_jobs=-<span class="number">1</span>,</span><br><span class="line">        verbose=-<span class="number">1</span>  <span class="comment"># key: silence LightGBM training logs</span></span><br><span class="line">    )),</span><br><span class="line">])</span><br><span class="line">lgbm_pipeline.fit(X_train_fe_raw, y_train)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Models trained: LR(PCA), NN(FE), RF(FE), LightGBM(FE)&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>Models trained: LR(PCA), NN(FE), RF(FE), LightGBM(FE)
+</code></pre>
+<p>The modeling strategy in this project is designed to systematically benchmark different classes of machine learning models under consistent evaluation conditions.<br>Rather than maximizing model variety, the focus is on comparing representative algorithms with distinct inductive biases and practical relevance to credit decisioning.</p>
+<p>The evaluated models can be grouped into three categories:</p>
+<p><strong>Baseline Linear Model</strong><br>Logistic Regression is used as a baseline classifier due to its simplicity, interpretability, and widespread adoption in traditional credit scoring.<br>To address multicollinearity and high dimensionality introduced by one-hot encoding, Logistic Regression is trained on PCA-transformed features.</p>
+<p><strong>Neural Network Models</strong><br>Feedforward neural networks are evaluated to capture non-linear relationships beyond linear decision boundaries.<br>Two variants are considered:</p>
+<ul>
+<li>Neural networks trained on PCA-transformed features</li>
+<li>Neural networks trained on business-engineered features</li>
+</ul>
+<p>This comparison allows assessment of whether domain-informed feature construction improves learning efficiency and predictive performance.</p>
+<p><strong>Tree-Based Models</strong><br>Tree-based algorithms, including Decision Tree, Random Forest, XGBoost, and LightGBM, are evaluated due to their strong performance in structured tabular data and widespread use in industry credit models.<br>These models are trained on business-engineered features without PCA, leveraging their ability to handle non-linearity and feature interactions directly.</p>
+<p>Hyperparameter tuning is applied selectively using GridSearchCV and RandomizedSearchCV to enhance performance while maintaining computational efficiency and reproducibility.</p>
+<hr>
+<p>本项目的建模策略并非追求模型数量，而是通过<strong>系统性对比不同模型范式</strong>，评估其在信贷审批场景下的实际表现与适用性。</p>
+<p>整体建模思路可以划分为三类模型路径：</p>
+<p><strong>基线线性模型</strong><br>逻辑回归作为基线模型被纳入比较，其原因在于该模型结构简单、可解释性强，且在传统信用评分体系中具有广泛应用。<br>为缓解 One-Hot 编码带来的高维与共线性问题，逻辑回归模型基于 PCA 降维后的特征进行训练。</p>
+<p><strong>神经网络模型</strong><br>前馈神经网络用于捕捉超越线性边界的非线性关系，以评估其在信贷数据中的潜在优势。<br>在实现上，对比了两种输入形式：</p>
+<ul>
+<li>基于 PCA 特征的神经网络  </li>
+<li>基于业务特征工程的神经网络</li>
+</ul>
+<p>该设计用于验证：<strong>具备金融含义的特征是否能够提升神经网络的学习效率与预测能力</strong>。</p>
+<p><strong>树模型体系</strong><br>树模型（包括 Decision Tree、Random Forest、XGBoost 与 LightGBM）因其在结构化表格数据上的优异表现而被重点评估。<br>这些模型直接使用业务构造特征进行训练，充分发挥其对非线性关系和特征交互的建模能力。</p>
+<p>在保证结果可复现性的前提下，本项目对关键模型进行了有限度的超参数调优，以平衡模型性能、计算成本与工程可行性。</p>
+<h2 id="Chapter-6｜Model-Evaluation-Comparison"><a href="#Chapter-6｜Model-Evaluation-Comparison" class="headerlink" title="Chapter 6｜Model Evaluation &amp; Comparison"></a>Chapter 6｜Model Evaluation &amp; Comparison</h2><blockquote>
+<p>第 6 章｜模型评估与对比</p>
+</blockquote>
+<h4 id="Unified-Evaluation-Table-Best-Confusion-Matrix-ROC-Top-Models"><a href="#Unified-Evaluation-Table-Best-Confusion-Matrix-ROC-Top-Models" class="headerlink" title="Unified Evaluation Table + Best Confusion Matrix + ROC (Top Models)"></a>Unified Evaluation Table + Best Confusion Matrix + ROC (Top Models)</h4><h4 id="统一评价表-最佳混淆矩阵-ROC（最佳模型）"><a href="#统一评价表-最佳混淆矩阵-ROC（最佳模型）" class="headerlink" title="统一评价表 + 最佳混淆矩阵 + ROC（最佳模型）"></a>统一评价表 + 最佳混淆矩阵 + ROC（最佳模型）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> (</span><br><span class="line">    accuracy_score, precision_score, recall_score, f1_score,</span><br><span class="line">    roc_auc_score, confusion_matrix, roc_curve</span><br><span class="line">)</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">eval_binary</span>(<span class="params">model, X_te, y_te, name</span>):</span><br><span class="line">    y_pred = model.predict(X_te)</span><br><span class="line">    y_proba = model.predict_proba(X_te)[:, <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="string">&quot;Model&quot;</span>: name,</span><br><span class="line">        <span class="string">&quot;Accuracy&quot;</span>: accuracy_score(y_te, y_pred),</span><br><span class="line">        <span class="string">&quot;Precision&quot;</span>: precision_score(y_te, y_pred),</span><br><span class="line">        <span class="string">&quot;Recall&quot;</span>: recall_score(y_te, y_pred),</span><br><span class="line">        <span class="string">&quot;F1-score&quot;</span>: f1_score(y_te, y_pred),</span><br><span class="line">        <span class="string">&quot;ROC-AUC&quot;</span>: roc_auc_score(y_te, y_proba),</span><br><span class="line">        <span class="string">&quot;y_pred&quot;</span>: y_pred,</span><br><span class="line">        <span class="string">&quot;y_proba&quot;</span>: y_proba</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Evaluate</span></span><br><span class="line">out_lr  = eval_binary(lr_pca, X_test_pca, y_test, <span class="string">&quot;Logistic Regression (PCA)&quot;</span>)</span><br><span class="line">out_nn  = eval_binary(nn_fe_pipeline, X_test_fe_raw, y_test, <span class="string">&quot;Neural Network (FE)&quot;</span>)</span><br><span class="line">out_rf  = eval_binary(rf_pipeline, X_test_fe_raw, y_test, <span class="string">&quot;Random Forest (FE)&quot;</span>)</span><br><span class="line">out_lgb = eval_binary(lgbm_pipeline, X_test_fe_raw, y_test, <span class="string">&quot;LightGBM (FE)&quot;</span>)</span><br><span class="line"></span><br><span class="line">results = pd.DataFrame([</span><br><span class="line">    &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> out_lr.items() <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&quot;y_pred&quot;</span>,<span class="string">&quot;y_proba&quot;</span>]&#125;,</span><br><span class="line">    &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> out_nn.items() <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&quot;y_pred&quot;</span>,<span class="string">&quot;y_proba&quot;</span>]&#125;,</span><br><span class="line">    &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> out_rf.items() <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&quot;y_pred&quot;</span>,<span class="string">&quot;y_proba&quot;</span>]&#125;,</span><br><span class="line">    &#123;k:v <span class="keyword">for</span> k,v <span class="keyword">in</span> out_lgb.items() <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&quot;y_pred&quot;</span>,<span class="string">&quot;y_proba&quot;</span>]&#125;,</span><br><span class="line">]).sort_values(<span class="string">&quot;ROC-AUC&quot;</span>, ascending=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">display(results)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Confusion matrix for best model (LightGBM)</span></span><br><span class="line">cm = confusion_matrix(y_test, out_lgb[<span class="string">&quot;y_pred&quot;</span>])</span><br><span class="line">plt.figure(figsize=(<span class="number">4</span>, <span class="number">3</span>))</span><br><span class="line">sns.heatmap(cm, annot=<span class="literal">True</span>, fmt=<span class="string">&quot;d&quot;</span>, cmap=<span class="string">&quot;Blues&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;Confusion Matrix – LightGBM&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;Predicted&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;Actual&quot;</span>)</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="comment"># ROC curves (Top models)</span></span><br><span class="line">plt.figure(figsize=(<span class="number">7</span>, <span class="number">5</span>))</span><br><span class="line"><span class="keyword">for</span> out <span class="keyword">in</span> [out_lgb, out_rf, out_lr]:</span><br><span class="line">    fpr, tpr, _ = roc_curve(y_test, out[<span class="string">&quot;y_proba&quot;</span>])</span><br><span class="line">    auc = roc_auc_score(y_test, out[<span class="string">&quot;y_proba&quot;</span>])</span><br><span class="line">    plt.plot(fpr, tpr, label=<span class="string">f&#x27;<span class="subst">&#123;out[<span class="string">&quot;Model&quot;</span>]&#125;</span> (AUC=<span class="subst">&#123;auc:<span class="number">.4</span>f&#125;</span>)&#x27;</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>, <span class="number">1</span>], [<span class="number">0</span>, <span class="number">1</span>], <span class="string">&quot;k--&quot;</span>)</span><br><span class="line">plt.title(<span class="string">&quot;ROC Curves (Selected Models)&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;False Positive Rate&quot;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&quot;True Positive Rate&quot;</span>)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.tight_layout()</span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+c:\Users\PALUA\anaconda3\envs\tita_rf\lib\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but LGBMClassifier was fitted with feature names
+  warnings.warn(
+</code></pre>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style><p></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model</th>
+      <th>Accuracy</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>F1-score</th>
+      <th>ROC-AUC</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>Random Forest (FE)</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>LightGBM (FE)</td>
+      <td>0.998829</td>
+      <td>0.998120</td>
+      <td>1.000000</td>
+      <td>0.999059</td>
+      <td>0.999994</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Neural Network (FE)</td>
+      <td>0.916862</td>
+      <td>0.924354</td>
+      <td>0.943503</td>
+      <td>0.933830</td>
+      <td>0.977127</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Logistic Regression (PCA)</td>
+      <td>0.920375</td>
+      <td>0.929499</td>
+      <td>0.943503</td>
+      <td>0.936449</td>
+      <td>0.972509</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+    
+<p><img src="/.com//loan_approval_prediction_24_2.png" alt="png"></p>
+<p><img src="/.com//loan_approval_prediction_24_3.png" alt="png"></p>
+<h3 id="Result-Interpretation"><a href="#Result-Interpretation" class="headerlink" title="Result Interpretation"></a>Result Interpretation</h3><p>The results show a clear performance hierarchy across models.<br>LightGBM (FE) achieves the best overall performance, with an accuracy of 98.36% and an ROC-AUC close to 1.0, indicating excellent discriminatory power.<br>The confusion matrix reveals only 7 false approvals and 7 false rejections, suggesting strong risk control without excessive conservatism.<br>Compared with linear and neural models, tree-based ensembles better capture non-linear credit risk patterns, especially when combined with domain-informed features.<br>The ROC curves further confirm that LightGBM maintains a high true positive rate even at very low false positive rates, making it well suited for risk-sensitive loan approval decisions.</p>
+<p>结果显示各模型之间存在明显的性能层级。<br>LightGBM（FE）取得了最佳的整体性能，准确率达到 98.36%，ROC-AUC 值接近 1.0，表明其具有出色的区分能力。<br>混淆矩阵显示仅有 7 个误批和 7 个误拒，表明其在风险控制方面表现出色，且不至于过于保守。<br>与线性模型和神经网络模型相比，基于树的集成模型能够更好地捕捉非线性信用风险模式，尤其是在结合领域特征时。<br>ROC 曲线进一步证实，即使在误批率极低的情况下，LightGBM 仍能保持较高的真阳性率，使其非常适合用于风险敏感型贷款审批决策。</p>
+<p>Model evaluation is conducted under a unified framework to ensure fair and meaningful comparison across different algorithms.<br>Given the risk-sensitive nature of loan approval decisions, evaluation focuses not only on overall accuracy but also on the model’s ability to discriminate between approved and rejected applications.</p>
+<p><strong>Evaluation Metrics</strong><br>The primary evaluation metrics include:</p>
+<ul>
+<li><strong>Accuracy</strong>, to measure overall classification correctness</li>
+<li><strong>Precision and Recall</strong>, to assess trade-offs between false approvals and false rejections</li>
+<li><strong>F1-score</strong>, to balance precision and recall under class imbalance</li>
+<li><strong>ROC-AUC</strong>, to evaluate the model’s discriminatory power across decision thresholds</li>
+</ul>
+<p>These metrics collectively provide a comprehensive view of model performance from both statistical and business risk perspectives.</p>
+<p><strong>Comparative Results</strong><br>Across all evaluated models, tree-based ensemble methods consistently outperform linear and PCA-based models.<br>Among them, LightGBM demonstrates the strongest overall performance, achieving high ROC-AUC with minimal misclassification.</p>
+<p>Neural networks trained on business-engineered features show noticeable improvement compared to PCA-based neural models, confirming the value of domain-informed feature construction.<br>However, their performance remains inferior to ensemble tree models on this structured tabular dataset.</p>
+<p>Based on both quantitative metrics and practical considerations, LightGBM is selected as the best-performing and most deployment-ready model.</p>
+<hr>
+<p>在模型评估阶段，本项目采用<strong>统一且可对比的评估框架</strong>，以确保不同模型之间的性能差异具有实际意义。<br>考虑到贷款审批属于<strong>风险高度敏感的决策任务</strong>，评估标准不仅关注整体准确率，更重视模型对风险样本的区分能力。</p>
+<p><strong>评估指标选择</strong><br>本项目综合使用以下评估指标：</p>
+<ul>
+<li><strong>准确率（Accuracy）</strong>：衡量整体预测正确性  </li>
+<li><strong>精确率与召回率（Precision &amp; Recall）</strong>：用于分析误批与误拒之间的权衡  </li>
+<li><strong>F1 值</strong>：在类别不平衡情况下综合评价模型表现  </li>
+<li><strong>ROC-AUC</strong>：衡量模型在不同阈值下的整体区分能力</li>
+</ul>
+<p>这些指标共同反映模型在统计表现与业务风险控制层面的综合能力。</p>
+<p><strong>模型对比结果</strong><br>实验结果显示，<strong>基于树的集成模型整体显著优于线性模型与 PCA 版本模型</strong>。<br>其中，LightGBM 在 ROC-AUC 与误分类控制方面表现最为突出，展现出极强的区分能力。</p>
+<p>采用业务特征工程的神经网络相较于 PCA 输入版本有明显性能提升，验证了领域知识在特征构造中的重要性。<br>但在该结构化信贷数据集上，其整体表现仍不及树模型集成方法。</p>
+<p>综合模型性能、稳定性以及工程落地可行性，<strong>LightGBM 被选为本项目的最优模型方案</strong>。</p>
+<h2 id="Chapter-7｜Model-Interpretability-SHAP"><a href="#Chapter-7｜Model-Interpretability-SHAP" class="headerlink" title="Chapter 7｜Model Interpretability (SHAP)"></a>Chapter 7｜Model Interpretability (SHAP)</h2><blockquote>
+<p>第 7 章｜模型可解释性分析（SHAP）</p>
+</blockquote>
+<h4 id="SHAP-for-LightGBM-Only-Separated-Clean"><a href="#SHAP-for-LightGBM-Only-Separated-Clean" class="headerlink" title="SHAP for LightGBM Only (Separated &amp; Clean)"></a>SHAP for LightGBM Only (Separated &amp; Clean)</h4><h4 id="仅适用于-LightGBM-的-SHAP（已分离且清洁）"><a href="#仅适用于-LightGBM-的-SHAP（已分离且清洁）" class="headerlink" title="仅适用于 LightGBM 的 SHAP（已分离且清洁）"></a>仅适用于 LightGBM 的 SHAP（已分离且清洁）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Extract trained LightGBM estimator and transformed feature matrix for SHAP</span></span><br><span class="line">lgbm_estimator = lgbm_pipeline.named_steps[<span class="string">&quot;lgbm&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Transform test features through the tree preprocessor</span></span><br><span class="line">X_test_lgbm = lgbm_pipeline.named_steps[<span class="string">&quot;preprocess_tree&quot;</span>].transform(X_test_fe_raw)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get feature names after preprocessing</span></span><br><span class="line">feature_names = lgbm_pipeline.named_steps[<span class="string">&quot;preprocess_tree&quot;</span>].get_feature_names_out()</span><br><span class="line"></span><br><span class="line"><span class="comment"># SHAP explanation</span></span><br><span class="line">explainer = shap.TreeExplainer(lgbm_estimator)</span><br><span class="line">shap_values = explainer.shap_values(X_test_lgbm)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary plots</span></span><br><span class="line">shap.summary_plot(shap_values, X_test_lgbm, feature_names=feature_names, plot_type=<span class="string">&quot;dot&quot;</span>)</span><br><span class="line">shap.summary_plot(shap_values, X_test_lgbm, feature_names=feature_names, plot_type=<span class="string">&quot;bar&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/.com//loan_approval_prediction_29_1.png" alt="png"><br><img src="/.com//loan_approval_prediction_29_3.png" alt="png"></p>
+<p>Model interpretability is a critical requirement in credit decisioning systems, where predictions directly affect financial outcomes and regulatory compliance.<br>To ensure transparency and trustworthiness, SHAP (SHapley Additive exPlanations) is applied to interpret the predictions of the selected LightGBM model.</p>
+<p>SHAP values quantify the contribution of each feature to an individual prediction, providing both global and local interpretability.<br>This enables a detailed understanding of how different factors influence loan approval decisions.</p>
+<p><strong>Key Insights from SHAP Analysis</strong><br>The SHAP summary results indicate that:</p>
+<ul>
+<li>Credit-related features (e.g., credit score) play a dominant role in approval decisions  </li>
+<li>Income and asset-based ratios strongly influence predicted risk levels  </li>
+<li>Loan characteristics such as loan amount and term affect approval likelihood in non-linear ways</li>
+</ul>
+<p>These findings are fully aligned with standard credit underwriting principles, reinforcing the model’s economic plausibility and decision transparency.</p>
+<hr>
+<p>在信贷审批场景中，模型性能本身并不足以支撑真实业务应用，<strong>模型的可解释性同样是核心要求</strong>。<br>为确保预测结果具备透明性与可审计性，本项目对最终选定的 LightGBM 模型引入 SHAP 方法进行解释分析。</p>
+<p>SHAP 值能够量化各特征对单次预测结果的边际贡献，从而同时支持：</p>
+<ul>
+<li><strong>全局层面的特征重要性分析</strong></li>
+<li><strong>个体层面的决策解释</strong></li>
+</ul>
+<p><strong>SHAP 结果的主要结论</strong><br>分析结果显示：</p>
+<ul>
+<li>信用评分等信用相关变量在审批决策中占据主导地位  </li>
+<li>收入与资产比率对风险判断具有显著影响  </li>
+<li>贷款金额与期限对审批结果的影响呈现明显的非线性特征</li>
+</ul>
+<p>上述发现与传统信贷风控中的核心判断逻辑高度一致，说明模型并非“黑箱决策”，而是学习到了<strong>符合金融直觉的风险结构</strong>，具备实际应用价值。</p>
+<h2 id="Chapter-8｜Final-Recommendation-Business-Implications"><a href="#Chapter-8｜Final-Recommendation-Business-Implications" class="headerlink" title="Chapter 8｜Final Recommendation &amp; Business Implications"></a>Chapter 8｜Final Recommendation &amp; Business Implications</h2><blockquote>
+<p>第 8 章｜最终模型推荐与业务启示</p>
+</blockquote>
+<p>Based on comprehensive evaluation results, LightGBM is recommended as the final model for loan approval prediction.<br>The recommendation is supported by the following considerations:</p>
+<ul>
+<li>Superior predictive performance across multiple evaluation metrics  </li>
+<li>Strong capability in modeling non-linear relationships and feature interactions  </li>
+<li>Fast inference speed and scalability for production deployment  </li>
+<li>Robust interpretability through SHAP-based explanations</li>
+</ul>
+<p><strong>Business Implications</strong><br>The model outputs can support several operational decisions:</p>
+<ul>
+<li>Applicants with higher credit scores and favorable income-to-loan ratios are associated with lower predicted risk, providing a basis for differentiated pricing strategies  </li>
+<li>Asset-to-loan and income-based ratios can inform credit limit adjustments or collateral requirements  </li>
+<li>SHAP-based explanations enable transparent decision communication, supporting regulatory and compliance requirements  </li>
+<li>Overall, the proposed model provides a practical and interpretable foundation for risk-aware automated credit decisioning.</li>
+</ul>
+<hr>
+<p>综合模型评估结果，本项目最终推荐 <strong>LightGBM</strong> 作为贷款审批预测的部署模型，主要基于以下理由：</p>
+<ul>
+<li>在多项评估指标上表现最优  </li>
+<li>能够有效建模复杂的非线性关系与特征交互  </li>
+<li>推理速度快，具备良好的工程扩展性  </li>
+<li>可结合 SHAP 方法提供稳定且清晰的决策解释</li>
+</ul>
+<p><strong>业务层面的启示</strong><br>模型预测结果可直接支持多项信贷运营决策：</p>
+<ul>
+<li>较高信用评分与合理的收入负债结构对应更低风险，可作为利率分层与审批策略依据  </li>
+<li>资产与收入相关比率可用于动态调整授信额度或抵押要求  </li>
+<li>基于 SHAP 的解释机制有助于向客户或监管机构清晰说明审批原因</li>
+</ul>
+<p>总体而言，该模型为<strong>风险可控、可解释、可落地的信贷自动化决策系统</strong>提供了可行方案。</p>
+<h2 id="Chapter-9｜Limitations-Ethical-Considerations"><a href="#Chapter-9｜Limitations-Ethical-Considerations" class="headerlink" title="Chapter 9｜Limitations &amp; Ethical Considerations"></a>Chapter 9｜Limitations &amp; Ethical Considerations</h2><blockquote>
+<p>第 9 章｜局限性与伦理考量</p>
+</blockquote>
+<p><strong>Limitations</strong><br>This project is subject to several limitations:</p>
+<ul>
+<li>The dataset size and feature scope are limited compared to real-world production systems  </li>
+<li>Behavioral, transactional, and historical delinquency data are not available  </li>
+<li>Dimensionality reduction via PCA improves stability but reduces direct interpretability for linear models</li>
+</ul>
+<p>Future work may incorporate richer financial and behavioral data, explore profit-based threshold optimization, and conduct fairness audits across demographic groups.</p>
+<p><strong>Ethical Considerations</strong><br>Responsible use of machine learning in credit decisioning requires careful ethical oversight:</p>
+<ul>
+<li>Ensure transparency through explainable model outputs  </li>
+<li>Monitor and mitigate potential bias against protected or vulnerable groups  </li>
+<li>Protect customer data in accordance with data privacy regulations  </li>
+<li>Maintain human-in-the-loop review mechanisms for edge cases</li>
+</ul>
+<hr>
+<p><strong>项目局限性</strong><br>本项目仍存在一定限制：</p>
+<ul>
+<li>数据规模与特征维度相较真实生产系统较为有限  </li>
+<li>缺乏行为数据、交易记录与历史违约信息  </li>
+<li>PCA 在提升稳定性的同时，降低了部分模型的可解释性</li>
+</ul>
+<p>后续可通过引入更丰富的金融与行为数据、基于收益的阈值优化以及公平性评估，进一步提升模型的实用性与合规性。</p>
+<p><strong>伦理与合规考量</strong><br>在信贷场景中应用机器学习模型必须重视伦理问题：</p>
+<ul>
+<li>通过可解释模型保障决策透明度  </li>
+<li>持续监控并缓解潜在的群体偏差风险  </li>
+<li>严格遵守数据隐私与安全规范  </li>
+<li>对边界案例保留人工复核机制</li>
+</ul>
+<p>这些措施有助于确保模型在提升效率的同时，符合金融行业对公平性与责任性的基本要求。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">Jin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2026/01/21/loan_approval_prediction/">http://example.com/2026/01/21/loan_approval_prediction/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/">项目展示</a><a class="post-meta__tags" href="/tags/%E4%BF%A1%E8%B4%B7%E9%A3%8E%E6%8E%A7/">信贷风控</a><a class="post-meta__tags" href="/tags/Loan-Approval/">Loan Approval</a><a class="post-meta__tags" href="/tags/LightGBM/">LightGBM</a><a class="post-meta__tags" href="/tags/%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/">随机森林</a><a class="post-meta__tags" href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">逻辑回归</a><a class="post-meta__tags" href="/tags/SHAP/">SHAP</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/05/04/customer_churn_prediction_model.ipynb/" title="Customer Churn Prediction Model"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">Customer Churn Prediction Model</div></div><div class="info-2"><div class="info-item-1">Telco Customer Churn Prediction1. 项目介绍 &amp; 目标说明“Predict behavior to retain customers. You can analyze all relevant customer data and develop focused customer retention programs.” [IBM Sample Data Sets] https://www.kaggle.com/datasets/blastchar/telco-customer-churn?resource=download 2. 导入库 &amp; 加载数据1234567891011121314151617181920212223242526import warningswarnings.filterwarnings(&#x27;ignore&#x27;)# 2. 导入库 &amp; 加载数据import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/30/House_predict/" title="房价预测项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-30</div><div class="info-item-2">房价预测项目总结</div></div><div class="info-2"><div class="info-item-1">导包 描述性统计 查看缺失值1!where python  # Windows  12345import pandas as pdtrain = pd.read_csv(&#x27;train.csv&#x27;)test = pd.read_csv(&#x27;test.csv&#x27;)   123456789# 查看数据形状print(&quot;Train shape:&quot;, train.shape)print(&quot;Test shape:&quot;, test.shape)# 查看前5行train.head()# 查看数据概况train.info()  Train shape: (1460, 81) Test shape: (1459, 80) &lt;class &#39;pandas.core.frame.DataFrame&#39;&gt; RangeIndex: 1460 entries, 0 to 1459 Data columns (total 81 columns):  #   Column         Non-Null Count...</div></div></div></a><a class="pagination-related" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-28</div><div class="info-item-2">泰坦尼克号项目总结</div></div><div class="info-2"><div class="info-item-1">1. 环境配置、导包123456789101112131415!where python  # Windows#配置虚拟环境 用Anaconda Prompt 创建虚拟环境下载所需的包 方便后续调用合适的环境``    ```python# Titanic 数据分析：Step 1 - 数据导入import pandas as pdtrain_df = pd.read_csv(&quot;train.csv&quot;)test_df = pd.read_csv(&quot;test.csv&quot;)train_df.head()           .dataframe tbody tr th:only-of-type {         vertical-align: middle;     }  .dataframe tbody tr th &#123;     vertical-align: top; &#125;  .dataframe thead th &#123;     text-align: right; &#125;                    ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Jin</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Jin-123-321"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">欢迎来到 Jin 的机器学习旅途博客 ✨<br>用代码探索世界，以图表理解数据！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-1-Problem-Definition-Business-Context"><span class="toc-number">1.</span> <span class="toc-text">Chapter 1 | Problem Definition &amp; Business Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-2%EF%BD%9CDataset-Overview"><span class="toc-number">2.</span> <span class="toc-text">Chapter 2｜Dataset Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-3%EF%BD%9CData-Preprocessing-Strategy"><span class="toc-number">3.</span> <span class="toc-text">Chapter 3｜Data Preprocessing Strategy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Preprocessing-Setup-One-Stratified-Split-Index-based"><span class="toc-number">3.0.1.</span> <span class="toc-text">Preprocessing Setup + One Stratified Split (Index-based)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%84%E5%A4%84%E7%90%86%E8%AE%BE%E7%BD%AE-%E4%B8%80%E6%AC%A1%E5%88%86%E5%B1%82%E6%8B%86%E5%88%86%EF%BC%88%E5%9F%BA%E4%BA%8E%E7%B4%A2%E5%BC%95%EF%BC%89"><span class="toc-number">3.0.2.</span> <span class="toc-text">预处理设置 + 一次分层拆分（基于索引）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Column-wise-Impute-One-hot-Standardize-Reusable-Pipelines"><span class="toc-number">3.0.3.</span> <span class="toc-text">Column-wise Impute + One-hot + Standardize (Reusable Pipelines)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%97%E5%90%91%E9%87%8F%E6%8F%92%E5%80%BC-%E4%B8%80%E7%BB%B4%E7%BC%96%E7%A0%81-%E6%A0%87%E5%87%86%E5%8C%96%EF%BC%88%E5%8F%AF%E9%87%8D%E7%94%A8%E7%AE%A1%E9%81%93%EF%BC%89"><span class="toc-number">3.0.4.</span> <span class="toc-text">列向量插值 + 一维编码 + 标准化（可重用管道）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-4%EF%BD%9CFeature-Engineering-Design"><span class="toc-number">4.</span> <span class="toc-text">Chapter 4｜Feature Engineering Design</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Final-Cell-D%EF%BC%9ABusiness-Feature-Engineering-Fixes-the-%E2%80%9Cscaled-ratio%E2%80%9D-issue"><span class="toc-number">4.0.1.</span> <span class="toc-text">Final Cell D：Business Feature Engineering (Fixes the “scaled-ratio” issue)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E5%8D%95%E5%85%83%E6%A0%BC-D%EF%BC%9A%E4%B8%9A%E5%8A%A1%E7%89%B9%E5%BE%81%E5%B7%A5%E7%A8%8B%EF%BC%88%E4%BF%AE%E5%A4%8D%E2%80%9C%E7%BC%A9%E6%94%BE%E6%AF%94%E4%BE%8B%E2%80%9D%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">4.0.2.</span> <span class="toc-text">最终单元格 D：业务特征工程（修复“缩放比例”问题）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Final-Cell-E%EF%BC%9APCA-Pipeline-95-variance-fit-on-train-only"><span class="toc-number">4.0.3.</span> <span class="toc-text">Final Cell E：PCA Pipeline (95% variance, fit on train only)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E5%8D%95%E5%85%83%E6%A0%BC-E%EF%BC%9APCA-%E6%B5%81%E7%A8%8B%EF%BC%8895-%E6%96%B9%E5%B7%AE%EF%BC%8C%E4%BB%85%E5%AF%B9%E8%AE%AD%E7%BB%83%E9%9B%86%E8%BF%9B%E8%A1%8C%E6%8B%9F%E5%90%88%EF%BC%89"><span class="toc-number">4.0.4.</span> <span class="toc-text">最终单元格 E：PCA 流程（95% 方差，仅对训练集进行拟合）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-5%EF%BD%9CModeling-Strategy"><span class="toc-number">5.</span> <span class="toc-text">Chapter 5｜Modeling Strategy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Train-Representative-Models-Keep-it-minimal-but-strong"><span class="toc-number">5.1.</span> <span class="toc-text">Train Representative Models (Keep it minimal but strong)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%BB%A3%E8%A1%A8%E6%80%A7%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%BF%9D%E6%8C%81%E6%A8%A1%E5%9E%8B%E7%AE%80%E6%B4%81%E4%BD%86%E5%BC%BA%E5%A4%A7%EF%BC%89"><span class="toc-number">5.2.</span> <span class="toc-text">训练代表性模型（保持模型简洁但强大）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-6%EF%BD%9CModel-Evaluation-Comparison"><span class="toc-number">6.</span> <span class="toc-text">Chapter 6｜Model Evaluation &amp; Comparison</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unified-Evaluation-Table-Best-Confusion-Matrix-ROC-Top-Models"><span class="toc-number">6.0.1.</span> <span class="toc-text">Unified Evaluation Table + Best Confusion Matrix + ROC (Top Models)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E8%AF%84%E4%BB%B7%E8%A1%A8-%E6%9C%80%E4%BD%B3%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5-ROC%EF%BC%88%E6%9C%80%E4%BD%B3%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-number">6.0.2.</span> <span class="toc-text">统一评价表 + 最佳混淆矩阵 + ROC（最佳模型）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Result-Interpretation"><span class="toc-number">6.1.</span> <span class="toc-text">Result Interpretation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-7%EF%BD%9CModel-Interpretability-SHAP"><span class="toc-number">7.</span> <span class="toc-text">Chapter 7｜Model Interpretability (SHAP)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SHAP-for-LightGBM-Only-Separated-Clean"><span class="toc-number">7.0.1.</span> <span class="toc-text">SHAP for LightGBM Only (Separated &amp; Clean)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%85%E9%80%82%E7%94%A8%E4%BA%8E-LightGBM-%E7%9A%84-SHAP%EF%BC%88%E5%B7%B2%E5%88%86%E7%A6%BB%E4%B8%94%E6%B8%85%E6%B4%81%EF%BC%89"><span class="toc-number">7.0.2.</span> <span class="toc-text">仅适用于 LightGBM 的 SHAP（已分离且清洁）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-8%EF%BD%9CFinal-Recommendation-Business-Implications"><span class="toc-number">8.</span> <span class="toc-text">Chapter 8｜Final Recommendation &amp; Business Implications</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-9%EF%BD%9CLimitations-Ethical-Considerations"><span class="toc-number">9.</span> <span class="toc-text">Chapter 9｜Limitations &amp; Ethical Considerations</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/21/loan_approval_prediction/" title="loan approval prediction">loan approval prediction</a><time datetime="2026-01-20T16:00:00.000Z" title="Created 2026-01-21 00:00:00">2026-01-21</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/05/04/customer_churn_prediction_model.ipynb/" title="Customer Churn Prediction Model">Customer Churn Prediction Model</a><time datetime="2025-05-04T13:00:00.000Z" title="Created 2025-05-04 21:00:00">2025-05-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/30/House_predict/" title="房价预测项目总结">房价预测项目总结</a><time datetime="2025-03-29T16:00:00.000Z" title="Created 2025-03-30 00:00:00">2025-03-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号项目总结">泰坦尼克号项目总结</a><time datetime="2025-03-27T16:00:00.000Z" title="Created 2025-03-28 00:00:00">2025-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Jin</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>自然语言驱动的 BI 分析系统 | Jin's Portfolio</title><meta name="author" content="Jin"><meta name="copyright" content="Jin"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="用自然语言查询数据库，LLM 自动生成 SQL，支持智能路由、验证重试和业务洞察生成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言驱动的 BI 分析系统">
+<meta property="og:url" content="https://jin-123-321.github.io/2026/05/22/bi-nlp-agent/index.html">
+<meta property="og:site_name" content="Jin&#39;s Portfolio">
+<meta property="og:description" content="用自然语言查询数据库，LLM 自动生成 SQL，支持智能路由、验证重试和业务洞察生成">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jin-123-321.github.io/img/covers/bi-cover.png">
+<meta property="article:published_time" content="2026-05-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-05-22T07:44:21.107Z">
+<meta property="article:author" content="Jin">
+<meta property="article:tag" content="项目展示">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="SQL">
+<meta property="article:tag" content="数据可视化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jin-123-321.github.io/img/covers/bi-cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "自然语言驱动的 BI 分析系统",
+  "url": "https://jin-123-321.github.io/2026/05/22/bi-nlp-agent/",
+  "image": "https://jin-123-321.github.io/img/covers/bi-cover.png",
+  "datePublished": "2026-05-21T16:00:00.000Z",
+  "dateModified": "2026-05-22T07:44:21.107Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Jin",
+      "url": "https://jin-123-321.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://jin-123-321.github.io/2026/05/22/bi-nlp-agent/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '自然语言驱动的 BI 分析系统',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/"><i class="fa-fw fas fa-code"></i><span> 作品集</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-brain"></i><span> 机器学习</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/covers/bi-cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Jin's Portfolio</span></a><a class="nav-page-title" href="/"><span class="site-name">自然语言驱动的 BI 分析系统</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/"><i class="fa-fw fas fa-code"></i><span> 作品集</span></a></div><div class="menus_item"><a class="site-page" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"><i class="fa-fw fas fa-brain"></i><span> 机器学习</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">自然语言驱动的 BI 分析系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-05-21T16:00:00.000Z" title="发表于 2026-05-22 00:00:00">2026-05-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-05-22T07:44:21.107Z" title="更新于 2026-05-22 15:44:21">2026-05-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/">项目展示</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>让非技术用户用中文自然语言查询销售数据库，自动生成分析图表和洞察</td>
+</tr>
+<tr>
+<td><strong>技术方案</strong></td>
+<td>LLM 智能路由（本地 Ollama + 云端 DeepSeek），自动生成并验证 SQL</td>
+</tr>
+<tr>
+<td><strong>核心能力</strong></td>
+<td>复杂查询（窗口函数&#x2F;CTE&#x2F;分组极值）、SQL 自动纠错、业务洞察生成</td>
+</tr>
+<tr>
+<td><strong>技术栈</strong></td>
+<td>React 18 · Node.js 22 · SQLite · Ollama · DeepSeek API</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/Jin-123-321/bi-nlp-agent">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p>这是一个<strong>零 npm 依赖</strong>的全栈 BI 系统：前端 React 18 通过 CDN 加载，后端仅使用 Node.js 内置模块，数据库采用 SQLite 文件存储。最轻量的同时实现了复杂分析查询的自动生成。</p>
+<p>系统最核心的突破在于<strong>从规则引擎到 LLM 驱动的架构升级</strong>。旧版使用 <code>String.includes()</code> 关键词匹配理解用户意图，无法处理”每个国家分别在什么月份销量最低”这类需要分组极值的复杂查询（返回 116 行全量排列而非 19 行分组结果）。升级后的 LLM 引擎能理解”每个……分别”的语义含义，自动生成带 <code>PARTITION BY</code> 的窗口函数 SQL。</p>
+<p><strong>智能路由</strong>是另一大亮点：简单查询（排名&#x2F;汇总&#x2F;趋势）路由到本地 Ollama（<del>10s 响应，数据不出本机），复杂查询（窗口函数&#x2F;CTE&#x2F;同比环比）路由到 DeepSeek 云端（</del>10-20s）。还有降级策略确保服务可用性。</p>
+<h2 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">用户输入 → React SPA → POST /api/query</span><br><span class="line">                              ↓</span><br><span class="line">                      NL 语义分析（术语映射）</span><br><span class="line">                              ↓</span><br><span class="line">                  智能路由（简单→Ollama / 复杂→DeepSeek）</span><br><span class="line">                              ↓</span><br><span class="line">                      LLM 生成 SQL</span><br><span class="line">                              ↓</span><br><span class="line">                  SQL 验证 + 执行 + 重试（最多 2 次）</span><br><span class="line">                              ↓</span><br><span class="line">                  业务洞察生成 + 图表推荐</span><br><span class="line">                              ↓</span><br><span class="line">用户看到 ← 交互式图表 + 数据表格 ← JSON 返回</span><br></pre></td></tr></table></figure>
+
+<h3 id="分层技术选型"><a href="#分层技术选型" class="headerlink" title="分层技术选型"></a>分层技术选型</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+<th>选择理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前端</td>
+<td>React 18 + Chart.js</td>
+<td>CDN 加载，零构建步骤</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>Node.js 22 + node:sqlite</td>
+<td>仅使用内置模块，无依赖</td>
+</tr>
+<tr>
+<td>LLM 本地</td>
+<td>Ollama + qwen2.5:7b</td>
+<td>简单查询，隐私优先</td>
+</tr>
+<tr>
+<td>LLM 云端</td>
+<td>DeepSeek-V3 API</td>
+<td>复杂查询，能力更强</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>SQLite</td>
+<td>2,747 行经典汽车销售数据</td>
+</tr>
+</tbody></table>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><h3 id="自然语言-→-SQL"><a href="#自然语言-→-SQL" class="headerlink" title="自然语言 → SQL"></a>自然语言 → SQL</h3><p>系统能理解的查询类型与对应的 SQL 生成逻辑：</p>
+<table>
+<thead>
+<tr>
+<th>用户输入</th>
+<th>生成的 SQL 关键逻辑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>各产品线销售额</td>
+<td><code>GROUP BY PRODUCTLINE</code> 聚合</td>
+</tr>
+<tr>
+<td>每个国家分别在什么月份销量最低</td>
+<td><code>ROW_NUMBER() OVER (PARTITION BY COUNTRY)</code> 窗口函数</td>
+</tr>
+<tr>
+<td>2019年比2018年增长多少</td>
+<td><code>LAG(v) OVER (ORDER BY YEAR)</code> 同比</td>
+</tr>
+<tr>
+<td>哪些月份销售波动最大</td>
+<td><code>MAX(v) - MIN(v) as range_val GROUP BY MONTH</code></td>
+</tr>
+</tbody></table>
+<h3 id="SQL-自动验证与纠错"><a href="#SQL-自动验证与纠错" class="headerlink" title="SQL 自动验证与纠错"></a>SQL 自动验证与纠错</h3><p>LLM 生成的 SQL 可能包含错误，系统内置了自动验证机制：</p>
+<ol>
+<li>生成 SQL → 在数据库上试执行</li>
+<li>执行失败 → 将错误信息反馈给 LLM，要求修正</li>
+<li>最多重试 2 次，确保可用性</li>
+</ol>
+<h3 id="业务洞察生成"><a href="#业务洞察生成" class="headerlink" title="业务洞察生成"></a>业务洞察生成</h3><p>不满足于展示数据，系统还会自动生成分析洞察：</p>
+<ul>
+<li>📈 <strong>趋势解读</strong>：环比变化率、最大增幅&#x2F;降幅</li>
+<li>🏆 <strong>排名分析</strong>：领先者与差距分析</li>
+<li>💡 <strong>行动建议</strong>：基于数据的营销&#x2F;运营建议</li>
+</ul>
+<h3 id="交互式可视化"><a href="#交互式可视化" class="headerlink" title="交互式可视化"></a>交互式可视化</h3><ul>
+<li>柱状图、折线图、饼图等，字段自由映射</li>
+<li>数据钻取：点击柱子深入下级维度</li>
+<li>SQL 溯源面板：透明展示查询逻辑</li>
+</ul>
+<h2 id="架构升级：从规则引擎到-LLM"><a href="#架构升级：从规则引擎到-LLM" class="headerlink" title="架构升级：从规则引擎到 LLM"></a>架构升级：从规则引擎到 LLM</h2><h3 id="为什么必须升级？"><a href="#为什么必须升级？" class="headerlink" title="为什么必须升级？"></a>为什么必须升级？</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 旧版：硬编码关键词匹配 —— 无力应对复杂语义</span></span><br><span class="line"><span class="keyword">if</span> (query.<span class="title function_">includes</span>(<span class="string">&#x27;波动&#x27;</span>)) intent = <span class="string">&#x27;trend&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (query.<span class="title function_">includes</span>(<span class="string">&#x27;最低&#x27;</span>)) intent = <span class="string">&#x27;ranking&#x27;</span>;  <span class="comment">// &quot;每个X的最低&quot;无法理解</span></span><br></pre></td></tr></table></figure>
+
+<p>典型失败：用户输入”各个国家分别在什么月份销量最低”，系统返回 116 行全量排列而不是 19 行分组极值。</p>
+<h3 id="升级后的处理方式"><a href="#升级后的处理方式" class="headerlink" title="升级后的处理方式"></a>升级后的处理方式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新版：LLM 理解语义 + 智能路由</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_">isComplexQuery</span>(query)) &#123;</span><br><span class="line">  extraHint = <span class="string">&quot;使用 ROW_NUMBER() OVER (PARTITION BY ...) 实现分组极值&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> sql = <span class="keyword">await</span> <span class="title function_">callBestLLM</span>(prompt + extraHint);</span><br></pre></td></tr></table></figure>
+
+<p>LLM 能理解”每个国家<strong>分别</strong>“意味着需要分组极值，生成正确的窗口函数 SQL。</p>
+<h2 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h2><p>零依赖，只需 Node.js 22+：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 启动 Ollama（可选，无则自动全走 DeepSeek）</span></span><br><span class="line">ollama serve &amp;&amp; ollama pull qwen2.5:7b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 启动后端</span></span><br><span class="line"><span class="built_in">cd</span> backend &amp;&amp; node server_llm.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 浏览器访问</span></span><br><span class="line">open http://localhost:5173</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>技术不应是数据分析的门槛。自然语言 + LLM 让每个人都能用数据回答业务问题。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://jin-123-321.github.io">Jin</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://jin-123-321.github.io/2026/05/22/bi-nlp-agent/">https://jin-123-321.github.io/2026/05/22/bi-nlp-agent/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://jin-123-321.github.io" target="_blank">Jin's Portfolio</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/">项目展示</a><a class="post-meta__tags" href="/tags/NLP/">NLP</a><a class="post-meta__tags" href="/tags/LLM/">LLM</a><a class="post-meta__tags" href="/tags/SQL/">SQL</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96/">数据可视化</a></div><div class="post-share"><div class="social-share" data-image="/img/covers/bi-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/01/21/loan_approval_prediction/" title="贷款审批预测 — 多模型对比与 SHAP 可解释性分析"><img class="cover" src="/img/covers/loan-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">贷款审批预测 — 多模型对比与 SHAP 可解释性分析</div></div><div class="info-2"><div class="info-item-1">项目名片   维度 内容    业务问题 基于申请人收入、信用和资产信息预测贷款是否应获批   数据集 FinTech 信贷数据，4,269 条 × 12 特征，正例占比 62%   核心模型 LightGBM（最终推荐）、随机森林、逻辑回归、神经网络   关键指标 AUC 99.9%，仅 1 个误批 + 0 个误拒（LightGBM）   核心工具 Python · Scikit-learn · LightGBM · SHAP · Matplotlib · Seaborn   项目链接 GitHub Repository     核心成果LightGBM 以 AUC 99.9% 的接近完美表现被选为最优部署模型。在全部 854 条测试样本中，仅产生 1 个错误批准（将本应拒绝的申请误判为通过）和 0 个错误拒绝——这对于高度风险敏感的信贷场景来说是非常理想的结果。 但更重要的是：我们通过 SHAP...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/30/House_predict/" title="房价预测 — 从数据清洗到多模型对比"><img class="cover" src="/img/covers/house-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-30</div><div class="info-item-2">房价预测 — 从数据清洗到多模型对比</div></div><div class="info-2"><div class="info-item-1">项目名片   维度 内容    业务问题 基于 80+ 房屋特征预测最终售价   数据集 Kaggle House Prices，训练集 1,460 条 × 81 特征，测试集 1,459 条   核心模型 随机森林（最优）、XGBoost、线性回归   关键指标 R² &#x3D; 0.859，RMSE &#x3D; $28,875（随机森林）   核心工具 Python · Scikit-learn · XGBoost · Matplotlib · Seaborn   项目链接 GitHub Repository     核心成果经过三种模型的系统对比，随机森林以 R² &#x3D; 0.8587 和 RMSE $28,875 成为最优模型，能够解释约 86% 的房价变动，平均预测误差不到三万美元。 这个结果特别值得关注的是：随机森林仅使用了 9 个核心特征就达到了这个性能。OverallQual（整体质量评分）以 56.9% 的特征重要性压倒性地主导了预测——这意味着房子的”综合品质感”比任何单一物理指标（面积、房间数）都更能解释价格。 XGBoost（R² &#x3D;...</div></div></div></a><a class="pagination-related" href="/2025/05/04/customer_churn_prediction_model.ipynb/" title="客户流失预测 — 从 EDA 到 SHAP 可解释性分析"><img class="cover" src="/img/covers/churn-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-04</div><div class="info-item-2">客户流失预测 — 从 EDA 到 SHAP 可解释性分析</div></div><div class="info-2"><div class="info-item-1">项目名片   维度 内容    业务问题 预测电信客户是否存在流失风险，支持精准挽留策略   数据集 IBM Telco Customer Churn，7,043 条 × 21 特征   核心模型 逻辑回归（高召回）、随机森林（高精度）、XGBoost   关键指标 Recall 81%（逻辑回归），Accuracy 78%（随机森林）   核心工具 Python · Scikit-learn · XGBoost · SHAP · Matplotlib · Seaborn   项目链接 GitHub Repository     核心成果在 6 个模型的系统对比中，逻辑回归以 81% 的召回率成为最适合流失预警场景的模型——宁可多预警，也不漏掉潜在流失客户。 我们做了三轮迭代优化：全特征基线 → Top 10 特征筛选 → 构造 5 个业务特征。最终模型集成了经过消融实验验证的最优特征组合，并通过 SHAP 分析完整解释了每个特征对流失概率的贡献方向。 SHAP...</div></div></div></a><a class="pagination-related" href="/2026/01/21/loan_approval_prediction/" title="贷款审批预测 — 多模型对比与 SHAP 可解释性分析"><img class="cover" src="/img/covers/loan-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-21</div><div class="info-item-2">贷款审批预测 — 多模型对比与 SHAP 可解释性分析</div></div><div class="info-2"><div class="info-item-1">项目名片   维度 内容    业务问题 基于申请人收入、信用和资产信息预测贷款是否应获批   数据集 FinTech 信贷数据，4,269 条 × 12 特征，正例占比 62%   核心模型 LightGBM（最终推荐）、随机森林、逻辑回归、神经网络   关键指标 AUC 99.9%，仅 1 个误批 + 0 个误拒（LightGBM）   核心工具 Python · Scikit-learn · LightGBM · SHAP · Matplotlib · Seaborn   项目链接 GitHub Repository     核心成果LightGBM 以 AUC 99.9% 的接近完美表现被选为最优部署模型。在全部 854 条测试样本中，仅产生 1 个错误批准（将本应拒绝的申请误判为通过）和 0 个错误拒绝——这对于高度风险敏感的信贷场景来说是非常理想的结果。 但更重要的是：我们通过 SHAP...</div></div></div></a><a class="pagination-related" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号生还预测 — 数据清洗到模型调优"><img class="cover" src="/img/covers/titanic-cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-28</div><div class="info-item-2">泰坦尼克号生还预测 — 数据清洗到模型调优</div></div><div class="info-2"><div class="info-item-1">项目名片   维度 内容    业务问题 根据乘客属性预测其是否在泰坦尼克号沉船中生还   数据集 Kaggle Titanic，训练集 891 条 × 12 特征，测试集 418 条   核心模型 随机森林（Random Forest）   关键指标 准确率 83.8%（调优后），较基线提升 1.3 个百分点   核心工具 Python · Scikit-learn · Pandas · Matplotlib · Seaborn   项目链接 GitHub Repository     核心成果本项目的最终模型在 Kaggle 测试集上取得了 83.8% 的预测准确率，优于未调优的基线模型（82.5%）。 随机森林天生对缺失值和异常值鲁棒，不需要复杂的数据标准化，是一个非常适合表格数据的”开箱即用”模型。通过 5 折交叉验证的 GridSearchCV，我们找到了一组兼顾精度与泛化能力的最优参数。 调优过程中一个有趣的发现是：限制树的深度反而提升了泛化性能——max_depth=6...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Jin</div><div class="author-info-description">机器学习 & 数据分析 & BI 工程作品集</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Jin-123-321"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Jin-123-321" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到 Jin 的机器学习旅途博客 ✨<br>用代码探索世界，以图表理解数据！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E5%90%8D%E7%89%87"><span class="toc-number">1.</span> <span class="toc-text">项目名片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%88%90%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">核心成果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">技术架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E5%B1%82%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">分层技术选型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">核心功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80-%E2%86%92-SQL"><span class="toc-number">4.1.</span> <span class="toc-text">自然语言 → SQL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL-%E8%87%AA%E5%8A%A8%E9%AA%8C%E8%AF%81%E4%B8%8E%E7%BA%A0%E9%94%99"><span class="toc-number">4.2.</span> <span class="toc-text">SQL 自动验证与纠错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E6%B4%9E%E5%AF%9F%E7%94%9F%E6%88%90"><span class="toc-number">4.3.</span> <span class="toc-text">业务洞察生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8F%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.4.</span> <span class="toc-text">交互式可视化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84%E5%8D%87%E7%BA%A7%EF%BC%9A%E4%BB%8E%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E5%88%B0-LLM"><span class="toc-number">5.</span> <span class="toc-text">架构升级：从规则引擎到 LLM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E5%8D%87%E7%BA%A7%EF%BC%9F"><span class="toc-number">5.1.</span> <span class="toc-text">为什么必须升级？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%87%E7%BA%A7%E5%90%8E%E7%9A%84%E5%A4%84%E7%90%86%E6%96%B9%E5%BC%8F"><span class="toc-number">5.2.</span> <span class="toc-text">升级后的处理方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%BF%90%E8%A1%8C"><span class="toc-number">6.</span> <span class="toc-text">本地运行</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/05/22/bi-nlp-agent/" title="自然语言驱动的 BI 分析系统"><img src="/img/covers/bi-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="自然语言驱动的 BI 分析系统"/></a><div class="content"><a class="title" href="/2026/05/22/bi-nlp-agent/" title="自然语言驱动的 BI 分析系统">自然语言驱动的 BI 分析系统</a><time datetime="2026-05-21T16:00:00.000Z" title="发表于 2026-05-22 00:00:00">2026-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/21/loan_approval_prediction/" title="贷款审批预测 — 多模型对比与 SHAP 可解释性分析"><img src="/img/covers/loan-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="贷款审批预测 — 多模型对比与 SHAP 可解释性分析"/></a><div class="content"><a class="title" href="/2026/01/21/loan_approval_prediction/" title="贷款审批预测 — 多模型对比与 SHAP 可解释性分析">贷款审批预测 — 多模型对比与 SHAP 可解释性分析</a><time datetime="2026-01-20T16:00:00.000Z" title="发表于 2026-01-21 00:00:00">2026-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/05/04/customer_churn_prediction_model.ipynb/" title="客户流失预测 — 从 EDA 到 SHAP 可解释性分析"><img src="/img/covers/churn-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="客户流失预测 — 从 EDA 到 SHAP 可解释性分析"/></a><div class="content"><a class="title" href="/2025/05/04/customer_churn_prediction_model.ipynb/" title="客户流失预测 — 从 EDA 到 SHAP 可解释性分析">客户流失预测 — 从 EDA 到 SHAP 可解释性分析</a><time datetime="2025-05-03T16:00:00.000Z" title="发表于 2025-05-04 00:00:00">2025-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/30/House_predict/" title="房价预测 — 从数据清洗到多模型对比"><img src="/img/covers/house-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="房价预测 — 从数据清洗到多模型对比"/></a><div class="content"><a class="title" href="/2025/03/30/House_predict/" title="房价预测 — 从数据清洗到多模型对比">房价预测 — 从数据清洗到多模型对比</a><time datetime="2025-03-29T16:00:00.000Z" title="发表于 2025-03-30 00:00:00">2025-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号生还预测 — 数据清洗到模型调优"><img src="/img/covers/titanic-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="泰坦尼克号生还预测 — 数据清洗到模型调优"/></a><div class="content"><a class="title" href="/2025/03/28/titanic_analysis/" title="泰坦尼克号生还预测 — 数据清洗到模型调优">泰坦尼克号生还预测 — 数据清洗到模型调优</a><time datetime="2025-03-27T16:00:00.000Z" title="发表于 2025-03-28 00:00:00">2025-03-28</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By Jin</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div><div class="footer_custom_text"><a target="_blank" rel="noopener" href="https://github.com/Jin-123-321">GitHub</a> · Built with Hexo & Butterfly</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章..." type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

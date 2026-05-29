@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>房价预测 — 从数据清洗到多模型对比</title>
+    <url>/2025/03/30/House_predict/</url>
+    <content><![CDATA[<h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>基于 80+ 房屋特征预测最终售价</td>
+</tr>
+<tr>
+<td><strong>数据集</strong></td>
+<td>Kaggle House Prices，训练集 1,460 条 × 81 特征，测试集 1,459 条</td>
+</tr>
+<tr>
+<td><strong>核心模型</strong></td>
+<td>随机森林（最优）、XGBoost、线性回归</td>
+</tr>
+<tr>
+<td><strong>关键指标</strong></td>
+<td><strong>R² &#x3D; 0.859，RMSE &#x3D; $28,875</strong>（随机森林）</td>
+</tr>
+<tr>
+<td><strong>核心工具</strong></td>
+<td>Python · Scikit-learn · XGBoost · Matplotlib · Seaborn</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a href="https://github.com/Jin-123-321">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p>经过三种模型的系统对比，<strong>随机森林以 R² &#x3D; 0.8587 和 RMSE $28,875 成为最优模型</strong>，能够解释约 86% 的房价变动，平均预测误差不到三万美元。</p>
+<p>这个结果特别值得关注的是：随机森林仅使用了 9 个核心特征就达到了这个性能。OverallQual（整体质量评分）以 56.9% 的特征重要性压倒性地主导了预测——这意味着房子的”综合品质感”比任何单一物理指标（面积、房间数）都更能解释价格。</p>
+<p>XGBoost（R² &#x3D; 0.8537）在这个数据集上并未超越随机森林，分析原因：1,460 条的训练样本对于梯度提升来说偏小，容易过拟合；而随机森林的 Bagging 策略在小样本下天然更稳健。</p>
+<h2 id="方案设计"><a href="#方案设计" class="headerlink" title="方案设计"></a>方案设计</h2><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p>数据集有 81 个原始特征，但许多字段缺失率极高（如泳池质量 PoolQC 缺失 99.5%）。处理策略：</p>
+<p><img src="/2025/03/30/House_predict/House_predict_5_1.png" alt="训练集缺失值分布矩阵"></p>
+<ul>
+<li><strong>类别型高缺失特征</strong>（PoolQC、Fence、Alley 等）：填充 “None”，表示该房屋无此设施</li>
+<li><strong>LotFrontage</strong>（街道连接长度）：按 Neighborhood 分组中位数填充——同一社区的街道宽度通常一致</li>
+<li><strong>GarageYrBlt</strong>（车库建造年份）：无车库的房屋填充 0</li>
+<li><strong>MasVnrArea</strong>（石材饰面面积）：无石材的填充 0</li>
+</ul>
+<h3 id="从-EDA-到特征选择"><a href="#从-EDA-到特征选择" class="headerlink" title="从 EDA 到特征选择"></a>从 EDA 到特征选择</h3><p>目标变量 SalePrice 呈明显右偏分布（偏度 ≈ 1.88），经 <code>log1p</code> 变换后近似正态——这是回归模型的关键前提：</p>
+<p><img src="/2025/03/30/House_predict/House_predict_18_1.png" alt="对数变换前后对比"></p>
+<p>通过 Pearson 相关系数筛选与房价最相关的 Top 20 特征：</p>
+<p><img src="/2025/03/30/House_predict/House_predict_20_1.png" alt="Top 20 特征相关性热力图"></p>
+<p>最终选定 9 个兼顾解释力与低共线性的核心特征：OverallQual、GrLivArea、GarageCars、TotalBsmtSF、FullBath、YearBuilt、YearRemodAdd、Fireplaces、MasVnrArea。</p>
+<h3 id="三模型对比"><a href="#三模型对比" class="headerlink" title="三模型对比"></a>三模型对比</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>RMSE（log 空间）</th>
+<th>R²</th>
+<th>RMSE（原始房价）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性回归</td>
+<td>0.1685</td>
+<td>0.8478</td>
+<td>$31,646</td>
+</tr>
+<tr>
+<td><strong>随机森林</strong></td>
+<td><strong>0.1624</strong></td>
+<td><strong>0.8587</strong></td>
+<td><strong>$28,875</strong></td>
+</tr>
+<tr>
+<td>XGBoost</td>
+<td>0.1652</td>
+<td>0.8537</td>
+<td>$28,852</td>
+</tr>
+</tbody></table>
+<p>线性回归作为基线已经表现不错（R²&#x3D;0.85），说明核心特征与房价之间确实存在较强的线性关系。随机森林在此基础上将误差降低了约 9%，主要得益于捕捉了特征之间的非线性交互（如质量 × 面积）。</p>
+<h4 id="核心代码实现"><a href="#核心代码实现" class="headerlink" title="核心代码实现"></a>核心代码实现</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===== 数据预处理 =====</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># 缺失值处理</span></span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> [<span class="string">&#x27;PoolQC&#x27;</span>, <span class="string">&#x27;Fence&#x27;</span>, <span class="string">&#x27;Alley&#x27;</span>, <span class="string">&#x27;MiscFeature&#x27;</span>, <span class="string">&#x27;FireplaceQu&#x27;</span>]:</span><br><span class="line">    df[col] = df[col].fillna(<span class="string">&#x27;None&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># LotFrontage 按 Neighborhood 分组中位数填充</span></span><br><span class="line">df[<span class="string">&#x27;LotFrontage&#x27;</span>] = df.groupby(<span class="string">&#x27;Neighborhood&#x27;</span>)[<span class="string">&#x27;LotFrontage&#x27;</span>].transform(</span><br><span class="line">    <span class="keyword">lambda</span> x: x.fillna(x.median()))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类别特征 One-Hot 编码</span></span><br><span class="line">cat_cols = df.select_dtypes(include=[<span class="string">&#x27;object&#x27;</span>]).columns</span><br><span class="line">encoder = OneHotEncoder(sparse_output=<span class="literal">False</span>, handle_unknown=<span class="string">&#x27;ignore&#x27;</span>)</span><br><span class="line">X_cat = encoder.fit_transform(df[cat_cols])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 目标变量 log1p 变换（纠正右偏）</span></span><br><span class="line">y = np.log1p(df[<span class="string">&#x27;SalePrice&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 特征选择（Pearson Top 9） =====</span></span><br><span class="line">num_features = [<span class="string">&#x27;OverallQual&#x27;</span>, <span class="string">&#x27;GrLivArea&#x27;</span>, <span class="string">&#x27;GarageCars&#x27;</span>, <span class="string">&#x27;TotalBsmtSF&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;FullBath&#x27;</span>, <span class="string">&#x27;YearBuilt&#x27;</span>, <span class="string">&#x27;YearRemodAdd&#x27;</span>, <span class="string">&#x27;Fireplaces&#x27;</span>, <span class="string">&#x27;MasVnrArea&#x27;</span>]</span><br><span class="line">X_num = df[num_features].values</span><br><span class="line"></span><br><span class="line">X = np.hstack([X_num, X_cat])</span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 三模型训练 &amp; 对比 =====</span></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression</span><br><span class="line"><span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBRegressor</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> r2_score, mean_squared_error</span><br><span class="line"></span><br><span class="line">models = &#123;</span><br><span class="line">    <span class="string">&#x27;Linear Regression&#x27;</span>: LinearRegression(),</span><br><span class="line">    <span class="string">&#x27;Random Forest&#x27;</span>: RandomForestRegressor(n_estimators=<span class="number">300</span>, max_depth=<span class="number">20</span>, random_state=<span class="number">42</span>),</span><br><span class="line">    <span class="string">&#x27;XGBoost&#x27;</span>: XGBRegressor(n_estimators=<span class="number">300</span>, max_depth=<span class="number">5</span>, learning_rate=<span class="number">0.05</span>, random_state=<span class="number">42</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, model <span class="keyword">in</span> models.items():</span><br><span class="line">    model.fit(X_train, y_train)</span><br><span class="line">    <span class="comment"># 预测并还原 log 变换</span></span><br><span class="line">    pred = np.expm1(model.predict(X_test))</span><br><span class="line">    actual = np.expm1(y_test)</span><br><span class="line"></span><br><span class="line">    r2 = r2_score(actual, pred)</span><br><span class="line">    rmse = mean_squared_error(actual, pred, squared=<span class="literal">False</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;name&#125;</span>: R²=<span class="subst">&#123;r2:<span class="number">.4</span>f&#125;</span>, RMSE=$<span class="subst">&#123;rmse:,<span class="number">.0</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 随机森林特征重要性 =====</span></span><br><span class="line">importances = models[<span class="string">&#x27;Random Forest&#x27;</span>].feature_importances_</span><br><span class="line">feat_imp = pd.DataFrame(&#123;<span class="string">&#x27;feature&#x27;</span>: num_features, <span class="string">&#x27;importance&#x27;</span>: importances&#125;)</span><br><span class="line"><span class="built_in">print</span>(feat_imp.sort_values(<span class="string">&#x27;importance&#x27;</span>, ascending=<span class="literal">False</span>))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2025/03/30/House_predict/House_predict_34_1.png" alt="随机森林第 1 棵决策树（前 3 层）"></p>
+<p><img src="/2025/03/30/House_predict/House_predict_36_2.png" alt="随机森林特征重要性"></p>
+<h2 id="关键发现"><a href="#关键发现" class="headerlink" title="关键发现"></a>关键发现</h2><ol>
+<li><strong>OverallQual 是绝对王者</strong>：56.9% 的特征重要性说明，在房地产评估中，综合品质评分比任何单一物理指标都更重要。房屋是一个”整体产品”，而非各部分的简单加总</li>
+<li><strong>面积不是越大越好</strong>：GrLivArea（地上居住面积）以 15.9% 排名第二，但与 OverallQual 之间存在显著的交互效应——低品质的大房子不如高品质的中等户型值钱</li>
+<li><strong>小样本下 RF &gt; XGBoost</strong>：在 1,460 条数据上，XGBoost 的梯度提升策略并未带来预料中的优势，Bagging 的方差缩减在此场景下更为有效</li>
+</ol>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p><code>Python</code> · <code>Pandas</code> · <code>Scikit-learn</code> · <code>XGBoost</code> · <code>Matplotlib</code> · <code>Seaborn</code></p>
+]]></content>
+      <categories>
+        <category>项目展示</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>随机森林</tag>
+        <tag>XGBoost</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>客户流失预测 — 从 EDA 到 SHAP 可解释性分析</title>
+    <url>/2025/05/04/customer_churn_prediction_model.ipynb/</url>
+    <content><![CDATA[<h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>预测电信客户是否存在流失风险，支持精准挽留策略</td>
+</tr>
+<tr>
+<td><strong>数据集</strong></td>
+<td>IBM Telco Customer Churn，7,043 条 × 21 特征</td>
+</tr>
+<tr>
+<td><strong>核心模型</strong></td>
+<td>逻辑回归（高召回）、随机森林（高精度）、XGBoost</td>
+</tr>
+<tr>
+<td><strong>关键指标</strong></td>
+<td><strong>Recall 81%（逻辑回归），Accuracy 78%（随机森林）</strong></td>
+</tr>
+<tr>
+<td><strong>核心工具</strong></td>
+<td>Python · Scikit-learn · XGBoost · SHAP · Matplotlib · Seaborn</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a href="https://github.com/Jin-123-321">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p>在 6 个模型的系统对比中，<strong>逻辑回归以 81% 的召回率成为最适合流失预警场景的模型</strong>——宁可多预警，也不漏掉潜在流失客户。</p>
+<p>我们做了三轮迭代优化：全特征基线 → Top 10 特征筛选 → 构造 5 个业务特征。最终模型集成了经过消融实验验证的最优特征组合，并通过 SHAP 分析完整解释了每个特征对流失概率的贡献方向。</p>
+<p>SHAP 分析揭示了流失的三个核心驱动因素：<strong>合约类型</strong>（月付合约流失风险远高于年付）、<strong>在网时长</strong>（新客户最容易流失）、<strong>月消费额</strong>（高消费客户的流失倾向需要结合其他因素综合判断）。这些发现直接对应到具体的客户运营策略：向月付合约客户推送年付优惠，在新客户前三个月加强服务触达。</p>
+<h2 id="方案设计"><a href="#方案设计" class="headerlink" title="方案设计"></a>方案设计</h2><h3 id="数据特征"><a href="#数据特征" class="headerlink" title="数据特征"></a>数据特征</h3><p>数据集覆盖 7,043 位电信客户的 21 个特征，包括人口统计、账户信息和服务订阅。流失率为 26.5%，属于中等程度的类别不平衡，建模中采用 <code>class_weight=&#39;balanced&#39;</code> 策略处理。</p>
+<h3 id="EDA-核心发现"><a href="#EDA-核心发现" class="headerlink" title="EDA 核心发现"></a>EDA 核心发现</h3><p><img src="/2025/05/04/customer_churn_prediction_model.ipynb/customer_churn_prediction_model.ipynb_27_0.png" alt="各特征流失率对比"></p>
+<p>EDA 揭示的关键模式：</p>
+<ul>
+<li><strong>月付合约流失率 42%</strong>，是一年期合约的 4 倍，两年期合约的 14 倍——合约期限是最强的单一预测信号</li>
+<li>电子支票支付方式的流失率显著高于银行转账和信用卡自动扣款</li>
+<li>光纤用户的流失率反而高于 DSL 用户——可能因为光纤服务质量更不稳定，或切换成本更低</li>
+<li>未订阅在线安全和技术支持服务的客户流失风险明显更高</li>
+</ul>
+<p><img src="/2025/05/04/customer_churn_prediction_model.ipynb/customer_churn_prediction_model.ipynb_39_0.png" alt="数值变量分组分布"></p>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><p>经过全特征基线评估后，通过 SHAP 筛选 Top 10 特征，并构造了 5 个业务特征：</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>公式</th>
+<th>业务意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AvgCharges</td>
+<td>TotalCharges &#x2F; tenure</td>
+<td>每月平均消费水平</td>
+</tr>
+<tr>
+<td>Contract×Monthly Interaction</td>
+<td>Contract × MonthlyCharges</td>
+<td>合约与消费交互效应</td>
+</tr>
+<tr>
+<td>TenureGroup</td>
+<td>分箱（0-12&#x2F;12-36&#x2F;36-72 月）</td>
+<td>客户生命周期阶段</td>
+</tr>
+<tr>
+<td>IsHighValueCustomer</td>
+<td>MonthlyCharges &gt; 80</td>
+<td>高价值客户标记</td>
+</tr>
+<tr>
+<td>ServiceCount</td>
+<td>统计启用服务数</td>
+<td>服务黏性指标</td>
+</tr>
+</tbody></table>
+<h3 id="多轮建模结果"><a href="#多轮建模结果" class="headerlink" title="多轮建模结果"></a>多轮建模结果</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>Accuracy</th>
+<th>Recall</th>
+<th>F1</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>逻辑回归</strong></td>
+<td>0.719</td>
+<td><strong>0.810</strong></td>
+<td>0.605</td>
+<td>流失预警（高召回）</td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>0.779</td>
+<td>0.489</td>
+<td>0.541</td>
+<td>精准识别（高精度）</td>
+</tr>
+<tr>
+<td>XGBoost</td>
+<td>0.777</td>
+<td>0.524</td>
+<td>0.555</td>
+<td>平衡型</td>
+</tr>
+</tbody></table>
+<h4 id="核心代码实现"><a href="#核心代码实现" class="headerlink" title="核心代码实现"></a>核心代码实现</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===== 数据预处理 =====</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># TotalCharges 非数值转 NaN 后填充中位数</span></span><br><span class="line">df[<span class="string">&#x27;TotalCharges&#x27;</span>] = pd.to_numeric(df[<span class="string">&#x27;TotalCharges&#x27;</span>], errors=<span class="string">&#x27;coerce&#x27;</span>)</span><br><span class="line">df[<span class="string">&#x27;TotalCharges&#x27;</span>] = df[<span class="string">&#x27;TotalCharges&#x27;</span>].fillna(df[<span class="string">&#x27;TotalCharges&#x27;</span>].median())</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 多轮特征工程 =====</span></span><br><span class="line"><span class="comment"># Round 1: 业务派生特征</span></span><br><span class="line">df[<span class="string">&#x27;AvgCharges&#x27;</span>] = df[<span class="string">&#x27;TotalCharges&#x27;</span>] / (df[<span class="string">&#x27;tenure&#x27;</span>] + <span class="number">1</span>)  <span class="comment"># 月均消费</span></span><br><span class="line">df[<span class="string">&#x27;ServiceCount&#x27;</span>] = df[[</span><br><span class="line">    <span class="string">&#x27;OnlineSecurity&#x27;</span>, <span class="string">&#x27;OnlineBackup&#x27;</span>, <span class="string">&#x27;DeviceProtection&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;TechSupport&#x27;</span>, <span class="string">&#x27;StreamingTV&#x27;</span>, <span class="string">&#x27;StreamingMovies&#x27;</span></span><br><span class="line">]].apply(<span class="keyword">lambda</span> row: (row == <span class="string">&#x27;Yes&#x27;</span>).<span class="built_in">sum</span>(), axis=<span class="number">1</span>)  <span class="comment"># 服务黏性</span></span><br><span class="line">df[<span class="string">&#x27;IsHighValue&#x27;</span>] = (df[<span class="string">&#x27;MonthlyCharges&#x27;</span>] &gt; <span class="number">80</span>).astype(<span class="built_in">int</span>)  <span class="comment"># 高价值客户</span></span><br><span class="line">df[<span class="string">&#x27;TenureGroup&#x27;</span>] = pd.cut(df[<span class="string">&#x27;tenure&#x27;</span>], bins=[<span class="number">0</span>, <span class="number">12</span>, <span class="number">36</span>, <span class="number">72</span>],</span><br><span class="line">                            labels=[<span class="string">&#x27;New&#x27;</span>, <span class="string">&#x27;Mid&#x27;</span>, <span class="string">&#x27;Long&#x27;</span>])  <span class="comment"># 生命周期</span></span><br><span class="line">df[<span class="string">&#x27;Contract_Monthly_Interact&#x27;</span>] = (</span><br><span class="line">    (df[<span class="string">&#x27;Contract&#x27;</span>] == <span class="string">&#x27;Month-to-month&#x27;</span>).astype(<span class="built_in">int</span>) * df[<span class="string">&#x27;MonthlyCharges&#x27;</span>]</span><br><span class="line">)  <span class="comment"># 合约 × 消费交互</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类别编码</span></span><br><span class="line">le = LabelEncoder()</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> df.select_dtypes(include=<span class="string">&#x27;object&#x27;</span>).columns:</span><br><span class="line">    <span class="keyword">if</span> col <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&#x27;customerID&#x27;</span>, <span class="string">&#x27;Churn&#x27;</span>]:</span><br><span class="line">        df[col] = le.fit_transform(df[col])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 多模型训练 =====</span></span><br><span class="line"><span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression</span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> xgboost <span class="keyword">import</span> XGBClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, recall_score, f1_score</span><br><span class="line"></span><br><span class="line">X = df.drop(columns=[<span class="string">&#x27;customerID&#x27;</span>, <span class="string">&#x27;Churn&#x27;</span>])</span><br><span class="line">y = (df[<span class="string">&#x27;Churn&#x27;</span>] == <span class="string">&#x27;Yes&#x27;</span>).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>,</span><br><span class="line">                                                     random_state=<span class="number">42</span>, stratify=y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算类别权重</span></span><br><span class="line">neg, pos = np.bincount(y_train)</span><br><span class="line"></span><br><span class="line">models = &#123;</span><br><span class="line">    <span class="string">&#x27;Logistic Regression&#x27;</span>: LogisticRegression(class_weight=<span class="string">&#x27;balanced&#x27;</span>,</span><br><span class="line">                                               max_iter=<span class="number">2000</span>, random_state=<span class="number">42</span>),</span><br><span class="line">    <span class="string">&#x27;Random Forest&#x27;</span>: RandomForestClassifier(class_weight=<span class="string">&#x27;balanced&#x27;</span>,</span><br><span class="line">                                             n_estimators=<span class="number">200</span>, random_state=<span class="number">42</span>),</span><br><span class="line">    <span class="string">&#x27;XGBoost&#x27;</span>: XGBClassifier(scale_pos_weight=neg/pos, random_state=<span class="number">42</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, model <span class="keyword">in</span> models.items():</span><br><span class="line">    model.fit(X_train, y_train)</span><br><span class="line">    y_pred = model.predict(X_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;name&#125;</span>:&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;  Accuracy=<span class="subst">&#123;accuracy_score(y_test, y_pred):<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;  Recall=<span class="subst">&#123;recall_score(y_test, y_pred):<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;  F1=<span class="subst">&#123;f1_score(y_test, y_pred):<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== SHAP 可解释性分析 =====</span></span><br><span class="line"><span class="keyword">import</span> shap</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用逻辑回归模型（最优召回模型）</span></span><br><span class="line">explainer = shap.LinearExplainer(</span><br><span class="line">    models[<span class="string">&#x27;Logistic Regression&#x27;</span>], X_train,</span><br><span class="line">    feature_perturbation=<span class="string">&#x27;interventional&#x27;</span></span><br><span class="line">)</span><br><span class="line">shap_values = explainer.shap_values(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可视化 Top 10 特征</span></span><br><span class="line">shap.summary_plot(shap_values, X_test, feature_names=X.columns,</span><br><span class="line">                  max_display=<span class="number">10</span>, show=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SHAP-可解释性"><a href="#SHAP-可解释性" class="headerlink" title="SHAP 可解释性"></a>SHAP 可解释性</h3><p><img src="/2025/05/04/customer_churn_prediction_model.ipynb/customer_churn_prediction_model.ipynb_120_0.png" alt="Top 10 SHAP 重要性"></p>
+<p><img src="/2025/05/04/customer_churn_prediction_model.ipynb/customer_churn_prediction_model.ipynb_120_1.png" alt="Top 10 SHAP 分布图"></p>
+<p>SHAP 分析清晰展示了各特征的影响方向与程度。Contract 月付合约的 SHAP 值集中在正区间（推动流失），而长合约集中在负区间（抑制流失），两者的分离非常干净。tenure 的影响接近线性：在网时间越长，流失风险越低。</p>
+<h2 id="关键发现"><a href="#关键发现" class="headerlink" title="关键发现"></a>关键发现</h2><ol>
+<li><strong>合约是流失的第一杠杆</strong>：将月付用户转化为年付用户，预期可降低流失率 3 倍以上。这是投资回报率最高的干预措施</li>
+<li><strong>服务黏性 &#x3D; 留存</strong>：每多订阅一项服务（在线安全、技术支持、流媒体等），客户流失概率下降一个台阶。交叉销售不仅是增收手段，更是留存策略</li>
+<li><strong>新客户的”90 天危险期”</strong>：在网时长 0-12 个月的客户流失率显著高于老客户，这三个月是挽留干预的黄金窗口</li>
+<li><strong>高消费不等于高危</strong>：月消费额与流失的关系不是单调的——最高消费群体的流失率反而低于中高消费群体，说明价格敏感度因客户而异</li>
+</ol>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p><code>Python</code> · <code>Pandas</code> · <code>Scikit-learn</code> · <code>XGBoost</code> · <code>SHAP</code> · <code>Matplotlib</code> · <code>Seaborn</code></p>
+]]></content>
+      <categories>
+        <category>项目展示</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>Python</tag>
+        <tag>数据分析</tag>
+        <tag>SHAP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>自然语言驱动的 BI 分析系统</title>
+    <url>/2026/05/22/bi-nlp-agent/</url>
+    <content><![CDATA[<h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>让非技术用户用中文自然语言查询销售数据库，自动生成分析图表和洞察</td>
+</tr>
+<tr>
+<td><strong>技术方案</strong></td>
+<td>LLM 智能路由（本地 Ollama + 云端 DeepSeek），自动生成并验证 SQL</td>
+</tr>
+<tr>
+<td><strong>核心能力</strong></td>
+<td>复杂查询（窗口函数&#x2F;CTE&#x2F;分组极值）、SQL 自动纠错、业务洞察生成</td>
+</tr>
+<tr>
+<td><strong>技术栈</strong></td>
+<td>React 18 · Node.js 22 · SQLite · Ollama · DeepSeek API</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a href="https://github.com/Jin-123-321/bi-nlp-agent">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p>这是一个<strong>零 npm 依赖</strong>的全栈 BI 系统：前端 React 18 通过 CDN 加载，后端仅使用 Node.js 内置模块，数据库采用 SQLite 文件存储。最轻量的同时实现了复杂分析查询的自动生成。</p>
+<p>系统最核心的突破在于<strong>从规则引擎到 LLM 驱动的架构升级</strong>。旧版使用 <code>String.includes()</code> 关键词匹配理解用户意图，无法处理”每个国家分别在什么月份销量最低”这类需要分组极值的复杂查询（返回 116 行全量排列而非 19 行分组结果）。升级后的 LLM 引擎能理解”每个……分别”的语义含义，自动生成带 <code>PARTITION BY</code> 的窗口函数 SQL。</p>
+<p><strong>智能路由</strong>是另一大亮点：简单查询（排名&#x2F;汇总&#x2F;趋势）路由到本地 Ollama（<del>10s 响应，数据不出本机），复杂查询（窗口函数&#x2F;CTE&#x2F;同比环比）路由到 DeepSeek 云端（</del>10-20s）。还有降级策略确保服务可用性。</p>
+<h2 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">用户输入 → React SPA → POST /api/query</span><br><span class="line">                              ↓</span><br><span class="line">                      NL 语义分析（术语映射）</span><br><span class="line">                              ↓</span><br><span class="line">                  智能路由（简单→Ollama / 复杂→DeepSeek）</span><br><span class="line">                              ↓</span><br><span class="line">                      LLM 生成 SQL</span><br><span class="line">                              ↓</span><br><span class="line">                  SQL 验证 + 执行 + 重试（最多 2 次）</span><br><span class="line">                              ↓</span><br><span class="line">                  业务洞察生成 + 图表推荐</span><br><span class="line">                              ↓</span><br><span class="line">用户看到 ← 交互式图表 + 数据表格 ← JSON 返回</span><br></pre></td></tr></table></figure>
+
+<h3 id="分层技术选型"><a href="#分层技术选型" class="headerlink" title="分层技术选型"></a>分层技术选型</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+<th>选择理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前端</td>
+<td>React 18 + Chart.js</td>
+<td>CDN 加载，零构建步骤</td>
+</tr>
+<tr>
+<td>后端</td>
+<td>Node.js 22 + node:sqlite</td>
+<td>仅使用内置模块，无依赖</td>
+</tr>
+<tr>
+<td>LLM 本地</td>
+<td>Ollama + qwen2.5:7b</td>
+<td>简单查询，隐私优先</td>
+</tr>
+<tr>
+<td>LLM 云端</td>
+<td>DeepSeek-V3 API</td>
+<td>复杂查询，能力更强</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>SQLite</td>
+<td>2,747 行经典汽车销售数据</td>
+</tr>
+</tbody></table>
+<h2 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h2><h3 id="自然语言-→-SQL"><a href="#自然语言-→-SQL" class="headerlink" title="自然语言 → SQL"></a>自然语言 → SQL</h3><p>系统能理解的查询类型与对应的 SQL 生成逻辑：</p>
+<table>
+<thead>
+<tr>
+<th>用户输入</th>
+<th>生成的 SQL 关键逻辑</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>各产品线销售额</td>
+<td><code>GROUP BY PRODUCTLINE</code> 聚合</td>
+</tr>
+<tr>
+<td>每个国家分别在什么月份销量最低</td>
+<td><code>ROW_NUMBER() OVER (PARTITION BY COUNTRY)</code> 窗口函数</td>
+</tr>
+<tr>
+<td>2019年比2018年增长多少</td>
+<td><code>LAG(v) OVER (ORDER BY YEAR)</code> 同比</td>
+</tr>
+<tr>
+<td>哪些月份销售波动最大</td>
+<td><code>MAX(v) - MIN(v) as range_val GROUP BY MONTH</code></td>
+</tr>
+</tbody></table>
+<h3 id="SQL-自动验证与纠错"><a href="#SQL-自动验证与纠错" class="headerlink" title="SQL 自动验证与纠错"></a>SQL 自动验证与纠错</h3><p>LLM 生成的 SQL 可能包含错误，系统内置了自动验证机制：</p>
+<ol>
+<li>生成 SQL → 在数据库上试执行</li>
+<li>执行失败 → 将错误信息反馈给 LLM，要求修正</li>
+<li>最多重试 2 次，确保可用性</li>
+</ol>
+<h3 id="业务洞察生成"><a href="#业务洞察生成" class="headerlink" title="业务洞察生成"></a>业务洞察生成</h3><p>不满足于展示数据，系统还会自动生成分析洞察：</p>
+<ul>
+<li>📈 <strong>趋势解读</strong>：环比变化率、最大增幅&#x2F;降幅</li>
+<li>🏆 <strong>排名分析</strong>：领先者与差距分析</li>
+<li>💡 <strong>行动建议</strong>：基于数据的营销&#x2F;运营建议</li>
+</ul>
+<h3 id="交互式可视化"><a href="#交互式可视化" class="headerlink" title="交互式可视化"></a>交互式可视化</h3><ul>
+<li>柱状图、折线图、饼图等，字段自由映射</li>
+<li>数据钻取：点击柱子深入下级维度</li>
+<li>SQL 溯源面板：透明展示查询逻辑</li>
+</ul>
+<h2 id="架构升级：从规则引擎到-LLM"><a href="#架构升级：从规则引擎到-LLM" class="headerlink" title="架构升级：从规则引擎到 LLM"></a>架构升级：从规则引擎到 LLM</h2><h3 id="为什么必须升级？"><a href="#为什么必须升级？" class="headerlink" title="为什么必须升级？"></a>为什么必须升级？</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 旧版：硬编码关键词匹配 —— 无力应对复杂语义</span></span><br><span class="line"><span class="keyword">if</span> (query.<span class="title function_">includes</span>(<span class="string">&#x27;波动&#x27;</span>)) intent = <span class="string">&#x27;trend&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span> (query.<span class="title function_">includes</span>(<span class="string">&#x27;最低&#x27;</span>)) intent = <span class="string">&#x27;ranking&#x27;</span>;  <span class="comment">// &quot;每个X的最低&quot;无法理解</span></span><br></pre></td></tr></table></figure>
+
+<p>典型失败：用户输入”各个国家分别在什么月份销量最低”，系统返回 116 行全量排列而不是 19 行分组极值。</p>
+<h3 id="升级后的处理方式"><a href="#升级后的处理方式" class="headerlink" title="升级后的处理方式"></a>升级后的处理方式</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 新版：LLM 理解语义 + 智能路由</span></span><br><span class="line"><span class="keyword">if</span> (<span class="title function_">isComplexQuery</span>(query)) &#123;</span><br><span class="line">  extraHint = <span class="string">&quot;使用 ROW_NUMBER() OVER (PARTITION BY ...) 实现分组极值&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> sql = <span class="keyword">await</span> <span class="title function_">callBestLLM</span>(prompt + extraHint);</span><br></pre></td></tr></table></figure>
+
+<p>LLM 能理解”每个国家<strong>分别</strong>“意味着需要分组极值，生成正确的窗口函数 SQL。</p>
+<h2 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h2><p>零依赖，只需 Node.js 22+：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. 启动 Ollama（可选，无则自动全走 DeepSeek）</span></span><br><span class="line">ollama serve &amp;&amp; ollama pull qwen2.5:7b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 启动后端</span></span><br><span class="line"><span class="built_in">cd</span> backend &amp;&amp; node server_llm.js</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 浏览器访问</span></span><br><span class="line">open http://localhost:5173</span><br></pre></td></tr></table></figure>
+
+<hr>
+<blockquote>
+<p>技术不应是数据分析的门槛。自然语言 + LLM 让每个人都能用数据回答业务问题。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>项目展示</category>
+      </categories>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>NLP</tag>
+        <tag>LLM</tag>
+        <tag>SQL</tag>
+        <tag>数据可视化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>贷款审批预测 — 多模型对比与 SHAP 可解释性分析</title>
+    <url>/2026/01/21/loan_approval_prediction/</url>
+    <content><![CDATA[<h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>基于申请人收入、信用和资产信息预测贷款是否应获批</td>
+</tr>
+<tr>
+<td><strong>数据集</strong></td>
+<td>FinTech 信贷数据，4,269 条 × 12 特征，正例占比 62%</td>
+</tr>
+<tr>
+<td><strong>核心模型</strong></td>
+<td>LightGBM（最终推荐）、随机森林、逻辑回归、神经网络</td>
+</tr>
+<tr>
+<td><strong>关键指标</strong></td>
+<td><strong>AUC 99.9%，仅 1 个误批 + 0 个误拒</strong>（LightGBM）</td>
+</tr>
+<tr>
+<td><strong>核心工具</strong></td>
+<td>Python · Scikit-learn · LightGBM · SHAP · Matplotlib · Seaborn</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a href="https://github.com/Jin-123-321">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p><strong>LightGBM 以 AUC 99.9% 的接近完美表现被选为最优部署模型</strong>。在全部 854 条测试样本中，仅产生 1 个错误批准（将本应拒绝的申请误判为通过）和 0 个错误拒绝——这对于高度风险敏感的信贷场景来说是非常理想的结果。</p>
+<p>但更重要的是：我们通过 SHAP 分析验证了模型并非”黑箱决策”。<strong>信用评分（cibil_score）在审批决策中占据绝对主导地位</strong>，其次为收入水平和资产负债比率——这一发现与传统信贷风控的核心逻辑完全一致，说明模型真正学到了符合金融直觉的风险结构，而非数据中的表面模式。</p>
+<p>值得注意的是，随机森林在此数据集上达到了 100% 准确率，但这很可能暗示存在过拟合或数据泄露风险。相比之下，LightGBM（99.9% AUC）更为稳健，是工程部署的正确选择。</p>
+<h2 id="方案设计"><a href="#方案设计" class="headerlink" title="方案设计"></a>方案设计</h2><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><p>在 FinTech 信贷场景中，贷款审批不是简单的二分类问题，而是<strong>高度风险敏感的决策</strong>：</p>
+<ul>
+<li><strong>错误批准</strong> → 直接导致违约和资金损失</li>
+<li><strong>错误拒绝</strong> → 意味着潜在收益流失和客户体验下降</li>
+</ul>
+<p>因此本项目不仅追求预测精度，更强调<strong>风险控制、模型稳定性和可解释性</strong>三者的平衡。</p>
+<h3 id="双路径特征工程"><a href="#双路径特征工程" class="headerlink" title="双路径特征工程"></a>双路径特征工程</h3><p>针对不同模型族的特性，设计了两条互补的特征工程路径：</p>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>方法</th>
+<th>适用模型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCA 降维</td>
+<td>保留 95% 方差，12 维 → 9 维</td>
+<td>逻辑回归、MLP</td>
+<td>消除共线性，提升线性模型稳定性</td>
+</tr>
+<tr>
+<td>业务特征构造</td>
+<td>5 个金融含义特征</td>
+<td>随机森林、LightGBM</td>
+<td>增强树模型对业务逻辑的理解</td>
+</tr>
+</tbody></table>
+<p>构造的 5 个业务特征：</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>公式</th>
+<th>业务意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>total_assets</td>
+<td>各类资产求和</td>
+<td>总资产水平</td>
+</tr>
+<tr>
+<td>income_to_loan_ratio</td>
+<td>收入 &#x2F; 贷款金额</td>
+<td>还款能力（DTI 的反向）</td>
+</tr>
+<tr>
+<td>asset_to_loan_ratio</td>
+<td>总资产 &#x2F; 贷款金额</td>
+<td>风险缓冲</td>
+</tr>
+<tr>
+<td>asset_to_income_ratio</td>
+<td>总资产 &#x2F; 收入</td>
+<td>财务健康度</td>
+</tr>
+<tr>
+<td>income_per_dependent</td>
+<td>收入 &#x2F; (赡养人数+1)</td>
+<td>人均可支配收入</td>
+</tr>
+</tbody></table>
+<h3 id="四模型对比"><a href="#四模型对比" class="headerlink" title="四模型对比"></a>四模型对比</h3><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>Accuracy</th>
+<th>F1</th>
+<th>ROC-AUC</th>
+<th>误批</th>
+<th>误拒</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LightGBM（推荐）</strong></td>
+<td><strong>0.999</strong></td>
+<td><strong>0.999</strong></td>
+<td><strong>1.000</strong></td>
+<td><strong>1</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>逻辑回归（PCA）</td>
+<td>0.920</td>
+<td>0.936</td>
+<td>0.973</td>
+<td>47</td>
+<td>21</td>
+</tr>
+<tr>
+<td>神经网络（FE）</td>
+<td>0.917</td>
+<td>0.934</td>
+<td>0.977</td>
+<td>33</td>
+<td>38</td>
+</tr>
+</tbody></table>
+<h4 id="核心代码实现"><a href="#核心代码实现" class="headerlink" title="核心代码实现"></a>核心代码实现</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===== 特征工程 =====</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径 A: PCA 降维（供线性模型使用）</span></span><br><span class="line"><span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA</span><br><span class="line">pca = PCA(n_components=<span class="number">0.95</span>)  <span class="comment"># 保留 95% 方差</span></span><br><span class="line">X_pca = pca.fit_transform(X_scaled)  <span class="comment"># 12 维 → 9 维</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径 B: 金融业务特征（供树模型使用）</span></span><br><span class="line">df[<span class="string">&#x27;total_assets&#x27;</span>] = (df[<span class="string">&#x27;residential_assets_value&#x27;</span>] +</span><br><span class="line">                       df[<span class="string">&#x27;commercial_assets_value&#x27;</span>] +</span><br><span class="line">                       df[<span class="string">&#x27;luxury_assets_value&#x27;</span>] +</span><br><span class="line">                       df[<span class="string">&#x27;bank_asset_value&#x27;</span>])</span><br><span class="line">df[<span class="string">&#x27;income_to_loan_ratio&#x27;</span>] = df[<span class="string">&#x27;income_annum&#x27;</span>] / df[<span class="string">&#x27;loan_amount&#x27;</span>]</span><br><span class="line">df[<span class="string">&#x27;asset_to_loan_ratio&#x27;</span>] = df[<span class="string">&#x27;total_assets&#x27;</span>] / df[<span class="string">&#x27;loan_amount&#x27;</span>]</span><br><span class="line">df[<span class="string">&#x27;asset_to_income_ratio&#x27;</span>] = df[<span class="string">&#x27;total_assets&#x27;</span>] / df[<span class="string">&#x27;income_annum&#x27;</span>]</span><br><span class="line">df[<span class="string">&#x27;income_per_dependent&#x27;</span>] = df[<span class="string">&#x27;income_annum&#x27;</span>] / (df[<span class="string">&#x27;no_of_dependents&#x27;</span>] + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== LightGBM 训练 =====</span></span><br><span class="line"><span class="keyword">import</span> lightgbm <span class="keyword">as</span> lgb</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report, roc_auc_score</span><br><span class="line"></span><br><span class="line">X = df[biz_features]  <span class="comment"># 业务特征路径</span></span><br><span class="line">y = df[<span class="string">&#x27;loan_status&#x27;</span>]</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(</span><br><span class="line">    X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>, stratify=y</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># LightGBM</span></span><br><span class="line">lgb_model = lgb.LGBMClassifier(</span><br><span class="line">    n_estimators=<span class="number">200</span>, learning_rate=<span class="number">0.05</span>,</span><br><span class="line">    num_leaves=<span class="number">31</span>, max_depth=<span class="number">7</span>,</span><br><span class="line">    random_state=<span class="number">42</span>, verbose=-<span class="number">1</span></span><br><span class="line">)</span><br><span class="line">lgb_model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line">y_pred = lgb_model.predict(X_test)</span><br><span class="line">y_prob = lgb_model.predict_proba(X_test)[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Accuracy: <span class="subst">&#123;accuracy_score(y_test, y_pred):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;AUC: <span class="subst">&#123;roc_auc_score(y_test, y_prob):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(classification_report(y_test, y_pred))</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== SHAP 可解释性分析 =====</span></span><br><span class="line"><span class="keyword">import</span> shap</span><br><span class="line"></span><br><span class="line">explainer = shap.TreeExplainer(lgb_model)</span><br><span class="line">shap_values = explainer.shap_values(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 特征重要性</span></span><br><span class="line">shap.summary_plot(shap_values, X_test, feature_names=X.columns, show=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单样本决策解释</span></span><br><span class="line">shap.waterfall_plot(</span><br><span class="line">    shap.Explanation(values=shap_values[<span class="number">0</span>],</span><br><span class="line">                     base_values=explainer.expected_value,</span><br><span class="line">                     data=X_test.iloc[<span class="number">0</span>],</span><br><span class="line">                     feature_names=X.columns)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/2026/01/21/loan_approval_prediction/loan_approval_prediction_24_3.png" alt="ROC 曲线对比"></p>
+<p><img src="/2026/01/21/loan_approval_prediction/loan_approval_prediction_24_2.png" alt="LightGBM 混淆矩阵"></p>
+<h3 id="SHAP-可解释性"><a href="#SHAP-可解释性" class="headerlink" title="SHAP 可解释性"></a>SHAP 可解释性</h3><p><img src="/2026/01/21/loan_approval_prediction/loan_approval_prediction_29_1.png" alt="SHAP 特征重要性分布图"></p>
+<p><img src="/2026/01/21/loan_approval_prediction/loan_approval_prediction_29_3.png" alt="SHAP 特征重要性条形图"></p>
+<p>SHAP 分析揭示的决策逻辑：</p>
+<ul>
+<li><strong>cibil_score</strong> 在审批决策中占据绝对主导，高信用分直接对应批准——这完全符合信贷风控的基本原则</li>
+<li><strong>income_annum</strong> 和 <strong>income_to_loan_ratio</strong> 对审批有显著正向影响——还款能力是除信用历史外最重要的考量</li>
+<li><strong>loan_amount</strong> 对高额度申请有抑制作用——体现了风险敞口控制的逻辑</li>
+<li><strong>asset_to_loan_ratio</strong> 提供了有效的风险缓冲信号——资产充足的申请人获得更多信任</li>
+</ul>
+<h2 id="关键发现"><a href="#关键发现" class="headerlink" title="关键发现"></a>关键发现</h2><ol>
+<li><strong>信用评分是核心中的核心</strong>：SHAP 分析中 cibil_score 的影响力远超其他特征，验证了传统风控的核心逻辑在机器学习时代依然成立</li>
+<li><strong>业务特征 &gt; 降维特征</strong>：采用业务特征工程的神经网络（AUC 0.977）显著优于 PCA 降维的线性模型（AUC 0.973），说明金融领域的专家知识在特征工程中仍然不可替代</li>
+<li><strong>100% 准确率反而需要警惕</strong>：随机森林的完美分类更可能是过拟合信号，在真实风控系统中，99.9% AUC + 可解释的决策逻辑比 100% + 黑箱更有部署价值</li>
+</ol>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p><code>Python</code> · <code>Scikit-learn</code> · <code>LightGBM</code> · <code>SHAP</code> · <code>Matplotlib</code> · <code>Seaborn</code></p>
+]]></content>
+      <categories>
+        <category>项目展示</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>随机森林</tag>
+        <tag>SHAP</tag>
+        <tag>信贷风控</tag>
+        <tag>LightGBM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>泰坦尼克号生还预测 — 数据清洗到模型调优</title>
+    <url>/2025/03/28/titanic_analysis/</url>
+    <content><![CDATA[<h2 id="项目名片"><a href="#项目名片" class="headerlink" title="项目名片"></a>项目名片</h2><div class="note success flat"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>业务问题</strong></td>
+<td>根据乘客属性预测其是否在泰坦尼克号沉船中生还</td>
+</tr>
+<tr>
+<td><strong>数据集</strong></td>
+<td>Kaggle Titanic，训练集 891 条 × 12 特征，测试集 418 条</td>
+</tr>
+<tr>
+<td><strong>核心模型</strong></td>
+<td>随机森林（Random Forest）</td>
+</tr>
+<tr>
+<td><strong>关键指标</strong></td>
+<td><strong>准确率 83.8%</strong>（调优后），较基线提升 1.3 个百分点</td>
+</tr>
+<tr>
+<td><strong>核心工具</strong></td>
+<td>Python · Scikit-learn · Pandas · Matplotlib · Seaborn</td>
+</tr>
+<tr>
+<td><strong>项目链接</strong></td>
+<td><a href="https://github.com/Jin-123-321">GitHub Repository</a></td>
+</tr>
+</tbody></table>
+</div>
+
+<h2 id="核心成果"><a href="#核心成果" class="headerlink" title="核心成果"></a>核心成果</h2><p>本项目的最终模型在 Kaggle 测试集上取得了 <strong>83.8% 的预测准确率</strong>，优于未调优的基线模型（82.5%）。</p>
+<p>随机森林天生对缺失值和异常值鲁棒，不需要复杂的数据标准化，是一个非常适合表格数据的”开箱即用”模型。通过 5 折交叉验证的 GridSearchCV，我们找到了一组兼顾精度与泛化能力的最优参数。</p>
+<p>调优过程中一个有趣的发现是：<strong>限制树的深度反而提升了泛化性能</strong>——<code>max_depth=6</code> 的约束避免了单棵决策树过度拟合训练集中的噪声模式。</p>
+<h2 id="方案设计"><a href="#方案设计" class="headerlink" title="方案设计"></a>方案设计</h2><h3 id="数据清洗"><a href="#数据清洗" class="headerlink" title="数据清洗"></a>数据清洗</h3><p>数据集存在三类缺失值：</p>
+<p><img src="/2025/03/28/titanic_analysis/titanic_analysis_9_1.png" alt="缺失值可视化热力图"></p>
+<ul>
+<li><strong>Cabin</strong>（77% 缺失）：根据舱位等级（Pclass）推断是否有舱房记录，构造 <code>HasCabin</code> 二进制特征</li>
+<li><strong>Age</strong>（20% 缺失）：按 Pclass + Sex 分组中位数填充，保留不同人群的年龄分布差异</li>
+<li><strong>Embarked</strong>（2 条缺失）：众数填充</li>
+</ul>
+<h3 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h3><p>从 12 个原始特征出发，构造了以下高价值特征：</p>
+<ul>
+<li><strong>Title</strong>：从乘客姓名中提取称谓（Mr&#x2F;Mrs&#x2F;Miss 等），与性别、社会地位强相关</li>
+<li><strong>FamilySize</strong>：SibSp + Parch + 1，家庭规模——独行旅客生还率显著低于 2-4 人家庭</li>
+<li><strong>IsAlone</strong>：标记独行旅客</li>
+<li><strong>AgeGroup</strong>：将年龄离散化为儿童&#x2F;青年&#x2F;中年&#x2F;老年四组</li>
+<li><strong>FareBin</strong>：将票价按分位数分组，避免极端高价票的杠杆效应</li>
+</ul>
+<p>最终保留 11 个特征进入模型，去除了高缺失率和冗余字段。</p>
+<h3 id="模型选择与调优"><a href="#模型选择与调优" class="headerlink" title="模型选择与调优"></a>模型选择与调优</h3><p>选用<strong>随机森林</strong>作为核心模型，理由有三：对缺失值鲁棒、天然支持特征重要性排序、无需特征缩放。</p>
+<p>通过 GridSearchCV 进行 5 折交叉验证的超参数搜索：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>搜索空间</th>
+<th>最优值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>n_estimators</td>
+<td>100, 200, 300</td>
+<td>200</td>
+</tr>
+<tr>
+<td>max_depth</td>
+<td>4, 6, 8, None</td>
+<td>6</td>
+</tr>
+<tr>
+<td>min_samples_split</td>
+<td>2, 5, 10</td>
+<td>2</td>
+</tr>
+<tr>
+<td>min_samples_leaf</td>
+<td>1, 2, 4</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="核心代码实现"><a href="#核心代码实现" class="headerlink" title="核心代码实现"></a>核心代码实现</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ===== 特征工程 =====</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从姓名中提取称谓</span></span><br><span class="line">df[<span class="string">&#x27;Title&#x27;</span>] = df[<span class="string">&#x27;Name&#x27;</span>].apply(<span class="keyword">lambda</span> x: re.search(<span class="string">r&#x27;,\s*(\w+\.)&#x27;</span>, x).group(<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 家庭规模 &amp; 是否独行</span></span><br><span class="line">df[<span class="string">&#x27;FamilySize&#x27;</span>] = df[<span class="string">&#x27;SibSp&#x27;</span>] + df[<span class="string">&#x27;Parch&#x27;</span>] + <span class="number">1</span></span><br><span class="line">df[<span class="string">&#x27;IsAlone&#x27;</span>] = (df[<span class="string">&#x27;FamilySize&#x27;</span>] == <span class="number">1</span>).astype(<span class="built_in">int</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 年龄分箱</span></span><br><span class="line">df[<span class="string">&#x27;AgeGroup&#x27;</span>] = pd.cut(df[<span class="string">&#x27;Age&#x27;</span>], bins=[<span class="number">0</span>, <span class="number">12</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">80</span>],</span><br><span class="line">                         labels=[<span class="string">&#x27;Child&#x27;</span>, <span class="string">&#x27;Youth&#x27;</span>, <span class="string">&#x27;Adult&#x27;</span>, <span class="string">&#x27;Senior&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 数据预处理 =====</span></span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> LabelEncoder</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类别特征编码 + One-Hot</span></span><br><span class="line">le = LabelEncoder()</span><br><span class="line"><span class="keyword">for</span> col <span class="keyword">in</span> [<span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>, <span class="string">&#x27;Title&#x27;</span>, <span class="string">&#x27;AgeGroup&#x27;</span>]:</span><br><span class="line">    df[col] = le.fit_transform(df[col].astype(<span class="built_in">str</span>))</span><br><span class="line"></span><br><span class="line">features = [<span class="string">&#x27;Pclass&#x27;</span>, <span class="string">&#x27;Sex&#x27;</span>, <span class="string">&#x27;Age&#x27;</span>, <span class="string">&#x27;Fare&#x27;</span>, <span class="string">&#x27;Embarked&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Title&#x27;</span>, <span class="string">&#x27;FamilySize&#x27;</span>, <span class="string">&#x27;IsAlone&#x27;</span>, <span class="string">&#x27;AgeGroup&#x27;</span>, <span class="string">&#x27;FareBin&#x27;</span>, <span class="string">&#x27;HasCabin&#x27;</span>]</span><br><span class="line">X = pd.get_dummies(df[features], drop_first=<span class="literal">True</span>)</span><br><span class="line">y = df[<span class="string">&#x27;Survived&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 模型训练 &amp; 超参数调优 =====</span></span><br><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV, train_test_split</span><br><span class="line"></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">rf = RandomForestClassifier(random_state=<span class="number">42</span>)</span><br><span class="line">param_grid = &#123;</span><br><span class="line">    <span class="string">&#x27;n_estimators&#x27;</span>: [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>],</span><br><span class="line">    <span class="string">&#x27;max_depth&#x27;</span>: [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="literal">None</span>],</span><br><span class="line">    <span class="string">&#x27;min_samples_split&#x27;</span>: [<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>],</span><br><span class="line">    <span class="string">&#x27;min_samples_leaf&#x27;</span>: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">grid = GridSearchCV(rf, param_grid, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;accuracy&#x27;</span>)</span><br><span class="line">grid.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;最优参数: <span class="subst">&#123;grid.best_params_&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;5-折交叉验证准确率: <span class="subst">&#123;grid.best_score_:<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ===== 测试集评估 =====</span></span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report</span><br><span class="line"></span><br><span class="line">y_pred = grid.predict(X_test)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;测试集准确率: <span class="subst">&#123;accuracy_score(y_test, y_pred):<span class="number">.4</span>f&#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(classification_report(y_test, y_pred))</span><br></pre></td></tr></table></figure>
+
+<h3 id="特征重要性"><a href="#特征重要性" class="headerlink" title="特征重要性"></a>特征重要性</h3><p><img src="/2025/03/28/titanic_analysis/titanic_analysis_47_1.png" alt="特征重要性排名"></p>
+<p>Title（称谓）以超过 20% 的重要性位列第一，验证了”女士与儿童优先”的历史事实在数据中的体现。其次为 Age 和 Fare——年龄和票价真实反映了乘客的社会阶层与逃生优先级。</p>
+<h2 id="关键发现"><a href="#关键发现" class="headerlink" title="关键发现"></a>关键发现</h2><ol>
+<li><strong>社会阶层是生还的最强信号</strong>：头等舱（Pclass&#x3D;1）生还率约 63%，远高于三等舱的 24%，这一差异不仅体现在物理位置（靠近救生艇），也与乘客的社会经济地位直接相关</li>
+<li><strong>家庭结构的非线性效应</strong>：独行旅客生还率仅 30%，2-4 人家庭的生还率达 55%，但大型家庭（5+人）的生还率又下降到 20%——可能在危机中互相等待而延误逃生</li>
+<li><strong>性别差异极为显著</strong>：女性生还率约 74%，男性仅 19%，这一差异在大部分年龄组和舱位等级中都稳定存在，是数据中最重要的单一预测信号</li>
+</ol>
+<h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><p><code>Python</code> · <code>Pandas</code> · <code>Scikit-learn</code> · <code>Matplotlib</code> · <code>Seaborn</code></p>
+]]></content>
+      <categories>
+        <category>项目展示</category>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>项目展示</tag>
+        <tag>随机森林</tag>
+      </tags>
+  </entry>
+</search>
